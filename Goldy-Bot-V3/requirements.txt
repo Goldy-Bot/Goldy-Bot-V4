@@ -1,0 +1,6 @@
+pymongo==3.12.0
+nextcord==2.0.0a3
+youtube_dl
+pafy
+dnspython
+pytube
