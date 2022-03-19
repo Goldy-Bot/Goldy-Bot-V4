@@ -2,15 +2,14 @@ import datetime
 from inspect import Attribute
 import json
 import nextcord
-from cogs.halloween_cog.bats import embed
-import settings
+from ... import settings
 
 from .. import goldy_utility
 
 from . import msg
 from . import members
 
-from cogs import shop
+from ....internal_cogs.v3 import shop
 
 try:
     import config.config as config

@@ -3,7 +3,7 @@ import GoldyBot
 
 MODULE_NAME = "FILES"
 
-class File():
+class File(object):
     """Goldy Bot's File Handler."""
     def __init__(self, path):
         self.file_path = path

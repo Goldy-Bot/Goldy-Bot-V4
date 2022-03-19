@@ -7,3 +7,4 @@ CONFIG = "./config"
 
 # Files
 TOKEN = CONFIG + "/TOKEN.txt"
+GOLDY_CONFIG_JSON = CONFIG + "/goldy.json"

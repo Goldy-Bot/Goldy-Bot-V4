@@ -7,10 +7,10 @@ import asyncio
 import importlib
 
 from . import database
-from src import goldy_error, goldy_func, goldy_cache, goldy_utility
-from src.utility import cmds, members
-import src.utility.msg as msg
-import settings
+from ...GoldyBotV3.src import goldy_error, goldy_func, goldy_cache, goldy_utility
+from ...GoldyBotV3.src.utility import cmds, members
+from ...GoldyBotV3.src.utility import msg
+from ...GoldyBotV3 import settings
 
 cog_name = "rgb"
 

@@ -3,27 +3,21 @@ import os
 from nextcord.ext import commands
 from nextcord.ext import *
 from nextcord.ext.commands.errors import ExtensionAlreadyLoaded, ExtensionFailed
-import settings
+from . import settings
 import asyncio
 import sys
 
-from src import goldy_func, goldy_utility, goldy_cache
-from src.utility import cmds
-from cogs.core import goldy_help_command
+import GoldyBot # V4
 
-#Create config.py file in config folder before importing anything else.
-import shutil
-goldy_func.create_folder("./config")
-if not "config.py" in os.listdir("./config"):
-    shutil.copyfile('example_config.py', './config/config.py')
-
-import config.config as config
+from .src import goldy_func, goldy_utility, goldy_cache
+from .src.utility import cmds
+from ..internal_cogs.v3.core import goldy_help_command
 
 cog_name = None
 goldy_func.print_and_log("app_name", "💛 Goldy Bot " + config.bot_version)
 goldy_func.print_and_log()
 
-TOKEN = goldy_func.get_token()
+TOKEN = GoldyBot.token.get()
 intents = nextcord.Intents()
 
 client = commands.Bot(command_prefix = goldy_utility.servers.prefix.get, help_command=goldy_help_command(), case_insensitive=True, intents=intents.all())
@@ -72,8 +66,7 @@ async def on_ready():
 
             await asyncio.sleep(6)
 
-#This executes only if the file is run as a script.
-if __name__ == '__main__':
+def start():
     #Command line commands.
     command = None
     try:
@@ -91,7 +84,7 @@ if __name__ == '__main__':
                 #Create example cog in cogs folder.
                 try:
                     import shutil
-                    shutil.copyfile('example_cog.py', 'cogs/your_cog.py')
+                    shutil.copyfile('example_cog.py', '../internal_cogs/v3/your_cog.py')
                     goldy_func.print_and_log("info_2", "Cog 'your_cog' created in cogs folder.")
 
                 except Exception as e:
@@ -123,15 +116,15 @@ if __name__ == '__main__':
         #Load First cogs...
         for cog in config.load_first:
             if not cog in config.ignore_cogs: #Doesn't load ignored cogs.
-                client.load_extension(f'cogs.{cog}')
+                client.load_extension(f'..internal_cogs.v3.{cog}')
                 print ("💜  Force Loaded {}".format(cog + ".py"))
 
         #Normal cogs
-        for filename in os.listdir('./cogs'):
+        for filename in os.listdir('./../internal_cogs/v3'):
             if not filename[:-3] in config.ignore_cogs: #Doesn't load ignored cogs.
                 if filename.endswith('.py'):
                     try:
-                        client.load_extension(f'cogs.{filename[:-3]}')
+                        client.load_extension(f'..internal_cogs.v3.{filename[:-3]}')
                         print ("💚  Loaded {}".format(filename))
 
                     except ExtensionAlreadyLoaded as e:
@@ -145,14 +138,14 @@ if __name__ == '__main__':
         client.run(TOKEN)
 
     except FileNotFoundError:
-        goldy_func.create_folder(".\\cogs") #Creating cog folder.
+        goldy_func.create_folder("../internal_cogs/v3") #Creating cog folder.
         goldy_func.print_and_log("warn", "There was no 'cogs' folder so I created one.")
 
         try:
-            for filename in os.listdir('./cogs'):
+            for filename in os.listdir('../internal_cogs/v3'):
                 if not filename[:-3] in config.ignore_cogs: #Doesn't load ignored cogs.
                     if filename.endswith('.py'):
-                        client.load_extension(f'cogs.{filename[:-3]}')
+                        client.load_extension(f'..internal_cogs.v3.{filename[:-3]}')
                         print ("💚  Loaded {}".format(filename))
 
             client.run(TOKEN)

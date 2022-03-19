@@ -1,3 +1,5 @@
+import GoldyBot
+import nextcord
 from nextcord.ext import commands
 
 class goldy_help_command(commands.HelpCommand):
@@ -8,13 +10,13 @@ class goldy_help_command(commands.HelpCommand):
         @staticmethod
         async def create(help_type, description=None, thumbnail_url=None, page_num=None):
             if description == None:
-                description = msg.help.embed.des
+                description = GoldyBot.utility.msgs.help.Embed.des
 
-            embed = nextcord.Embed(title=(msg.help.embed.title).format(help_type), description=description, color=settings.WHITE)
+            embed = nextcord.Embed(title=(GoldyBot.utility.msgs.help.Embed.title).format(help_type), description=description, color=settings.WHITE)
             if not thumbnail_url == None:
                 embed.set_thumbnail(url=thumbnail_url)
             if not page_num == None:
-                embed.set_footer(text=msg.footer.type_2 + f" [PAGE {page_num}]")
+                embed.set_footer(text=GoldyBot.utility.msgs.footer.type_2 + f" [PAGE {page_num}]")
             return embed
 
         class page():
@@ -24,7 +26,7 @@ class goldy_help_command(commands.HelpCommand):
                 pass
 
     async def send_bot_help(self, mapping):
-        bot_icon = goldy_cache.client.user.display_avatar.url
+        bot_icon = GoldyBot.cache.main_cache_dict["client"].user.display_avatar.url
         BUTTONS = ["◀️", "▶️"]
         help_embed_dict = {}
         extenstion_count = 0
@@ -161,4 +163,4 @@ class goldy_help_command(commands.HelpCommand):
         command = re.search('"(.*)"', error).group(1)
         await self.send_command_help(await self.get_command_signature(command[1:len(command)]))
         '''
-        await self.get_destination().send(msg.help.command_not_found)
+        await self.get_destination().send(GoldyBot.utility.msgs.help.command_not_found)

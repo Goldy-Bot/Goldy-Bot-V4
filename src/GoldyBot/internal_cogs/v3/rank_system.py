@@ -4,12 +4,12 @@ import asyncio
 import datetime
 import random
 
-from src.goldy_func import *
-from src.goldy_utility import *
-import src.utility.msg as msg
-import src.utility.members as u_members
+from ...GoldyBotV3.src.goldy_func import *
+from ...GoldyBotV3.src.goldy_utility import *
+from ...GoldyBotV3.src.utility import msg
+from ...GoldyBotV3.src.utility import members as u_members
 
-from cogs import shop, database, economy, rgb
+from . import shop, database, economy, rgb
 
 cog_name = "rank_system"
 

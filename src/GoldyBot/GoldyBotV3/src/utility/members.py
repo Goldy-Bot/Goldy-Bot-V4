@@ -1,10 +1,10 @@
 from os import stat_result
 import nextcord
-import settings
+from ... import settings
 
 from .. import goldy_utility
 from .. import goldy_func
-from cogs import shop
+from ....internal_cogs.v3 import shop
 
 from . import msg
 

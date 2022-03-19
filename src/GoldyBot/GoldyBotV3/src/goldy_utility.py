@@ -1,5 +1,5 @@
 import asyncio
-import settings
+from .. import settings
 import json
 from types import SimpleNamespace
 import nextcord
@@ -374,7 +374,7 @@ class servers():
     @staticmethod
     #Function that checks if a server was added to servers.json, creates config
     async def update(): # folder for the server and creates a database for it.                    
-        import cogs.database as database
+        from ...internal_cogs.v3 import database
         database = database.database
 
         new_server_found = False

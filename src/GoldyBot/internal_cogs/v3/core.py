@@ -8,14 +8,14 @@ import asyncio
 
 from nextcord.ext.commands.core import command
 from nextcord.ext.commands.help import HelpCommand
-from cogs.database import database
+from .database import database
 
-from src.goldy_func import *
-from src.goldy_utility import *
-import src.utility.msg as msg
-import src.goldy_cache as goldy_cache
+from ...GoldyBotV3.src.goldy_func import *
+from ...GoldyBotV3.src.goldy_utility import *
+from ...GoldyBotV3.src.utility import msg
+from ...GoldyBotV3.src import goldy_cache
 
-from cogs import shop, economy, rank_system
+from . import shop, economy, rank_system
 
 cog_name = "core"
 

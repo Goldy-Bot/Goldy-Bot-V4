@@ -1,5 +1,6 @@
 import os
 import sys
+import threading
 import GoldyBot
 
 MODULE_NAME = "GOLDY"
@@ -14,8 +15,11 @@ class Goldy(object):
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy Bot is awakening...")
 
         setup() # Run setup.
-
-        from . import bot
+        
+        from .GoldyBotV3 import goldy as old_goldy
+        goldy_bot_v3_thread = threading.Thread(target=old_goldy.start)
+        goldy_bot_v3_thread.run()
+        #from . import bot # Starts V4
 
     def stop(reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""

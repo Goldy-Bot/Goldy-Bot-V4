@@ -106,7 +106,7 @@ def print_and_log(importance_level=None, text=None, arg1=None, arg2=None):
             return
 
 def log(text):
-    import settings
+    from .. import settings
 
     #Create Logs Folder.
     try:

@@ -8,13 +8,8 @@ import math
 import random
 from types import SimpleNamespace
 
-import settings
-from src import goldy_func, goldy_utility, goldy_error
-try:
-    import config.config as config
-except ModuleNotFoundError as e:
-    pass
-
+from ...GoldyBotV3 import settings
+from ...GoldyBotV3.src import goldy_func, goldy_utility, goldy_error
 import pymongo
 
 database_url = None

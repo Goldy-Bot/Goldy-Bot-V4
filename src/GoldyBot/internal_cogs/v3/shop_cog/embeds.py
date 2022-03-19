@@ -2,9 +2,9 @@ import nextcord
 import json
 import os
 
-import settings
-from src import goldy_error, goldy_utility, goldy_func
-from src.utility import msg
+from ....GoldyBotV3 import settings
+from ....GoldyBotV3.src import goldy_error, goldy_utility, goldy_func
+from ....GoldyBotV3.src.utility import msg
 
 class shop():
     class image():

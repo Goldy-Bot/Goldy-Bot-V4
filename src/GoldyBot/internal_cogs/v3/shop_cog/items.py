@@ -3,10 +3,10 @@ from types import SimpleNamespace
 import traceback
 import nextcord
 
-import settings
-from src import goldy_utility, goldy_error, goldy_func
-from src.utility import members, msg
-from cogs import database, economy
+from ....GoldyBotV3 import settings
+from ....GoldyBotV3.src import goldy_utility, goldy_error, goldy_func
+from ....GoldyBotV3.src.utility import members, msg
+from .. import database, economy
 
 module_name = "items"
 

@@ -8,22 +8,20 @@ import traceback
 import os
 import json
 
-import settings
-from src import goldy_utility, goldy_func, goldy_cache, goldy_error
-from src.utility import cmds, members
-import src.utility.msg as msg
+from ...GoldyBotV3 import settings
+from ...GoldyBotV3.src import goldy_utility, goldy_func, goldy_cache, goldy_error
+from ...GoldyBotV3.src.utility import cmds, members
+from ...GoldyBotV3.src.utility import msg
 try:
     import config.config as config
 except ModuleNotFoundError as e:
     pass
 
-from cogs import database, economy
+from . import database, economy
 
 from .shop_cog import embeds, items
 
 cog_name = "shop".upper()
-
-max_pages = config.max_pages
 
 class shop(commands.Cog, name="🛒Shop"):
     def __init__(self, client):

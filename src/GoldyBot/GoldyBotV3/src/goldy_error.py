@@ -2,7 +2,7 @@ import os
 import nextcord
 from nextcord.ext import commands
 
-import settings
+from .. import settings
 from . import goldy_func, goldy_cache, goldy_utility
 from .utility import msg
 

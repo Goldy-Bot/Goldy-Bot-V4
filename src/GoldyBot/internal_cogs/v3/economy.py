@@ -4,12 +4,12 @@ import asyncio
 import datetime
 import importlib
 
-from src.goldy_func import *
-from src.goldy_utility import *
-import src.utility.msg as msg
+from ...GoldyBotV3.src.goldy_func import *
+from ...GoldyBotV3.src.goldy_utility import *
+from ...GoldyBotV3.src.utility import msg
 
-from src.utility import members
-from cogs import rgb, database
+from ...GoldyBotV3.src.utility import members
+from . import rgb, database
 
 #Change 'your_cog' to the name you wish to call your cog. ('your_cog' is just a placeholder.)
 cog_name = "economy"
