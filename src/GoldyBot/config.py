@@ -9,8 +9,7 @@ class Config(object):
     def __init__(self, config_file:GoldyBot.files.File):
         self.config_file = config_file
 
-        if not self.config_file.read() == "{}":
-            print("debug")
+        if not (self.config_file.read())[0:1] == "{":
             with self.config_file.get_file() as file:
                 data = {}
                 file.seek(0)

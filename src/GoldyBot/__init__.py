@@ -4,7 +4,7 @@
 Copyright (C) 2022 - Dev Goldy
 """
 
-from . import files, paths, logging, goldy, cache, token, settings, config
+from . import files, paths, logging, goldy, cache, token, settings, config, info
 from . import internal_cogs, utility
 
 # Classes

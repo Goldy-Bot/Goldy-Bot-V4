@@ -16,10 +16,13 @@ class Goldy(object):
 
         setup() # Run setup.
         
+        # Start old V3
         from .GoldyBotV3 import goldy as old_goldy
         goldy_bot_v3_thread = threading.Thread(target=old_goldy.start)
         goldy_bot_v3_thread.run()
-        #from . import bot # Starts V4
+
+        # Start V4
+        from . import bot
 
     def stop(reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""

@@ -13,8 +13,8 @@ from .src import goldy_func, goldy_utility, goldy_cache
 from .src.utility import cmds
 from ..internal_cogs.v3.core import goldy_help_command
 
-cog_name = None
-goldy_func.print_and_log("app_name", "💛 Goldy Bot " + config.bot_version)
+MODULE_NAME = "GOLDY V3"
+goldy_func.print_and_log("app_name", "💛 Goldy Bot " + GoldyBot.info.bot_version)
 goldy_func.print_and_log()
 
 TOKEN = GoldyBot.token.get()
@@ -22,7 +22,8 @@ intents = nextcord.Intents()
 
 client = commands.Bot(command_prefix = goldy_utility.servers.prefix.get, help_command=goldy_help_command(), case_insensitive=True, intents=intents.all())
 goldy_cache.client = client
-os.chdir(os.getcwd())
+
+config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
 
 @client.event
 async def on_ready():
@@ -32,7 +33,7 @@ async def on_ready():
         await client.change_presence(status=nextcord.Status.do_not_disturb, activity=activity)
     
     if await goldy_utility.goldy.in_production_mode() == True:
-        activity = nextcord.Game(name=f"{settings.bot_name} | {config.v_short}", type=3)
+        activity = nextcord.Game(name=f"{settings.bot_name} | {GoldyBot.info.v_short}", type=3)
         await client.change_presence(status=nextcord.Status.online, activity=activity)
 
     #Things to do during start up.
@@ -42,114 +43,59 @@ async def on_ready():
     goldy_func.print_and_log()
 
     #Antispam
-    goldy_func.print_and_log(None, "Starting Spam Detection Loop...")
+    goldy_func.print_and_log(None, f"[{MODULE_NAME}] Starting Spam Detection Loop...")
     while True:
         try:
             with open("anti_spam.txt", "r+") as file:
                 file.truncate(0)
 
             if await goldy_utility.goldy.in_production_mode() == False: #Silences debug message for antispam if bot is in Production Mode
-                goldy_func.print_and_log(None, "[CORE] Spam Detection: Cleared anti_spam.txt")
+                goldy_func.print_and_log(None, f"[{MODULE_NAME}] Spam Detection: Cleared anti_spam.txt")
 
             await asyncio.sleep(6)
 
         except FileNotFoundError:
             f = open("anti_spam.txt", "x")
-            goldy_func.print_and_log("info", "The file 'anti_spam.txt' did not exist so I created it.")
+            goldy_func.print_and_log("info", f"[{MODULE_NAME}] The file 'anti_spam.txt' did not exist so I created it.")
             goldy_func.print_and_log()
 
             with open("anti_spam.txt", "r+") as file:
                 file.truncate(0)
 
             if await goldy_utility.goldy.in_production_mode() == False: #Silences debug message for antispam if bot is in Production Mode
-                goldy_func.print_and_log(None, "[CORE] Spam Detection: Cleared anti_spam.txt")
+                goldy_func.print_and_log(None, f"[{MODULE_NAME}] Spam Detection: Cleared anti_spam.txt")
 
             await asyncio.sleep(6)
 
 def start():
-    #Command line commands.
-    command = None
-    try:
-        command = sys.argv[1]
-        try:
-            arg = sys.argv[2]
-        except IndexError as e:
-            arg = None
-            pass
-
-        goldy_func.print_and_log("info_2", f":) We got your command line argument. >>> {command} {arg}")
-
-        if command.lower() == "create":
-            if arg.lower() == "cog":
-                #Create example cog in cogs folder.
-                try:
-                    import shutil
-                    shutil.copyfile('example_cog.py', '../internal_cogs/v3/your_cog.py')
-                    goldy_func.print_and_log("info_2", "Cog 'your_cog' created in cogs folder.")
-
-                except Exception as e:
-                    goldy_func.print_and_log("error", f"Error Exception in cog creation if statement: ({e})")
-
-        if command.lower() == "update":
-            #Force Checks for new servers in servers.json.
-            '''
-            new_server_found = await servers.update()
-
-            if new_server_found == False:
-                goldy_func.print_and_log("warn", "No new servers were found.")
-            '''
-
-        raise SystemExit
-
-    except IndexError as e:
-        goldy_func.print_and_log("info", f"Couldn't grab command line argument, if you didn't pass an argument ignore this. {e}")
-        goldy_func.print_and_log()
 
     #Goldy Starting Message
-    goldy_func.print_and_log("warn", f"{settings.short_name} is starting up...")
+    goldy_func.print_and_log("warn", f"[{MODULE_NAME}] {settings.short_name} is starting up...")
     goldy_func.print_and_log()
 
-    goldy_func.print_and_log(None, "Loading Cogs...")
+    goldy_func.print_and_log(None, f"[{MODULE_NAME}] Loading Cogs...")
 
-    #Loading cogs here...
-    try:
-        #Load First cogs...
-        for cog in config.load_first:
-            if not cog in config.ignore_cogs: #Doesn't load ignored cogs.
-                client.load_extension(f'..internal_cogs.v3.{cog}')
-                print ("💜  Force Loaded {}".format(cog + ".py"))
+    #Load First cogs...
+    for cog in config.read("load_first"):
+        if not cog in config.read("ignore_cogs"): #Doesn't load ignored cogs.
+            client.load_extension(f'GoldyBot.internal_cogs.v3.{cog}')
+            print (f"[{MODULE_NAME}] 💜  Force Loaded {cog}.py")
 
-        #Normal cogs
-        for filename in os.listdir('./../internal_cogs/v3'):
-            if not filename[:-3] in config.ignore_cogs: #Doesn't load ignored cogs.
-                if filename.endswith('.py'):
-                    try:
-                        client.load_extension(f'..internal_cogs.v3.{filename[:-3]}')
-                        print ("💚  Loaded {}".format(filename))
+    #Normal cogs
+    for filename in os.listdir('./GoldyBot/internal_cogs/v3'):
+        if not filename[:-3] in config.read("ignore_cogs"): #Doesn't load ignored cogs.
+            if filename.endswith('.py'):
+                try:
+                    client.load_extension(f'GoldyBot.internal_cogs.v3.{filename[:-3]}')
+                    print (f"[{MODULE_NAME}] 💚  Loaded {filename}")
 
-                    except ExtensionAlreadyLoaded as e:
-                        pass
+                except ExtensionAlreadyLoaded as e:
+                    pass
 
-                    except ExtensionFailed as e:
-                        print ("🧡  '{}' was not loaded.".format(filename))
-                        pass
+                except ExtensionFailed as e:
+                    print (f"[{MODULE_NAME}] 🧡  '{filename}' was not loaded.")
+                    pass
 
-        goldy_func.print_and_log()
-        client.run(TOKEN)
-
-    except FileNotFoundError:
-        goldy_func.create_folder("../internal_cogs/v3") #Creating cog folder.
-        goldy_func.print_and_log("warn", "There was no 'cogs' folder so I created one.")
-
-        try:
-            for filename in os.listdir('../internal_cogs/v3'):
-                if not filename[:-3] in config.ignore_cogs: #Doesn't load ignored cogs.
-                    if filename.endswith('.py'):
-                        client.load_extension(f'..internal_cogs.v3.{filename[:-3]}')
-                        print ("💚  Loaded {}".format(filename))
-
-            client.run(TOKEN)
-
-        except Exception as e:
-            goldy_func.print_and_log("error", f"Failed to start bot. {e}")
+    goldy_func.print_and_log()
+    client.run(TOKEN)
 
