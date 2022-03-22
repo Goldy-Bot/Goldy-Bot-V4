@@ -1,5 +1,7 @@
 import nextcord
+from nextcord import Interaction
 from nextcord.ext import commands
+
 import GoldyBot
 
 MODULE_NAME = "GOLDY"
@@ -18,12 +20,8 @@ GoldyBot.cache.main_cache_dict["client"] = client
 async def on_ready():
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
-@client.command()
-async def test(ctx, arg_1):
-    await ctx.send("That's working.")
-
 @GoldyBot.command
-async def goldy(ctx, arg_1):
+async def goldy(ctx, arg_1, arg_2, arg_3):
     await ctx.send(f"Hi I'm goldy! Args: {arg_1}")
 
 # Run Bot
