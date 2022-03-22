@@ -30,10 +30,22 @@ def command(func, command_name:str=None, command_usage:str=None, help_des:str=No
         async def command_(ctx=params[0], *params):
             await func(ctx, *params)
 
-        @client.slash_command(name=command_name, description=help_des, guild_ids=[863416692083916820])
-        async def slash_command_(interaction:Interaction, params=None):
-            params_list = params.split()
-            ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
-            await func(ctx, *params_list)
+        # Add slash command
+
+        """
+        if len(params) >= 2:
+            @client.slash_command(name=command_name, description=help_des, guild_ids=[863416692083916820])
+            async def slash_command_(interaction:Interaction, params=None):
+                params_list = params.split()
+                ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
+                await func(ctx, *params_list)
+        else:
+            @client.slash_command(name=command_name, description=help_des, guild_ids=[863416692083916820])
+            async def slash_command_(interaction:Interaction):
+                ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
+                await func(ctx)
+        """
+
+        #TODO: MAKE SEPERATE COMMAND HANDLER FOR SLASH COMMANDS.
 
         GoldyBot.logging.log(f"[{MODULE_NAME}] The Command '{command_name}' has been loaded.")
