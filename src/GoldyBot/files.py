@@ -9,7 +9,7 @@ class File(object):
         self.file_path = path
 
         if self.exists() == False:
-            GoldyBot.log(f"[{MODULE_NAME}] Umm, that file doesn't exist, so I'm going to create it myself.")
+            GoldyBot.logging.print_and_log(f"[{MODULE_NAME}] Umm, that file doesn't exist, so I'm going to create it myself.")
             self.create()
 
     def read(self):
@@ -17,11 +17,11 @@ class File(object):
         try:
             with self.get_file() as file:
                 file_context = file.read()
-                GoldyBot.log(None, f"[{MODULE_NAME}] I've read the file '{self.file_path}'.")
+                GoldyBot.logging.print_and_log(None, f"[{MODULE_NAME}] I've read the file '{self.file_path}'.")
                 return file_context
 
         except Exception:
-            GoldyBot.log("warn", f"[{MODULE_NAME}] Oops, I Couldn't read the file '{self.file_path}', so I'm returning 'None'.")
+            GoldyBot.logging.print_and_log("warn", f"[{MODULE_NAME}] Oops, I Couldn't read the file '{self.file_path}', so I'm returning 'None'.")
             return None
 
     def write(self, value):
@@ -33,19 +33,19 @@ class File(object):
                 file.write(str(value))
                 file.truncate()
 
-            GoldyBot.log(None, f"[{MODULE_NAME}] I've written to '{self.file_path}'.")
+            GoldyBot.logging.print_and_log(None, f"[{MODULE_NAME}] I've written to '{self.file_path}'.")
         
         except Exception:
-            GoldyBot.log("error", f"[{MODULE_NAME}] I Couldn't edit '{self.file_path}' with the value '{value}'!")
+            GoldyBot.logging.print_and_log("error", f"[{MODULE_NAME}] I Couldn't edit '{self.file_path}' with the value '{value}'!")
 
     def create(self):
         """Commands Goldy to create a file or directory."""
         if self.file_path[-1] == "/": # Create directory.
             os.mkdir(self.file_path)
-            GoldyBot.log(f"[{MODULE_NAME}] I've created a directory at '{self.file_path}'.")
+            GoldyBot.logging.print_and_log(f"[{MODULE_NAME}] I've created a directory at '{self.file_path}'.")
         else: # Create file.
             open(self.file_path, "a+")
-            GoldyBot.log(f"[{MODULE_NAME}] I've created a file at '{self.file_path}'.")
+            GoldyBot.logging.print_and_log(f"[{MODULE_NAME}] I've created a file at '{self.file_path}'.")
 
     def exists(self) -> bool:
         """Checks if the file exists."""

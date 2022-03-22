@@ -1,6 +1,7 @@
 import os
 import sys
 import threading
+from multiprocessing import Process
 import GoldyBot
 
 MODULE_NAME = "GOLDY"
@@ -10,21 +11,16 @@ class Goldy(object):
     def __init__(self):
         pass
 
-    def start():
+    def start(self):
         """Awakens Goldy Bot! 👀💡⏰"""
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy Bot is awakening...")
 
         setup() # Run setup.
         
-        # Start old V3
-        from .GoldyBotV3 import goldy as old_goldy
-        goldy_bot_v3_thread = threading.Thread(target=old_goldy.start)
-        goldy_bot_v3_thread.run()
-
         # Start V4
         from . import bot
 
-    def stop(reason="Unknown"):
+    def stop(self, reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""
 
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy is Shuting down...")

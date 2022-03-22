@@ -8,9 +8,12 @@ import math
 import random
 from types import SimpleNamespace
 
+import GoldyBot
 from ...GoldyBotV3 import settings
 from ...GoldyBotV3.src import goldy_func, goldy_utility, goldy_error
 import pymongo
+
+config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
 
 database_url = None
 
@@ -24,7 +27,7 @@ try:
     if not database_url == None:
         if not database_url == False:
             client = pymongo.MongoClient(goldy_func.get_database_url(), serverSelectionTimeoutMS=2000)
-            members_data = client[config.collection_name]
+            members_data = client[config.read("collection_name")]
 
             client.server_info()
 

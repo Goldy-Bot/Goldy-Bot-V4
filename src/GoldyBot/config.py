@@ -28,10 +28,10 @@ class Config(object):
                 json.dump(data, file, indent=4)
                 file.truncate()
 
-            GoldyBot.log(None, f"[{MODULE_NAME}] Written to config '{config_name.lower()}' in '{self.config_file.file_path}' with the value '{value}'.")
+            GoldyBot.logging.print_and_log(None, f"[{MODULE_NAME}] Written to config '{config_name.lower()}' in '{self.config_file.file_path}' with the value '{value}'.")
         
         except Exception:
-            GoldyBot.log("error", f"[{MODULE_NAME}] Couldn't edit the config '{config_name}' in '{self.config_file.file_path}' with the value '{value}'!")
+             GoldyBot.logging.print_and_log("error", f"[{MODULE_NAME}] Couldn't edit the config '{config_name}' in '{self.config_file.file_path}' with the value '{value}'!")
 
     def read(self, config_name:str):
         """Method that returns the value of a config."""
@@ -45,7 +45,7 @@ class Config(object):
             return None
 
         except Exception:
-            GoldyBot.log("warn", f"[{MODULE_NAME}] Couldn't read value in the config '{config_name.lower()}' from '{self.config_file.file_path}', so were returning 'None'.")
+            GoldyBot.logging.print_and_log("warn", f"[{MODULE_NAME}] Couldn't read value in the config '{config_name.lower()}' from '{self.config_file.file_path}', so were returning 'None'.")
             return None
 
     def remove(self, config_name:str):
@@ -58,7 +58,7 @@ class Config(object):
                 json.dump(data, file, indent=4)
                 file.truncate()
 
-            GoldyBot.log(None, f"[{MODULE_NAME}] Removed the config '{config_name.lower()}' from '{self.config_file.file_path}'!")
+            GoldyBot.logging.print_and_log(None, f"[{MODULE_NAME}] Removed the config '{config_name.lower()}' from '{self.config_file.file_path}'!")
 
         except Exception:
-            GoldyBot.log("error", f"[{MODULE_NAME}] Couldn't remove the config from the json file!")
+            GoldyBot.logging.print_and_log("error", f"[{MODULE_NAME}] Couldn't remove the config from the json file!")

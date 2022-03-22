@@ -12,7 +12,7 @@ def print_and_log(importance_level=None, text=None):
     if text == None: #Just makes a new line.
         if importance_level == None:
             print("")
-            path_to_log = log("")
+            path_to_log = write_to_log("")
             return path_to_log
 
         else:
@@ -21,7 +21,7 @@ def print_and_log(importance_level=None, text=None):
 
             print(f"\u001b[37m{context}\u001b[0m")
             
-            path_to_log = log(context)
+            path_to_log = write_to_log(context)
             return path_to_log
 
     if not text == None:
@@ -30,7 +30,7 @@ def print_and_log(importance_level=None, text=None):
             context = ("({}) {}".format(time, text))
 
             print(f"\u001b[37m{context}\u001b[0m")
-            log(context)
+            write_to_log(context)
             return
 
         if importance_level.upper() == 'INFO':
@@ -38,7 +38,7 @@ def print_and_log(importance_level=None, text=None):
             context = ("({}) [INFO] {}".format(time, text))
 
             print(f"\u001b[36m{context}\u001b[0m") #Clay
-            log(context)
+            write_to_log(context)
             return
 
         if importance_level.upper() == 'INFO_2':
@@ -46,7 +46,7 @@ def print_and_log(importance_level=None, text=None):
             context = ("({}) [INFO] {}".format(time, text))
 
             print(f"\u001b[32m{context}\u001b[0m") #Green
-            log(context)
+            write_to_log(context)
             return
 
         if importance_level.upper() == 'WARN':
@@ -54,7 +54,7 @@ def print_and_log(importance_level=None, text=None):
             context = ("({}) [WARN] {}".format(time, text))
 
             print(f"\u001b[33m{context}\u001b[0m") #Yellow
-            log(f"{context}\n\n{traceback.format_exc()}")
+            write_to_log(f"{context}\n\n{traceback.format_exc()}")
             return
 
 
@@ -63,15 +63,17 @@ def print_and_log(importance_level=None, text=None):
             context = ("({}) [ERROR] {}".format(time, text))
 
             print(f"\u001b[31m{context} \n{traceback.format_exc()}\u001b[0m") #Red
-            log(f"{context}\n\n{traceback.format_exc()}")
+            write_to_log(f"{context}\n\n{traceback.format_exc()}")
             return
 
         if importance_level.upper() == 'APP_NAME':
             context = (text)
 
             print(f"\u001b[36m{context}\u001b[0m")
-            log(context)
+            write_to_log(context)
             return
+
+log = print_and_log
 
 # Date and time generator function.
 def get_time_and_date(option):
@@ -103,7 +105,7 @@ def get_time_and_date(option):
 log_date_and_time = get_time_and_date("both") #Time jsqp was started.
 
 # Txt Logging Function
-def log(text):
+def write_to_log(text):
     #Create Logs Folder.
     paths = GoldyBot.paths
 
@@ -113,7 +115,7 @@ def log(text):
         pass
 
     except Exception:
-        print("^ Could not log that ^")
+        print("^ Could not write_to_log that ^")
         return False
 
     f = open(f"{paths.LOGS}/{log_date_and_time}.txt", "a", encoding='utf-8')
