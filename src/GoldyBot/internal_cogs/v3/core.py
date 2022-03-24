@@ -1,14 +1,8 @@
-import nextcord
-from nextcord.ext import commands
 import asyncio
+import nextcord
 
-from .database import database
-
-import GoldyBot
 # V4 Support
-
-
-from . import shop, economy, rank_system
+from GoldyBot.utility.v3_support import *
 
 cog_name = "core"
 
