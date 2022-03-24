@@ -1,1 +1,5 @@
-main_cache_dict = {}
+main_cache_dict = {
+    "extenstions": {
+        
+    }
+}
