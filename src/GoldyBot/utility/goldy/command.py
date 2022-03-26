@@ -41,7 +41,7 @@ class Command():
     def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion:
         """Finds and returns the object of the command's extenstion."""
         if self.in_extenstion:
-            return "temp" #TODO: Get extenstion object from cache.
+            return GoldyBot.cache.main_cache_dict["extenstions"][f"{self.extension_name}"] #TODO: Get extenstion object from cache.
         else:
             return None
 
