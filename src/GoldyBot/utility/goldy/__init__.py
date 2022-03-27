@@ -1,1 +1,1 @@
-from . import command, slash, colours
+from . import slash, colours, embed

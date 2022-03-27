@@ -6,7 +6,7 @@ Copyright (C) 2022 - Dev Goldy
 
 import nextcord
 from . import files, paths, logging, goldy, cache, token, settings, config, info, database
-from . import internal_cogs, ext, utility
+from . import internal_cogs, ext, utility, objects
 
 # Functions
 log = logging.print_and_log

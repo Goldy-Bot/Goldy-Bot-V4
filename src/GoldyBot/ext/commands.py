@@ -1,3 +1,4 @@
+import nextcord
 from nextcord.ext import commands
 from nextcord import Interaction
 
@@ -11,9 +12,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
     def inner(func, command_name=None, command_usage=None, help_des=None):
         func:function = func
         
-        goldy_command = GoldyBot.utility.goldy.command.Command(func)
-
-        print(goldy_command.extenstion)
+        goldy_command = GoldyBot.objects.command.Command(func)
 
         if command_name == None: command_name = goldy_command.code_name
 
@@ -27,6 +26,15 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         # Get command's arguments.
         params = goldy_command.params
 
+        # Create command usage embed.
+        command_usage_args = f"!{command_name} "
+        for param in params[1:]:
+            command_usage_args += ("{" + param + "} ")
+
+        command_usage_embed = GoldyBot.utility.goldy.embed.Embed(title=GoldyBot.utility.msgs.bot.CommandUsage.Embed.title, colour=GoldyBot.utility.goldy.colours.AKI_ORANGE)
+        command_usage_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandUsage.Embed.thumbnail)
+
+        # Preparing to add command.
         is_in_extenstion = goldy_command.in_extenstion
         class_ = goldy_command.extenstion
 
@@ -38,11 +46,23 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         if is_in_extenstion == True:
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
-                await func(class_, ctx, *params)
+                command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
+
+                #Run command.
+                try:
+                    await func(class_, ctx, *params)
+                except TypeError: # Arguments missing.
+                    await ctx.send(embed=command_usage_embed)
         else:
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
-                await func(ctx, *params)
+                command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
+
+                # Run command.
+                try: 
+                    await func(ctx, *params)
+                except TypeError: # Arguments missing.
+                    await ctx.send(embed=command_usage_embed)
 
         # Add slash command
         params_amount = len(params[1:])

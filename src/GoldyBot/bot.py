@@ -24,5 +24,8 @@ async def on_ready():
 async def goldy(ctx, arg_1, arg_2, arg_3):
     await ctx.send(f"Hi I'm goldy! Args: {arg_1}")
 
+# Load internal extenstions.
+#TODO: Loop through all internal cogs and add a folder for external extenstions/add-ons.
+
 # Run Bot
 client.run(TOKEN)
