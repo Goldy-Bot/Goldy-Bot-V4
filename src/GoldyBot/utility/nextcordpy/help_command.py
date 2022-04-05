@@ -2,11 +2,11 @@ import GoldyBot
 import nextcord
 from nextcord.ext import commands
 
-config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
-
 class goldy_help_command(commands.HelpCommand):
     def __init__(self):
         super().__init__()
+
+        self.config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
 
     class embed():
         @staticmethod
@@ -40,7 +40,7 @@ class goldy_help_command(commands.HelpCommand):
 
         for cog in mapping:
             if not cog == None:
-                if extenstion_count >= config.read("max_extenstions")*page_count:
+                if extenstion_count >= self.config.read("max_extenstions")*page_count:
                     page_count += 1
                     new_embed = await goldy_help_command.embed.create("Overview", thumbnail_url=bot_icon, page_num=page_count)
 
