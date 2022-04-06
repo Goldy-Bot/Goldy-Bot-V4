@@ -97,6 +97,6 @@ async def slash_command_(interaction: Interaction{slash_command_params}):
         """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
         "Interaction": Interaction, "GoldyBot": GoldyBot})
 
-        GoldyBot.logging.log(f"[{MODULE_NAME}] The Command '{command_name}' has been loaded.")
+        GoldyBot.logging.log(f"🤍 [{MODULE_NAME}] The command '{command_name}' has been loaded.")
 
     return inner

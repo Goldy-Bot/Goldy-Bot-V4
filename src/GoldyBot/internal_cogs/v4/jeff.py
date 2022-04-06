@@ -11,5 +11,3 @@ class JeffTheKiller(GoldyBot.Extenstion):
             await ctx.send("jiff")
 
 JeffTheKiller()
-
-#TODO: Sort out how your gonna load up extenstions from goldy.
