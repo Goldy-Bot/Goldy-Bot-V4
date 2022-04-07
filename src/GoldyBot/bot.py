@@ -27,6 +27,10 @@ async def on_ready():
 async def goldy(ctx, arg_1, arg_2, arg_3):
     await ctx.send(f"Hi I'm goldy! Args: {arg_1}")
 
+@GoldyBot.command()
+async def stop(ctx, reason="A user ran the !stop command."):
+    GoldyBot.Goldy().stop(reason)
+
 # Load internal extenstions.
 #----------------------------
 for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
@@ -42,6 +46,8 @@ for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
             spec_module.loader.exec_module(module)
 
             GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
+
+print(GoldyBot.cache.main_cache_dict)
 
 # Run Bot
 try:

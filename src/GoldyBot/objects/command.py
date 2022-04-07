@@ -17,6 +17,11 @@ class Command():
             self.in_extenstion_ = True
             self.params_.pop(0)
 
+        # Add command to extenstion.
+        if self.in_extenstion:
+            GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"] = []
+            GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"].append(self)
+
     @property
     def code_name(self) -> str:
         """Returns code name of comamnd."""
@@ -41,7 +46,7 @@ class Command():
     def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion:
         """Finds and returns the object of the command's extenstion."""
         if self.in_extenstion:
-            return GoldyBot.cache.main_cache_dict["extenstions"][f"{self.extension_name}"] #TODO: Get extenstion object from cache.
+            return GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["object"] #TODO: Get extenstion object from cache.
         else:
             return None
 

@@ -1,4 +1,6 @@
 import GoldyBot
+import nextcord
+from nextcord.ext import commands
 
 class Extenstion(object):
     """The base class for a Goldy Bot extenstion."""
@@ -6,8 +8,10 @@ class Extenstion(object):
     def __init__(self, class_object):
         """Tells Goldy Bot to Load this class as an extenstion."""
         self.class_object = class_object
-
-        GoldyBot.cache.main_cache_dict["extenstions"][f"{class_object.__class__.__name__}"] = self
+        
+        # Cache it.
+        GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{class_object.__class__.__name__}"] = {}
+        GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{class_object.__class__.__name__}"]["object"] = self
 
         GoldyBot.logging.log(f"[{class_object.__class__.__name__}] Loading my commands...")
         self.loader() # Load commands.
