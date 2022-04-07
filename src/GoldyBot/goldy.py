@@ -1,8 +1,7 @@
 import os
 import sys
-import threading
-from multiprocessing import Process
 import GoldyBot
+import nextcord
 
 MODULE_NAME = "GOLDY"
 
@@ -19,6 +18,20 @@ class Goldy(object):
         
         # Start V4
         from . import bot
+
+    def ready(self, client:nextcord.Client):
+        """Notifies Goldy Bot that the client is ready."""
+
+        Database:GoldyBot.database.Database = GoldyBot.cache.main_cache_dict["database"]
+
+        #  Update database collections.
+        #------------------------------
+        # Create a database collection for new guilds.
+        database_collections = Database.list_collection_names()
+        for guild in client.guilds:
+            #TODO: Create a system to configure each discord guild.
+            #TODO: Check if guild is in database collections by getting it's goldy bot code name.
+            pass
 
     def stop(self, reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""
