@@ -31,16 +31,17 @@ async def goldy(ctx, arg_1, arg_2, arg_3):
 #----------------------------
 for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
     if extn.endswith('.py'):
-        # Specify Module
-        spec_module = importlib.util.spec_from_file_location(extn[:-3], f"{GoldyBot.paths.INTERNAL_COGS_V4}/{extn}")
+        if not extn == "__init__.py":
+            # Specify Module
+            spec_module = importlib.util.spec_from_file_location(extn[:-3], f"{GoldyBot.paths.INTERNAL_COGS_V4}/{extn}")
 
-        # Get Module
-        module = importlib.util.module_from_spec(spec_module)
-        
-        # Run Module
-        spec_module.loader.exec_module(module)
+            # Get Module
+            module = importlib.util.module_from_spec(spec_module)
+            
+            # Run Module
+            spec_module.loader.exec_module(module)
 
-        GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
+            GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
 
 # Run Bot
 try:
