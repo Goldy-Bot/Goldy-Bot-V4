@@ -5,7 +5,9 @@ Copyright (C) 2022 - Dev Goldy
 """
 
 import nextcord
-from . import files, paths, logging, goldy, cache, token, settings, config, info, database
+
+from .database import database
+from . import files, paths, logging, goldy, cache, token, settings, config, info
 from . import internal_cogs, ext, utility, objects
 
 # Functions
@@ -18,8 +20,7 @@ cmd = command
 # Class Inheritors
 Extenstion = ext.extenstions.Extenstion
 
-slash_command = nextcord.Client.slash_command
-
 # Classes
 Goldy = goldy.Goldy
 Database = database.Database
+

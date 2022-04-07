@@ -1,7 +1,11 @@
 from nextcord.ext import commands
 
+import GoldyBot
+
 main_cache_dict = {
     "client" : None,
+
+    "database" : None,
 
     "extenstions": {
         
@@ -11,6 +15,5 @@ main_cache_dict = {
         
     }
 }
-
 
 Client:commands.Bot = main_cache_dict["client"]

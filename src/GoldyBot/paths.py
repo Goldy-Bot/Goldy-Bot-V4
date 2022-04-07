@@ -22,5 +22,6 @@ INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_cogs/v4"
 INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_cogs/v3"
 
 # Files
-TOKEN = CONFIG + "/TOKEN.txt"
+TOKEN = CONFIG + "/BOT_TOKEN.txt"
+DATABASE_TOKEN = CONFIG + "/DATABASE_TOKEN.txt"
 GOLDY_CONFIG_JSON = CONFIG + "/goldy.json"

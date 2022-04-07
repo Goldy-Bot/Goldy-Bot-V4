@@ -10,6 +10,7 @@ import GoldyBot
 MODULE_NAME = "GOLDY CORE"
 
 TOKEN = GoldyBot.token.get()
+DATABASE_TOKEN = GoldyBot.token.get_database()
 intents = nextcord.Intents()
 
 # Discord Bot
@@ -19,8 +20,13 @@ case_insensitive=True, intents=intents.all())
 # Caching client object.
 GoldyBot.cache.main_cache_dict["client"] = client
 
+# Initializing Stuff
+database = GoldyBot.Database(DATABASE_TOKEN) # Initializing goldy bot database connection.
+
 @client.event
 async def on_ready():
+    GoldyBot.Goldy().ready(client)
+    
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
 @GoldyBot.command()
