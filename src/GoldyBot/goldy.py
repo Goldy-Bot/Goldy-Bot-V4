@@ -29,6 +29,8 @@ class Goldy(object):
         # Create a database collection for new guilds.
         database_collections = Database.list_collection_names()
         for guild in client.guilds:
+            GoldyBot.utility.guilds.guild.Guild(guild) #TODO: Finish this.
+
             #TODO: Create a system to configure each discord guild.
             #TODO: Check if guild is in database collections by getting it's goldy bot code name.
             pass
