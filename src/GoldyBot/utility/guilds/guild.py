@@ -8,6 +8,8 @@ class Guild():
     """Class that represents a discord guild in Goldy Bot."""
     def __init__(self, guild:nextcord.Guild):
         self.guild = guild
+        self.database:GoldyBot.database.Database = GoldyBot.cache.main_cache_dict["database"]
+
         self.config_file = None
 
         # Get code name.
@@ -32,8 +34,11 @@ class Guild():
 
         # Create a database collection for the guild if there isn't already.
         #--------------------------------------------------------------------
-
         # Do ya thing. #TODO: Create database collection.
+        self.database #TODO: Add method to database to allow for creating collections.
+
+
+        GoldyBot.logging.log("info_2", f"We setup the guild '{self.code_name}'.")
         pass
 
     @property
@@ -48,7 +53,9 @@ class Guild():
     def config(self) -> GoldyBot.utility.guilds.config.GuildConfig:
         """Returns guild's config class."""
         #TODO: If the config does not exist run guild setup.
-        return GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config())
+        if self.code_name_:
+            pass
+        return GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File()))
 
     @property
     def does_exist(self) -> bool:
