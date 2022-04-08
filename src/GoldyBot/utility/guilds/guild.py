@@ -34,12 +34,11 @@ class Guild():
 
         # Create a database collection for the guild if there isn't already.
         #--------------------------------------------------------------------
-        # Do ya thing. #TODO: Create database collection.
-        self.database #TODO: Add method to database to allow for creating collections.
-
+        self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
+        "goldy":"I've created this collection automatically for a guild.", 
+        "notice":"Feel free to delete this document."})
 
         GoldyBot.logging.log("info_2", f"We setup the guild '{self.code_name}'.")
-        pass
 
     @property
     def id(self):

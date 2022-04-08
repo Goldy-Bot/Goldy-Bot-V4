@@ -31,7 +31,7 @@ class Database():
         return True
 
     def find(self, collection:str, query:dict):
-        return self.database[collection].find(query)
+        return self.database[collection].find(query) 
 
     def list_collection_names(self):
         return self.database.list_collection_names()
@@ -41,3 +41,7 @@ class Database():
         data = self.database[collection].find_one(query)
         GoldyBot.logging.log(f"[{MODULE_NAME}] Found '{query}' in '{collection}.'")
         return data
+
+    def create_collection(self, collection_name:str, data):
+        self.database[collection_name].insert_one(data)
+
