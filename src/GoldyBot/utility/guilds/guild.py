@@ -1,3 +1,4 @@
+import os
 import nextcord
 import GoldyBot
 
@@ -32,7 +33,7 @@ class Guild():
         # Create a database collection for the guild if there isn't already.
         #--------------------------------------------------------------------
 
-        # Do ya thing.
+        # Do ya thing. #TODO: Create database collection.
         pass
 
     @property
@@ -46,11 +47,13 @@ class Guild():
     @property
     def config(self) -> GoldyBot.utility.guilds.config.GuildConfig:
         """Returns guild's config class."""
+        #TODO: If the config does not exist run guild setup.
         return GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config())
-        pass
 
     @property
     def does_exist(self) -> bool:
         """Commands Goldy Bot to check if the guild exist in config."""
-        #TODO: Go into every guild folder and check if the guild exist.
-        pass
+        if self.code_name in os.listdir(GoldyBot.paths.CONFIG):
+            return True
+        else:
+            return False
