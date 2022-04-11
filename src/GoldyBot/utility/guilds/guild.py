@@ -1,3 +1,4 @@
+import asyncio
 import os
 import nextcord
 import GoldyBot
@@ -21,25 +22,24 @@ class Guild():
             GoldyBot.cache.main_cache_dict["guilds"][f"{self.code_name}"] = {}
             GoldyBot.cache.main_cache_dict["guilds"][f"{self.code_name}"]["object"] = self
 
-    def setup(self):
+    async def setup(self):
         """Setup's a guild in Goldy Bot with the given nextcord guild object. This will create a config and database collection for the guild."""
         if self.is_allowed:
             # Generate config folder for guild of there isn't already.
             #-----------------------------------
             if not self.config_exist:
                 # If the config is empty, write the guild config template to it.
-                if self.config_file.read() == "":
-                    self.config_file.write(GoldyBot.files.File(GUILD_CONFIG_TEMPLATE_JSON_PATH).read())
+                self.config_file.write(GoldyBot.files.File(GUILD_CONFIG_TEMPLATE_JSON_PATH).read())
             
 
             # Create a database collection for the guild if there isn't already.
             #--------------------------------------------------------------------
-            if not self.database_exist:
+            if not await self.database_exist:
                 self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
                 "goldy":"I've created this collection automatically for a guild.", 
                 "notice":"Feel free to delete this document."})
 
-            GoldyBot.logging.log("info_2", f"We ran setup for the guild '{self.code_name}'.")
+            GoldyBot.logging.log(f"We ran setup for the guild '{self.code_name}'.")
         else:
             GoldyBot.logging.log("warn", f"Setup for '{self.code_name}' did not run because guild is not in goldy bot guild list.")
 
@@ -63,15 +63,14 @@ class Guild():
     def config(self) -> config.GuildConfig:
         """Returns guild's config class."""
         #TODO: If the config does not exist run guild setup.
-        if self.code_name:
-            pass
-        return config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File()))
+        if self.config_exist:
+            return config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(f"{GoldyBot.paths.CONFIG}/{self.code_name}/config.json")))
 
     @property
     def is_allowed(self) -> bool:
         """Commands Goldy Bot to check whether the guild is allowed to be active."""
         try:
-            self.goldy_config.read("guilds")[f"{self.id}"] # If this fails then guild is not in list.
+            self.allowed_guilds[f"{self.id}"] # If this fails then guild is not in list.
             return True
         except KeyError:
             return False
@@ -91,23 +90,29 @@ class Guild():
     def config_exist(self) -> bool:
         """Commands Goldy Bot to check if the guild exist in config."""
         if self.code_name in os.listdir(GoldyBot.paths.CONFIG):
+            if self.config_file.read() == "":
+                return False
             return True
         else:
             return False
 
     @property
-    def database_exist(self) -> bool:
+    async def database_exist(self) -> bool:
         """Commands Goldy Bot to check if the guild exist in the database collections."""
-        if f"{self.code_name} (server)" in self.database.list_collection_names():
+        if self.database_collection_name in await self.database.list_collection_names():
             return True
         else:
             return False
+
+    @property
+    def database_collection_name(self) -> str:
+        return f"{self.code_name} (server)"
 
     def get_config_file(self) -> GoldyBot.files.File:
         # Create guild config folder.
         GUILD_CONFIG_FOLDER_PATH = GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{self.code_name}/").file_path
 
         # Create guild config file.
-        config_file = GoldyBot.files.File(GUILD_CONFIG_FOLDER_PATH + "/config.json")
+        config_file = GoldyBot.files.File(GUILD_CONFIG_FOLDER_PATH + "config.json")
 
         return config_file

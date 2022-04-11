@@ -1,3 +1,4 @@
+import asyncio
 import sys
 import nextcord
 from nextcord import Interaction
@@ -12,22 +13,23 @@ MODULE_NAME = "GOLDY CORE"
 TOKEN = GoldyBot.token.get()
 DATABASE_TOKEN = GoldyBot.token.get_database()
 intents = nextcord.Intents()
-prefix = #TODO: Finish this!
+loop = asyncio.get_event_loop()
 
 # Discord Bot
-client = commands.Bot(command_prefix = "!", 
+client = commands.Bot(command_prefix = GoldyBot.utility.nextcordpy.prefix.get_prefix, 
 case_insensitive=True, intents=intents.all())
 
 # Caching client object.
 GoldyBot.cache.main_cache_dict["client"] = client
 
 # Initializing Stuff
-database = GoldyBot.Database(DATABASE_TOKEN) # Initializing goldy bot database connection.
+database = GoldyBot.database.Database(DATABASE_TOKEN) # Initializing goldy bot database connection.
 
 @client.event
 async def on_ready():
-    GoldyBot.Goldy().ready(client)
-    
+    # Goldy Setup.
+    await GoldyBot.Goldy().setup(client)
+
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
 @GoldyBot.command()
@@ -53,8 +55,6 @@ for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
             spec_module.loader.exec_module(module)
 
             GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
-
-print(GoldyBot.cache.main_cache_dict)
 
 # Run Bot
 try:
