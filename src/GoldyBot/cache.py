@@ -1,7 +1,5 @@
 from nextcord.ext import commands
 
-import GoldyBot
-
 main_cache_dict = {
     "client" : None,
 
@@ -13,6 +11,10 @@ main_cache_dict = {
 
     "internal_extenstions": {
         
+    },
+
+    "guilds" : {
+
     }
 }
 

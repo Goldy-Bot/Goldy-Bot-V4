@@ -12,6 +12,7 @@ MODULE_NAME = "GOLDY CORE"
 TOKEN = GoldyBot.token.get()
 DATABASE_TOKEN = GoldyBot.token.get_database()
 intents = nextcord.Intents()
+prefix = #TODO: Finish this!
 
 # Discord Bot
 client = commands.Bot(command_prefix = "!", 

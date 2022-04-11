@@ -22,24 +22,30 @@ class Goldy(object):
     def ready(self, client:nextcord.Client):
         """Notifies Goldy Bot that the client is ready."""
 
-        Database:GoldyBot.database.Database = GoldyBot.cache.main_cache_dict["database"]
-
-        #  Update database collections.
+        #  Run setup on all allowed guilds.
         #------------------------------
-        # Create a database collection for new guilds.
-        database_collections = Database.list_collection_names()
         for guild in client.guilds:
-            GoldyBot.utility.guilds.guild.Guild(guild) #TODO: Finish this.
+            goldy_bot_guild = GoldyBot.utility.guilds.guild.Guild(guild) #TODO: Finish this.
 
-            #TODO: Create a system to configure each discord guild.
-            #TODO: Check if guild is in database collections by getting it's goldy bot code name.
-            pass
+            if goldy_bot_guild.is_allowed:
+                goldy_bot_guild.setup()
+
+        #  Check if the config files have been edited for the guilds.
+        not_edited_config_guilds = []
+        for guild in GoldyBot.cache.main_cache_dict["guilds"]:
+            guild:GoldyBot.utility.guilds.guild.Guild = GoldyBot.cache.main_cache_dict["guilds"][guild]["object"]
+
+            if not guild.has_config_been_edited:
+                not_edited_config_guilds.append(guild.code_name)
+
+        if not not_edited_config_guilds == []:
+            self.stop(reason=f"Guild configs MUST be edited! These guilds have not had their config's edited: {not_edited_config_guilds}")
 
     def stop(self, reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""
 
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy is Shuting down...")
-        GoldyBot.log("info", f"[{MODULE_NAME}] Here's the reason I was requested to shutdown for >>> {reason}")
+        GoldyBot.log("info", f"[{MODULE_NAME}] Here's the reason why I was requested to shutdown for >>> {reason}")
         sys.exit()
 
 def setup():

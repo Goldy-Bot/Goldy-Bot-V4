@@ -1,6 +1,28 @@
 {
-    "id":123,
+    "id" : 123,
+    "prefix" : null,
 
     "code_name": "guild_code_name",
-    "display_name" : "Guild Display Name"
+    "display_name" : "Guild Display Name",
+
+    "roles" : {
+        "bot_admin" : 123
+    },
+
+    "channels" : {
+        "dev_channel": 123,
+        "error_channel" : 123
+    },
+
+    "config" : {
+        "allow_bad_characters" : false,
+        "allow_bad_words" : false,
+        "allow_error_logging" : true,
+        
+        "allowed_extenstions" : [],
+        "disallowed_extenstions" : [""],
+        "hidden_extenstions" : [],
+
+        "money_emoji" : "💷"
+    }
 }
