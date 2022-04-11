@@ -60,4 +60,8 @@ def file_setup():
         if os.path.exists(dir) == False: # If the directory doesn't exist create it.
             GoldyBot.files.File(dir)
 
-    GoldyBot.log("info_2", f"[{MODULE_NAME}] Done!")
+    # Create goldy.json if it doesn't exist already.
+    if not "goldy.json" in os.listdir(GoldyBot.paths.CONFIG):
+        goldy_config = GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON).write(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON_TEMPLATE).read())
+
+    GoldyBot.log("info_2", f"[{MODULE_NAME}] File Setup Done!")

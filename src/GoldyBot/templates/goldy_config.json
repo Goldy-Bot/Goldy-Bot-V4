@@ -1,0 +1,17 @@
+{
+    "load_first" : [],
+    "ignore_extenstions" : [],
+    "bot_mode" : "D",
+    "database_name" : "",
+    "admin_users" : [],
+
+    "commands" : {
+        "help" : {
+            "max_extenstions" : 6
+        }
+    },
+
+    "allowed_guilds" : {
+        
+    }
+}

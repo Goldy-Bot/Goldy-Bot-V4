@@ -1,6 +1,4 @@
 import GoldyBot
-import nextcord
-from nextcord.ext import commands
 
 class Extenstion(object):
     """The base class for a Goldy Bot extenstion."""
@@ -18,7 +16,7 @@ class Extenstion(object):
 
         # Setting all variable shortcuts.
         #-----------------------------------
-        self.client:nextcord.Client = GoldyBot.cache.main_cache_dict["client"]
+        self.client:GoldyBot.nextcord.Client = GoldyBot.cache.main_cache_dict["client"]
         self.database:GoldyBot.database.Database = GoldyBot.cache.main_cache_dict["database"]
 
         self.FindGuilds = GoldyBot.cache.FindGuilds()

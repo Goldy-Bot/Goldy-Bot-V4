@@ -14,7 +14,7 @@ class Guild():
 
         self.goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
 
-        self.allowed_guilds = self.goldy_config.read("guilds")
+        self.allowed_guilds = self.goldy_config.read("allowed_guilds")
         self.config_file = self.get_config_file()
 
         # Cache this!

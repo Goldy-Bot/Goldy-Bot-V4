@@ -43,7 +43,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
             return None
 
         # Add command.
-        if is_in_extenstion == True:
+        if is_in_extenstion == True: # Run in EXTENSTION!
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
                 command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
@@ -51,9 +51,10 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 #Run command.
                 try:
                     await func(class_, ctx, *params)
+                    GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
                 except TypeError: # Arguments missing.
                     await ctx.send(embed=command_usage_embed)
-        else:
+        else: # Run as NORMAL command!
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
                 command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
@@ -61,6 +62,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 # Run command.
                 try: 
                     await func(ctx, *params)
+                    GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
                 except TypeError: # Arguments missing.
                     await ctx.send(embed=command_usage_embed)
 
@@ -77,7 +79,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 else:
                     slash_command_params += f"{param}, "
 
-        if is_in_extenstion == True:
+        if is_in_extenstion == True: # Run in EXTENSTION!
             exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
@@ -86,8 +88,8 @@ async def slash_command_(interaction: Interaction{slash_command_params}):
 
         """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
         "Interaction": Interaction, "GoldyBot": GoldyBot, "class_":class_})
-
-        else:
+        
+        else: # Run as NORMAL command!
             exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
