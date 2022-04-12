@@ -25,6 +25,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         
         # Get command's arguments.
         params = goldy_command.params
+        print(params)
 
         # Create command usage embed.
         command_usage_args = f"!{command_name} "
@@ -52,7 +53,8 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 try:
                     await func(class_, ctx, *params)
                     GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
-                except TypeError: # Arguments missing.
+                except TypeError as e: # Arguments missing.
+                    GoldyBot.logging.log("error", e)
                     await ctx.send(embed=command_usage_embed)
         else: # Run as NORMAL command!
             @client.command(name=command_name, help_message=help_des)

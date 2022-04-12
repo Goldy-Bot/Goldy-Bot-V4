@@ -10,6 +10,7 @@ class Command():
 
         self.command_name = self.func.__name__
         self.params_ = list(self.func.__code__.co_varnames)
+        self.params_amount_ = self.func.__code__.co_argcount
         
         self.in_extenstion_ = False
 
@@ -30,7 +31,10 @@ class Command():
     @property
     def params(self) -> list:
         """Returns list of function parameters."""
-        return self.params_
+        if self.in_extenstion:
+            return self.params_[0:self.params_amount_ - 1]
+        else:
+            return self.params_[0:self.params_amount_]
 
     @property
     def extension_name(self) -> str:

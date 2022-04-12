@@ -23,4 +23,3 @@ Extenstion = ext.extenstions.Extenstion
 # Classes
 Goldy = goldy.Goldy
 Database = database.Database
-

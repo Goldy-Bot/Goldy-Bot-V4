@@ -12,7 +12,7 @@ class Extenstion(object):
         GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{class_object.__class__.__name__}"]["object"] = self
 
         GoldyBot.logging.log(f"[{class_object.__class__.__name__}] Loading my commands...")
-        self.loader() # Load commands.
+        self._loader_() # Load commands.
 
         # Setting all variable shortcuts.
         #-----------------------------------
@@ -21,8 +21,8 @@ class Extenstion(object):
 
         self.FindGuilds = GoldyBot.cache.FindGuilds()
 
-    def loader(self):
-        """The extenstion's command loader. This is what Goldy Bot uses to load your commands in here."""
+    def _loader_(self):
+        """The extenstion's command loader. This is what Goldy Bot uses to load your commands in an extenstion."""
         pass
 
     def get_object(self):

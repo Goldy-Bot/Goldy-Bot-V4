@@ -1,1 +1,1 @@
-from . import help, goldy, bot
+from . import help, goldy, bot, cache

@@ -54,7 +54,14 @@ for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
             # Run Module
             spec_module.loader.exec_module(module)
 
-            GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
+            # Get load function from module.
+            try:
+                load_function = getattr(module, "load")
+                load_function()
+
+                GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
+            except AttributeError:
+                GoldyBot.logging.log("error", f"❤️ [{MODULE_NAME}] The internal module '{extn[:-3]}' failed to load because it did not contain the 'load()' function.")
 
 # Run Bot
 try:

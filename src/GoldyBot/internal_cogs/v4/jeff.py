@@ -1,13 +1,12 @@
 import GoldyBot
-"""
-Just a test extenstion.
-"""
 
 class JeffTheKiller(GoldyBot.Extenstion):
+    """Just a test extenstion."""
+
     def __init__(self):
         super().__init__(self)
         
-    def loader(self):
+    def _loader_(self):
 
         @GoldyBot.command()
         async def jeff(self:JeffTheKiller, ctx):
@@ -15,4 +14,6 @@ class JeffTheKiller(GoldyBot.Extenstion):
             await ctx.send("jiff")
             await ctx.send(str(data))
 
-JeffTheKiller()
+def load():
+    """This is executed by Goldy Bot when this module is loaded."""
+    JeffTheKiller()
