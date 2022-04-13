@@ -25,7 +25,6 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         
         # Get command's arguments.
         params = goldy_command.params
-        print(params)
 
         # Create command usage embed.
         command_usage_args = f"!{command_name} "

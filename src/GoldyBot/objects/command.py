@@ -18,10 +18,13 @@ class Command():
             self.in_extenstion_ = True
             self.params_.pop(0)
 
-        # Add command to extenstion.
+        # Add command to extenstion in cache.
         if self.in_extenstion:
             GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"] = []
             GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"].append(self)
+        else:
+            GoldyBot.cache.main_cache_dict["internal_extenstions"]["core"]["commands"] = []
+            GoldyBot.cache.main_cache_dict["internal_extenstions"]["core"]["commands"].append(self)
 
     @property
     def code_name(self) -> str:

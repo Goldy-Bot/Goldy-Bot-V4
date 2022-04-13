@@ -1,6 +1,7 @@
 {
     "load_first" : [],
-    "ignore_extenstions" : [],
+    "ignored_extenstions" : [],
+    "ignored_modules" : [],
     "bot_mode" : "D",
     "database_name" : "",
     "admin_users" : [],

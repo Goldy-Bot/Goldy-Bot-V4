@@ -42,26 +42,10 @@ async def stop(ctx, reason="A user ran the !stop command."):
 
 # Load internal extenstions.
 #----------------------------
-for extn in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
-    if extn.endswith('.py'):
-        if not extn == "__init__.py":
-            # Specify Module
-            spec_module = importlib.util.spec_from_file_location(extn[:-3], f"{GoldyBot.paths.INTERNAL_COGS_V4}/{extn}")
-
-            # Get Module
-            module = importlib.util.module_from_spec(spec_module)
-            
-            # Run Module
-            spec_module.loader.exec_module(module)
-
-            # Get load function from module.
-            try:
-                load_function = getattr(module, "load")
-                load_function()
-
-                GoldyBot.logging.log(f"💚 [{MODULE_NAME}] Loaded the internal extenstion '{extn}'!")
-            except AttributeError:
-                GoldyBot.logging.log("error", f"❤️ [{MODULE_NAME}] The internal module '{extn[:-3]}' failed to load because it did not contain the 'load()' function.")
+for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
+    if module.endswith('.py'):
+        if not module == "__init__.py":
+            GoldyBot.modules.Module(module_file_name=module).load()
 
 # Run Bot
 try:

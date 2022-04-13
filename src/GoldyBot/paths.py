@@ -17,6 +17,7 @@ GOLDY_BOT = module_path[:-1]
 # Folders
 LOGS = "./logs"
 CONFIG = "./config"
+MODULES = "./modules"
 
 INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_cogs/v4"
 INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_cogs/v3"

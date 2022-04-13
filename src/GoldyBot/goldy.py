@@ -42,7 +42,6 @@ class Goldy(object):
             self.stop(reason=f"Guild configs MUST be edited! These guilds have not had their config's edited: {not_edited_config_guilds}")
 
         GoldyBot.logging.log(f"[{MODULE_NAME}] Guilds Setup Done!")
-        print(GoldyBot.cache.main_cache_dict)
 
     def stop(self, reason="Unknown"):
         """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""
