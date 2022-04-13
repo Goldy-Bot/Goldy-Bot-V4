@@ -16,4 +16,7 @@
  Feel free to use this module to develop your extenstions.
 </p> 
 
+<br>
+<br>
+
 **© Copyright (C) 2022 Dev Goldy (Under the [GPL-3.0 License](LICENSE.md))**
