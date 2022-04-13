@@ -17,6 +17,5 @@
 </p> 
 
 <br>
-<br>
 
 **© Copyright (C) 2022 Dev Goldy (Under the [GPL-3.0 License](LICENSE.md))**
