@@ -1,5 +1,5 @@
 """
-💛 Goldy Bot V4
+💙 Goldy Bot V4
 
 Copyright (C) 2022 - Dev Goldy
 """
