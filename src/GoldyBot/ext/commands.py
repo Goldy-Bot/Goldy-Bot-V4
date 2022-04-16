@@ -54,7 +54,6 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                     GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
                 except TypeError as e: # Arguments missing.
                     #TODO: #11 Goldy Bot thinks arguments are missing whenever a type error occurs within a command.
-                    GoldyBot.logging.log("error", e)
                     await ctx.send(embed=command_usage_embed)
                 except Exception as e:
                     GoldyBot.logging.log("error", e)
