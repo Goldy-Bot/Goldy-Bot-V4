@@ -65,6 +65,13 @@ class Command():
         else:
             return False
 
+    def any_args_missing(self, command_executers_args:tuple) -> bool:
+        """Checks if the args given by the command executer matches what paramaters the command needs."""
+        if len(command_executers_args) == len(self.params[1:]):
+            return True
+        else:
+            return False
+
     def get_help_des(self) -> str:
         """Returns the command's help description."""
         try:

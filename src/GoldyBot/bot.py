@@ -66,12 +66,19 @@ async def stop(ctx, reason="A user ran the !stop command."):
 
 #TODO: #10 Create a goldy bot restart command.
 
-# Load internal extenstions.
+# Load internal modules.
 #----------------------------
 for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
     if module.endswith('.py'):
         if not module == "__init__.py":
             GoldyBot.modules.Module(module_file_name=module).load()
+
+
+# Load external modules.
+#----------------------------
+for module in os.listdir(GoldyBot.paths.MODULES):
+    if module.endswith('.py'):
+        GoldyBot.modules.Module(module_file_name=module).load()
 
 
 # Run Bot

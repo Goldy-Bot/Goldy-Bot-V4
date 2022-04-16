@@ -35,6 +35,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         command_usage_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandUsage.Embed.thumbnail)
 
         # Preparing to add command.
+        # Checking if this command is in an extenstion.
         is_in_extenstion = goldy_command.in_extenstion
         class_ = goldy_command.extenstion
 
@@ -52,11 +53,18 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 try:
                     await func(class_, ctx, *params)
                     GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
-                except TypeError as e: # Arguments missing.
+                except TypeError as e: 
                     #TODO: #11 Goldy Bot thinks arguments are missing whenever a type error occurs within a command.
-                    await ctx.send(embed=command_usage_embed)
+                   
+                    if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                        await ctx.send(embed=command_usage_embed)
+
+                    else: # Then it's an actual error.
+                        GoldyBot.logging.log("error", e)
+                        
                 except Exception as e:
                     GoldyBot.logging.log("error", e)
+
         else: # Run as NORMAL command!
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
@@ -66,8 +74,14 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 try: 
                     await func(ctx, *params)
                     GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
-                except TypeError: # Arguments missing.
-                    await ctx.send(embed=command_usage_embed)
+                except TypeError:
+
+                    if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                        await ctx.send(embed=command_usage_embed)
+
+                    else: # Then it's an actual error.
+                        GoldyBot.logging.log("error", e)
+
                 except Exception as e:
                     GoldyBot.logging.log("error", e)
 
