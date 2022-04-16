@@ -4,8 +4,7 @@
 </p>
 
 ## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
-
-#### [⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)
+### ⚠️Warning: Goldy Bot module is only intended for development, therefore you may find difficulty using it for other uses.
 
 <p align="right">
  <img align="left" src="https://user-images.githubusercontent.com/66202304/163074807-a5add24c-488a-4048-a561-043e6e33ff4f.png" width="220" />
@@ -15,6 +14,8 @@
  
  Feel free to use this module to develop your extenstions.
 </p> 
+
+#### [⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)
 
 <br>
 
