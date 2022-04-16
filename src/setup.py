@@ -21,6 +21,7 @@ setup(
   classifiers=classifiers, 
   keywords=["goldy bot", "Goldy Bot", "Goldy Bot V4", "Goldy Bot V3", "goldy"], 
   packages=find_packages(), 
+  include_package_data=True,
   install_requires=["requests", "motor", "pymongo", "nextcord==2.0.0a9", "dnspython", "psutil"],
   python_requires=">=3.8"
 )
