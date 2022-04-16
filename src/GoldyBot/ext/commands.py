@@ -6,7 +6,7 @@ import GoldyBot
 
 MODULE_NAME = "COMMANDS"
 
-def command(command_name:str=None, command_usage:str=None, help_des:str=None):
+def command(command_name:str=None, command_usage:str=None, required_roles:list=None, help_des:str=None):
     """Add a command to Goldy Bot with this decorator."""
 
     def inner(func, command_name=None, command_usage=None, help_des=None):
