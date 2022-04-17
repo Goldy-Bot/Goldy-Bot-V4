@@ -10,12 +10,21 @@ class Command():
 
         self.command_name = self.func.__name__
         self.params_ = list(self.func.__code__.co_varnames)
+        self.params_amount_ = self.func.__code__.co_argcount
         
         self.in_extenstion_ = False
 
         if self.params[0] == "self":
             self.in_extenstion_ = True
             self.params_.pop(0)
+
+        # Add command to extenstion in cache.
+        if self.in_extenstion:
+            GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"] = []
+            GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["commands"].append(self)
+        else:
+            GoldyBot.cache.main_cache_dict["internal_extenstions"]["core"]["commands"] = []
+            GoldyBot.cache.main_cache_dict["internal_extenstions"]["core"]["commands"].append(self)
 
     @property
     def code_name(self) -> str:
@@ -25,7 +34,10 @@ class Command():
     @property
     def params(self) -> list:
         """Returns list of function parameters."""
-        return self.params_
+        if self.in_extenstion:
+            return self.params_[0:self.params_amount_ - 1]
+        else:
+            return self.params_[0:self.params_amount_]
 
     @property
     def extension_name(self) -> str:
@@ -41,7 +53,7 @@ class Command():
     def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion:
         """Finds and returns the object of the command's extenstion."""
         if self.in_extenstion:
-            return GoldyBot.cache.main_cache_dict["extenstions"][f"{self.extension_name}"] #TODO: Get extenstion object from cache.
+            return GoldyBot.cache.main_cache_dict["internal_extenstions"][f"{self.extension_name}"]["object"] #TODO: Get extenstion object from cache.
         else:
             return None
 
@@ -49,6 +61,13 @@ class Command():
     def in_extenstion(self) -> bool:
         """Returns true/false if the command is in a extenstion."""
         if self.in_extenstion_:
+            return True
+        else:
+            return False
+
+    def any_args_missing(self, command_executers_args:tuple) -> bool:
+        """Checks if the args given by the command executer matches what paramaters the command needs."""
+        if len(command_executers_args) == len(self.params[1:]):
             return True
         else:
             return False

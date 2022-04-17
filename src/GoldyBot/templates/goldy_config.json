@@ -1,0 +1,18 @@
+{
+    "load_first" : [],
+    "ignored_extenstions" : [],
+    "ignored_modules" : [],
+    "bot_mode" : "D",
+    "database_name" : "",
+    "admin_users" : [],
+
+    "commands" : {
+        "help" : {
+            "max_extenstions" : 6
+        }
+    },
+
+    "allowed_guilds" : {
+        
+    }
+}

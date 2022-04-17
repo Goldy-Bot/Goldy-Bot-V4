@@ -4,14 +4,19 @@
 </p>
 
 ## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
+### ⚠️Warning: Goldy Bot module is only intended for development, therefore you may find difficulty using it for other uses.
+
+<p align="right">
+ <img align="left" src="https://user-images.githubusercontent.com/66202304/163074807-a5add24c-488a-4048-a561-043e6e33ff4f.png" width="200" />
+ 
+ # *WTF is this!*
+ Goldy Bot V4 is yet *another* rewrite of Goldy Bot, a discord bot that I develop for FUN. This is the third rewrite but the first rewrite to become open source, I've done this to allow developers across the world to create add-ons/extenstions for my bot that I can then add to the official production bot. 
+ 
+ Feel free to use this module to develop your extenstions.
+</p> 
 
 #### [⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)
 
-<p align="right">
- <img align="left" src="https://avatars.githubusercontent.com/u/87548952" width="180" />
- 
- # *WTF is this!*
- *INFO Coming Soon...*
-</p> 
+<br>
 
 **© Copyright (C) 2022 Dev Goldy (Under the [GPL-3.0 License](LICENSE.md))**

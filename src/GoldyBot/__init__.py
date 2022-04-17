@@ -1,12 +1,14 @@
 """
-💛 Goldy Bot V4
+💙 Goldy Bot V4
 
 Copyright (C) 2022 - Dev Goldy
 """
 
 import nextcord
-from . import files, paths, logging, goldy, cache, token, settings, config, info, database
-from . import internal_cogs, ext, utility, objects
+
+from .database import database
+from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system
+from . import internal_modules, ext, utility, objects
 
 # Functions
 log = logging.print_and_log
@@ -17,8 +19,6 @@ cmd = command
 
 # Class Inheritors
 Extenstion = ext.extenstions.Extenstion
-
-slash_command = nextcord.Client.slash_command
 
 # Classes
 Goldy = goldy.Goldy

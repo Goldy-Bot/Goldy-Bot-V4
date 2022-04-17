@@ -6,7 +6,7 @@ import GoldyBot
 
 MODULE_NAME = "COMMANDS"
 
-def command(command_name:str=None, command_usage:str=None, help_des:str=None):
+def command(command_name:str=None, command_usage:str=None, required_roles:list=None, help_des:str=None):
     """Add a command to Goldy Bot with this decorator."""
 
     def inner(func, command_name=None, command_usage=None, help_des=None):
@@ -35,6 +35,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
         command_usage_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandUsage.Embed.thumbnail)
 
         # Preparing to add command.
+        # Checking if this command is in an extenstion.
         is_in_extenstion = goldy_command.in_extenstion
         class_ = goldy_command.extenstion
 
@@ -43,7 +44,7 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
             return None
 
         # Add command.
-        if is_in_extenstion == True:
+        if is_in_extenstion == True: # Run in EXTENSTION!
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
                 command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
@@ -51,9 +52,20 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 #Run command.
                 try:
                     await func(class_, ctx, *params)
-                except TypeError: # Arguments missing.
-                    await ctx.send(embed=command_usage_embed)
-        else:
+                    GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                except TypeError as e: 
+                    #TODO: #11 Goldy Bot thinks arguments are missing whenever a type error occurs within a command.
+                   
+                    if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                        await ctx.send(embed=command_usage_embed)
+
+                    else: # Then it's an actual error.
+                        GoldyBot.logging.log("error", e)
+                        
+                except Exception as e:
+                    GoldyBot.logging.log("error", e)
+
+        else: # Run as NORMAL command!
             @client.command(name=command_name, help_message=help_des)
             async def command_(ctx=params[0], *params):
                 command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
@@ -61,8 +73,17 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 # Run command.
                 try: 
                     await func(ctx, *params)
-                except TypeError: # Arguments missing.
-                    await ctx.send(embed=command_usage_embed)
+                    GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                except TypeError:
+
+                    if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                        await ctx.send(embed=command_usage_embed)
+
+                    else: # Then it's an actual error.
+                        GoldyBot.logging.log("error", e)
+
+                except Exception as e:
+                    GoldyBot.logging.log("error", e)
 
         # Add slash command
         params_amount = len(params[1:])
@@ -77,25 +98,33 @@ def command(command_name:str=None, command_usage:str=None, help_des:str=None):
                 else:
                     slash_command_params += f"{param}, "
 
-        if is_in_extenstion == True:
+        if is_in_extenstion == True: # Run in EXTENSTION!
             exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
     ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
-    await func(class_, ctx{slash_command_params})
+    try:
+        await func(class_, ctx{slash_command_params})
+        GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+    except Exception as e:
+        GoldyBot.logging.log("error", e)
 
-        """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
-        "Interaction": Interaction, "GoldyBot": GoldyBot, "class_":class_})
-
-        else:
+            """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
+            "Interaction": Interaction, "GoldyBot": GoldyBot, "class_":class_})
+            
+        else: # Run as NORMAL command!
             exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
     ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
-    await func(ctx{slash_command_params})
+    try:
+        await func(ctx{slash_command_params})
+        GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+    except Exception as e:
+        GoldyBot.logging.log("error", e)
 
-        """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
-        "Interaction": Interaction, "GoldyBot": GoldyBot})
+            """, {"func":func, "client":client, "command_name":command_name, "help_des":help_des, 
+            "Interaction": Interaction, "GoldyBot": GoldyBot})
 
         GoldyBot.logging.log(f"🤍 [{MODULE_NAME}] The command '{command_name}' has been loaded.")
 

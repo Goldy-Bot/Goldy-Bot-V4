@@ -2,12 +2,13 @@
 Importing this module in a v3 extenstion/cog adds v4 support.
 """
 
-# V3 backwards compatibility.
-
+#  V3 backwards compatibility.
 import GoldyBot
 
 #  Overwrite commonly varibles
 commands = GoldyBot
+# Add 'commands' attributes.
+setattr(commands, 'Cog', GoldyBot.Extenstion)
 
 #  Overwrite fnuctions.
 print_and_log = GoldyBot.logging.log

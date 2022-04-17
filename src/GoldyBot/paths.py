@@ -17,10 +17,16 @@ GOLDY_BOT = module_path[:-1]
 # Folders
 LOGS = "./logs"
 CONFIG = "./config"
+MODULES = "./modules"
 
-INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_cogs/v4"
-INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_cogs/v3"
+INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_modules/v4"
+INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_modules/v3"
+TEMPLATES = f"{GOLDY_BOT}/templates"
 
 # Files
-TOKEN = CONFIG + "/TOKEN.txt"
+TOKEN = CONFIG + "/BOT_TOKEN.txt"
+DATABASE_TOKEN = CONFIG + "/DATABASE_TOKEN.txt"
 GOLDY_CONFIG_JSON = CONFIG + "/goldy.json"
+
+# Templates
+GOLDY_CONFIG_JSON_TEMPLATE = f"{TEMPLATES}/goldy_config.json"
