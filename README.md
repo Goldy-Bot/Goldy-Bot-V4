@@ -5,6 +5,7 @@
 
 ## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
 ### ⚠️Warning: Goldy Bot module is only intended for development, therefore you may find difficulty using it for other uses.
+### ☢️NOTICE: Goldy Bot is still currently in DEEP development, so expect unfinished code and much bugs.
 
 <p align="right">
  <img align="left" src="https://user-images.githubusercontent.com/66202304/163074807-a5add24c-488a-4048-a561-043e6e33ff4f.png" width="200" />
