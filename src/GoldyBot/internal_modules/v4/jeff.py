@@ -6,7 +6,7 @@ class JeffTheKiller(GoldyBot.Extenstion):
     def __init__(self):
         super().__init__(self)
         
-    def _loader_(self):
+    def loader(self):
 
         @GoldyBot.command()
         async def jeff(self:JeffTheKiller, ctx):

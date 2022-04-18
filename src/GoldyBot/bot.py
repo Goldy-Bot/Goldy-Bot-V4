@@ -1,6 +1,7 @@
 import asyncio
 import sys
 import nextcord
+import nextcord.ext as nextcord_ext
 from nextcord import Interaction
 from nextcord.ext import commands
 import os

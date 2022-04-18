@@ -8,7 +8,7 @@ class Admin(GoldyBot.Extenstion):
 
         self.msg = GoldyBot.utility.msgs
 
-    def _loader_(self):
+    def loader(self):
         
         @GoldyBot.command()
         async def cache(self:Admin, ctx):
@@ -25,6 +25,13 @@ class Admin(GoldyBot.Extenstion):
             else:
                 cache_embed.description = f"```{cache_string_formatted}```"
                 await ctx.send(embed=cache_embed)
+
+        @GoldyBot.command()
+        async def reload(self:Admin, ctx, module_name:str):
+            module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
+            module.reload()
+            
+            await ctx.send(f"Reloaded {module.name}!")
 
 def load():
     Admin()
