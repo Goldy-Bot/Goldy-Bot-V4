@@ -30,7 +30,9 @@ class Admin(GoldyBot.Extenstion):
         async def reload(self:Admin, ctx, module_name:str):
             module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
             module.reload()
-            
+
+            #TODO: #20 Don't forget to change this disgusting command.
+
             await ctx.send(f"Reloaded {module.name}!")
 
 def load():
