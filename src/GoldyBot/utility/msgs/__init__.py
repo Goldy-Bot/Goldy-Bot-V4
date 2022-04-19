@@ -1,1 +1,1 @@
-from . import help, goldy, bot, cache
+from . import help, goldy, bot, cache, reload, unload

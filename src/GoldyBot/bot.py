@@ -46,7 +46,7 @@ async def goldy(ctx):
     platform = system.os
 
     embed = GoldyBot.utility.goldy.embed.Embed(title=command_msg.Embed.title)
-    embed.color = GoldyBot.utility.goldy.colours.AKI_ORANGE
+    embed.color = GoldyBot.utility.goldy.colours.AKI_BLUE
     embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
     embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), 
@@ -67,20 +67,24 @@ async def stop(ctx, reason="A user ran the !stop command."):
 
 #TODO: #10 Create a goldy bot restart command.
 
-# Load internal modules.
-#----------------------------
-for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
-    if module.endswith('.py'):
-        if not module == "__init__.py":
+try:
+
+    # Load internal modules.
+    #----------------------------
+    for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
+        if module.endswith('.py'):
+            if not module == "__init__.py":
+                GoldyBot.modules.Module(module_file_name=module).load()
+
+
+    # Load external modules.
+    #----------------------------
+    for module in os.listdir(GoldyBot.paths.MODULES):
+        if module.endswith('.py'):
             GoldyBot.modules.Module(module_file_name=module).load()
 
-
-# Load external modules.
-#----------------------------
-for module in os.listdir(GoldyBot.paths.MODULES):
-    if module.endswith('.py'):
-        GoldyBot.modules.Module(module_file_name=module).load()
-
+except GoldyBot.errors.ModuleFailedToLoad:
+    pass
 
 # Run Bot
 #----------

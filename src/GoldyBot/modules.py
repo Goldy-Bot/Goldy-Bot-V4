@@ -1,7 +1,9 @@
 import os
 from typing import List
-import GoldyBot
 import importlib.util
+
+import GoldyBot
+from GoldyBot.errors import ModuleFailedToLoad, ModuleNotFound
 
 MODULE_NAME = "MODULES"
 
@@ -33,7 +35,8 @@ class Module(object):
                 if not self.path_to_module == None:
                     GoldyBot.logging.log(f"[{MODULE_NAME}] The module '{self.module_file_name}' was found in '{self.path_to_module}'.")
                 else:
-                    GoldyBot.logging.log("warn", f"[{MODULE_NAME}] The module '{self.module_file_name}' was not found!")
+                    #GoldyBot.logging.log("warn", f"[{MODULE_NAME}] The module '{self.module_file_name}' was not found!")
+                    raise ModuleNotFound(f"[{MODULE_NAME}] The module '{self.module_file_name}' was not found!")
         
         else:
             # Assume 'path_to_module' was used.
@@ -78,13 +81,26 @@ class Module(object):
                 GoldyBot.logging.log("info_4", f"[{MODULE_NAME}] Loaded the internal module '{self.module_file_name}'!")
             except AttributeError:
                 #TODO: #21 Raise a Goldy Bot error here.
-                GoldyBot.logging.log("error", f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' failed to load because it did not contain the 'load()' function.")
+                #GoldyBot.logging.log("error", f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' failed to load because it did not contain the 'load()' function.")
+                raise ModuleFailedToLoad(f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' failed to load because it did not contain the 'load()' function.")
 
         else:
             GoldyBot.logging.log("info", f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' is not being loaded as it was ignored.")
 
     def reload(self):
         """Commands Goldy Bot to reload this module."""
+
+        # Unload the module.
+        #--------------------------
+        self.unload()
+
+        # Load the module again.
+        #--------------------------
+        GoldyBot.logging.log(f"[{MODULE_NAME}] Reloading module...")
+        self.load()
+
+    def unload(self):
+        """Commands Goldy Bot to unload this module with it's commands."""
 
         # Remove all commands in module.
         #---------------------------------
@@ -96,11 +112,7 @@ class Module(object):
         
         GoldyBot.logging.log(f"[{MODULE_NAME}] Removed all commands!")
 
-        # Load the module again.
-        #--------------------------
-        GoldyBot.logging.log(f"[{MODULE_NAME}] Reloading module...")
-        self.load()
-
+        GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Unloaded the module '{self.module_file_name}'!")
 
     @property
     def name(self):

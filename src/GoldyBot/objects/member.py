@@ -7,5 +7,7 @@ class Member():
 
     def has_role(self, role:role.Role):
         """Checks if the member has a certain role."""
-        
-        pass
+        if role.role in self.ctx.author.roles:
+            return True
+        else:
+            return False

@@ -6,7 +6,7 @@ import GoldyBot
 MODULE_NAME = "COMMAND"
 
 class Command():
-    def __init__(self, func, command_name=None):
+    def __init__(self, func, command_name=None, required_roles=[]):
         """Generates goldy bot command object with command function object."""
         self.func:function = func
 
@@ -14,6 +14,7 @@ class Command():
             self.command_name = self.func.__name__
         else:
             self.command_name = command_name
+        self.required_roles = required_roles
         self.params_ = list(self.func.__code__.co_varnames)
         self.params_amount_ = self.func.__code__.co_argcount
         
@@ -26,13 +27,10 @@ class Command():
         # Add command to extenstion in cache.
         if self.in_extenstion:
             if self.module.is_internal_module:
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"] = []
                 GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"].append(self)
             else:
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"] = []
                 GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"].append(self)
         else:
-            GoldyBot.cache.main_cache_dict["internal_modules"]["goldy"]["extenstions"]["core"]["commands"] = []
             GoldyBot.cache.main_cache_dict["internal_modules"]["goldy"]["extenstions"]["core"]["commands"].append(self)
 
     @property
@@ -100,15 +98,31 @@ class Command():
         else:
             return False
 
-    def allowed_to_run(ctx, required_roles:list=None):
+    def allowed_to_run(self, ctx):
         """Checks if the command is allowed to run with currect circumstances."""
+        goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
         
         # Check if guild is registered.
-        if ctx.guild.id in GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON)).read("allowed_guilds"):
-            # Check if member has any of the required roles.
-            pass
+        #--------------------------------
+        if str(ctx.guild.id) in goldy_config.read("allowed_guilds"):
+            if not self.required_roles == []:
+                # Check if member has any of the required roles.
+                #----------------------------------------------------
+                guild_code_name = GoldyBot.cache.FindGuilds(goldy_config).find_object_by_id(ctx.guild.id).code_name
+                guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{guild_code_name}/config.json")))
+                
+                for role_code_name in self.required_roles:
+                    role = guild_config.get_role(ctx, role_code_name)
+                    if GoldyBot.objects.member.Member(ctx).has_role(role):
+                        return True
+
+                raise GoldyBot.errors.MemberHasNoPermsForCommand(f"The member '{ctx.author.name}' does not have the right permissions to use this command.")
+
+            else:
+                return True
+                
         else:
-            raise GoldyBot.errors.GuildNotRegistered("This guild has not been registered.")
+            raise GoldyBot.errors.GuildNotRegistered(f"The guild '{ctx.guild.name}' has not been registered.")
 
     def get_help_des(self) -> str:
         """Returns the command's help description."""

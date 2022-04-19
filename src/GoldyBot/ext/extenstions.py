@@ -13,9 +13,11 @@ class Extenstion(object):
             #------------
             if self.module.is_internal_module:
                 GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"] = {}
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"]["commands"] = []
                 GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"]["object"] = self
             else:
                 GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"] = {}
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"]["commands"] = []
                 GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.code_name}"]["object"] = self
 
             GoldyBot.logging.log(f"[{self.code_name}] Loading my commands...")
@@ -30,6 +32,8 @@ class Extenstion(object):
         self.database:GoldyBot.database.Database = GoldyBot.cache.main_cache_dict["database"]
 
         self.FindGuilds = GoldyBot.cache.FindGuilds()
+
+        self.msg = GoldyBot.utility.msgs
 
     @property
     def code_name(self):
