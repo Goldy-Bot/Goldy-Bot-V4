@@ -77,6 +77,7 @@ class Module(object):
 
                 GoldyBot.logging.log("info_4", f"[{MODULE_NAME}] Loaded the internal module '{self.module_file_name}'!")
             except AttributeError:
+                #TODO: #21 Raise a Goldy Bot error here.
                 GoldyBot.logging.log("error", f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' failed to load because it did not contain the 'load()' function.")
 
         else:
