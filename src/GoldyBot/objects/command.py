@@ -106,6 +106,14 @@ class Command():
         #--------------------------------
         if str(ctx.guild.id) in goldy_config.read("allowed_guilds"):
             if not self.required_roles == []:
+                # If the required roles contain 'bot_dev' and the bot dev is running the command allow the command to exacute.
+                #----------------------------------------------------------------------------------------------------------------
+                if "bot_dev" in self.required_roles:
+                    if str(ctx.author.id) in GoldyBot.settings.BOT_DEVS:
+                        return True
+                    else:
+                        return False # It will look like the command doesn't exist.
+
                 # Check if member has any of the required roles.
                 #----------------------------------------------------
                 guild_code_name = GoldyBot.cache.FindGuilds(goldy_config).find_object_by_id(ctx.guild.id).code_name

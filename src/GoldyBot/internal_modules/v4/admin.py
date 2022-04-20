@@ -10,7 +10,7 @@ class Admin(GoldyBot.Extenstion):
 
     def loader(self):
         
-        @GoldyBot.command(required_roles=["bot_admin"])
+        @GoldyBot.command(required_roles=["bot_dev"])
         async def cache(self:Admin, ctx):
             cache_embed = GoldyBot.utility.goldy.embed.Embed(title=self.msg.cache.Embed.title)
             cache_embed.color = GoldyBot.utility.goldy.colours.BLUE
@@ -26,7 +26,7 @@ class Admin(GoldyBot.Extenstion):
                 cache_embed.description = f"```{cache_string_formatted}```"
                 await ctx.send(embed=cache_embed)
 
-        @GoldyBot.command(required_roles=["bot_admin"])
+        @GoldyBot.command(required_roles=["bot_dev"])
         async def reload(self:Admin, ctx, module_name:str):
             embed = GoldyBot.utility.goldy.embed.Embed()
             embed.color = GoldyBot.utility.goldy.colours.PURPLE
@@ -67,7 +67,7 @@ class Admin(GoldyBot.Extenstion):
             await ctx.send(embed=embed)
             return True
 
-        @GoldyBot.command(required_roles=["bot_admin"])
+        @GoldyBot.command(required_roles=["bot_dev"])
         async def unload(self:Admin, ctx, module_name:str):
             command_msg = self.msg.unload
             embed = GoldyBot.utility.goldy.embed.Embed()
