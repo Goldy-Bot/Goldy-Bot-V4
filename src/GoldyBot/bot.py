@@ -1,4 +1,5 @@
 import asyncio
+import random
 import sys
 import nextcord
 import nextcord.ext as nextcord_ext
@@ -41,6 +42,7 @@ async def on_ready():
 async def goldy(ctx):
     command_msg = GoldyBot.utility.msgs.goldy
     system = GoldyBot.system.System()
+    hearts = ["🖤", "🤍", "💙", "💚", "💜", "🤎", "🧡", "❤️", "💛"]
 
     version = GoldyBot.info.bot_version
     platform = system.os
@@ -50,16 +52,17 @@ async def goldy(ctx):
     embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
     embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), 
-    platform, system.cpu, system.ram, system.disk)
+    platform, system.cpu, system.ram, system.disk, hearts[8])
 
     message = await ctx.send(embed=embed)
 
     t_end = time.time() + 15
     while time.time() < t_end:
-        embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), platform, system.cpu, system.ram, system.disk)
+        heart = random.choice(hearts)
+        embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), platform, system.cpu, system.ram, system.disk, heart)
         await message.edit(embed=embed)
 
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.5)
 
 @GoldyBot.command()
 async def stop(ctx, reason="A user ran the !stop command."):
@@ -72,18 +75,17 @@ try:
     # Load internal modules.
     #----------------------------
     for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
-        if module.endswith('.py'):
-            if not module == "__init__.py":
-                GoldyBot.modules.Module(module_file_name=module).load()
-
+        if not module in ["__init__.py", "__pycache__"]:
+            GoldyBot.modules.Module(module_file_name=module).load()
 
     # Load external modules.
     #----------------------------
     for module in os.listdir(GoldyBot.paths.MODULES):
-        if module.endswith('.py'):
+        if not module in ["__pycache__"]:
             GoldyBot.modules.Module(module_file_name=module).load()
 
 except GoldyBot.errors.ModuleFailedToLoad:
+    # I just don't want it to stop the whole bot.
     pass
 
 # Run Bot

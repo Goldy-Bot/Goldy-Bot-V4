@@ -17,8 +17,15 @@ class InteractionToCtx():
 
     @property
     def author(self):
-        #TODO: #27 'interaction.message' is always none.
         return self.interaction.user
 
     async def send(self, text=None, embed=MISSING):
-        await self.interaction.response.send_message(text, embed=embed)
+        await self.interaction.send(text, embed=embed)
+        return Message(self.interaction)
+
+class Message():
+    def __init__(self, interaction: Interaction):
+        self.interaction = interaction
+
+    async def edit(self, text=MISSING, embed=MISSING):
+        await self.interaction.edit_original_message(embed=embed)

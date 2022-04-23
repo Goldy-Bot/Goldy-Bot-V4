@@ -11,5 +11,5 @@ class Embed:
     **• RAM: ``{} GB``**
     **• DISK: ``{} MB/s``**
 
-    ***Developed with 💛 By Dev Goldy***
+    ***Developed with {} By Dev Goldy***
     """
