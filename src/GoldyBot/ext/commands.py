@@ -9,10 +9,10 @@ from GoldyBot.errors import GuildNotRegistered, MemberHasNoPermsForCommand
 
 MODULE_NAME = "COMMANDS"
 
-def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False):
+def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, toggle_slash_cmd=True, toggle_normal_cmd=True):
     """Add a command to Goldy Bot with this decorator."""
     def decorate(func):
-        def inner(func, command_name, required_roles, help_des, hidden):
+        def inner(func, command_name, required_roles, help_des, hidden, toggle_slash_cmd, toggle_normal_cmd):
             func:function = func
             
             goldy_command = GoldyBot.objects.command.Command(func, command_name, required_roles)
@@ -56,96 +56,98 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
 
             # Add command.
             #----------------
-            GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating normal command...")
-            if is_in_extenstion == True: # Run in EXTENSTION!
-                @client.command(name=command_name, help_message=help_des)
-                async def command_(ctx=params[0], *params):
-                    command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
+            if toggle_normal_cmd:
+                GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating normal command...")
+                if is_in_extenstion == True: # Run in EXTENSTION!
+                    @client.command(name=command_name, help_message=help_des)
+                    async def command_(ctx=params[0], *params):
+                        command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
 
-                    #Run command.
-                    try:
-                        if goldy_command.allowed_to_run(ctx):
-                            await func(class_, ctx, *params)
-                            GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
-                    except TypeError as e: 
-                        if not goldy_command.any_args_missing(params): # Command Arguments are missing.
-                            message = await ctx.send(embed=command_usage_embed)
-                            await asyncio.sleep(15)
-                            await message.delete()                    
+                        #Run command.
+                        try:
+                            if goldy_command.allowed_to_run(ctx):
+                                await func(class_, ctx, *params)
+                                GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                        except TypeError as e: 
+                            if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                                message = await ctx.send(embed=command_usage_embed)
+                                await asyncio.sleep(15)
+                                await message.delete()                    
 
-                        else: # Then it's an actual error.
+                            else: # Then it's an actual error.
+                                GoldyBot.logging.log("error", e)
+
+                        except MemberHasNoPermsForCommand:
+                            if hidden == False:
+                                no_perms_embed.description = GoldyBot.utility.msgs.bot.CommandNoPerms.Embed.des.format(ctx.author.mention)
+                                message = await ctx.send(embed=no_perms_embed)
+                                await asyncio.sleep(15)
+                                await message.delete()
+
+                        except GuildNotRegistered:
+                            if hidden == False:
+                                guild_not_registered_embed.description = GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.des.format(ctx.author.mention)
+                                message = await ctx.send(embed=guild_not_registered_embed)
+                                await asyncio.sleep(15)
+                                await message.delete()
+                                
+                        except Exception as e:
                             GoldyBot.logging.log("error", e)
 
-                    except MemberHasNoPermsForCommand:
-                        if hidden == False:
-                            no_perms_embed.description = GoldyBot.utility.msgs.bot.CommandNoPerms.Embed.des.format(ctx.author.mention)
-                            message = await ctx.send(embed=no_perms_embed)
-                            await asyncio.sleep(15)
-                            await message.delete()
+                else: # Run as NORMAL command!
+                    @client.command(name=command_name, help_message=help_des)
+                    async def command_(ctx=params[0], *params):
+                        command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
 
-                    except GuildNotRegistered:
-                        if hidden == False:
-                            guild_not_registered_embed.description = GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.des.format(ctx.author.mention)
-                            message = await ctx.send(embed=guild_not_registered_embed)
-                            await asyncio.sleep(15)
-                            await message.delete()
-                            
-                    except Exception as e:
-                        GoldyBot.logging.log("error", e)
+                        # Run command.
+                        try: 
+                            if goldy_command.allowed_to_run(ctx):
+                                await func(ctx, *params)
+                                GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                        except TypeError:
 
-            else: # Run as NORMAL command!
-                @client.command(name=command_name, help_message=help_des)
-                async def command_(ctx=params[0], *params):
-                    command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
+                            if not goldy_command.any_args_missing(params): # Command Arguments are missing.
+                                message = await ctx.send(embed=command_usage_embed)
+                                await asyncio.sleep(15)
+                                await message.delete()
 
-                    # Run command.
-                    try: 
-                        if goldy_command.allowed_to_run(ctx):
-                            await func(ctx, *params)
-                            GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
-                    except TypeError:
+                            else: # Then it's an actual error.
+                                GoldyBot.logging.log("error", e)
 
-                        if not goldy_command.any_args_missing(params): # Command Arguments are missing.
-                            message = await ctx.send(embed=command_usage_embed)
-                            await asyncio.sleep(15)
-                            await message.delete()
+                        except MemberHasNoPermsForCommand:
+                            if hidden == False:
+                                message = await ctx.send(embed=no_perms_embed)
+                                await asyncio.sleep(6)
+                                await message.delete()
 
-                        else: # Then it's an actual error.
+                        except GuildNotRegistered:
+                            if hidden == False:
+                                message = await ctx.send(embed=guild_not_registered_embed)
+                                await asyncio.sleep(15)
+                                await message.delete()
+
+                        except Exception as e:
                             GoldyBot.logging.log("error", e)
-
-                    except MemberHasNoPermsForCommand:
-                        if hidden == False:
-                            message = await ctx.send(embed=no_perms_embed)
-                            await asyncio.sleep(6)
-                            await message.delete()
-
-                    except GuildNotRegistered:
-                        if hidden == False:
-                            message = await ctx.send(embed=guild_not_registered_embed)
-                            await asyncio.sleep(15)
-                            await message.delete()
-
-                    except Exception as e:
-                        GoldyBot.logging.log("error", e)
-            GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Normal command created!")
+                GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Normal command created!")
 
             # Add slash command
             #--------------------
-            GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating slash command...")
-            params_amount = len(params[1:])
-            slash_command_params = ""
-            if params_amount >= 1:
-                slash_command_params = ", "
-                count = 0
-                for param in params[1:]:
-                    count += 1
-                    if count >= params_amount:
-                        slash_command_params += f"{param}"
-                    else:
-                        slash_command_params += f"{param}, "
+            if toggle_slash_cmd:
+                GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating slash command...")
+                params_amount = len(params[1:])
+                slash_command_params = ""
+                if params_amount >= 1:
+                    slash_command_params = ", "
+                    count = 0
+                    for param in params[1:]:
+                        count += 1
+                        if count >= params_amount:
+                            slash_command_params += f"{param}"
+                        else:
+                            slash_command_params += f"{param}, "
 
-            if is_in_extenstion == True: # Run in EXTENSTION!
-                exec(f"""
+                if is_in_extenstion == True: # Run in EXTENSTION!
+                    exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
     ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
@@ -171,14 +173,14 @@ async def slash_command_(interaction: Interaction{slash_command_params}):
     except Exception as e:
         GoldyBot.logging.log("error", e)
 
-                """, 
-                
-                {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
-                "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "class_":class_, "no_perms_embed":no_perms_embed, 
-                "guild_not_registered_embed":guild_not_registered_embed})
-                
-            else: # Run as NORMAL command!
-                exec(f"""
+                    """, 
+                    
+                    {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
+                    "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "class_":class_, "no_perms_embed":no_perms_embed, 
+                    "guild_not_registered_embed":guild_not_registered_embed, "hidden":hidden})
+                    
+                else: # Run as NORMAL command!
+                    exec(f"""
 @client.slash_command(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params}):
     ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
@@ -204,15 +206,15 @@ async def slash_command_(interaction: Interaction{slash_command_params}):
     except Exception as e:
         GoldyBot.logging.log("error", e)
 
-                """, 
-                
-                {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
-                "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "no_perms_embed":no_perms_embed, 
-                "guild_not_registered_embed":guild_not_registered_embed})
+                    """, 
+                    
+                    {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
+                    "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "no_perms_embed":no_perms_embed, 
+                    "guild_not_registered_embed":guild_not_registered_embed, "hidden":hidden})
 
-            GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Slash command created!")
+                GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Slash command created!")
             GoldyBot.logging.log("info_3", f"[{MODULE_NAME}] Command '{command_name}' has been loaded.")
 
-        inner(func, command_name, required_roles, help_des, hidden)
+        inner(func, command_name, required_roles, help_des, hidden, toggle_slash_cmd, toggle_normal_cmd)
 
     return decorate

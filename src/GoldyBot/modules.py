@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import List
 import importlib.util
 
@@ -6,6 +7,9 @@ import GoldyBot
 from GoldyBot.errors import ModuleFailedToLoad, ModuleNotFound
 
 MODULE_NAME = "MODULES"
+
+sys.path.insert(1, GoldyBot.paths.MODULES)
+sys.path.append(GoldyBot.paths.INTERNAL_MODULES_V4)
 
 class Module(object):
     """Goldy Bot class to easily interface with modules."""
@@ -51,14 +55,14 @@ class Module(object):
         #----------------
         if self.is_external_module_:
             if not self.name in GoldyBot.cache.main_cache_dict["modules"]:
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_file_name[:-3]}"] = {}
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_file_name[:-3]}"]["extenstions"] = {}
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_file_name[:-3]}"]["object"] = self
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"] = {}
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"]["extenstions"] = {}
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"]["object"] = self
         else:
             if not self.name in GoldyBot.cache.main_cache_dict["internal_modules"]:
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_file_name[:-3]}"] = {}
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_file_name[:-3]}"]["extenstions"] = {}
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_file_name[:-3]}"]["object"] = self
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"] = {}
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"]["extenstions"] = {}
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"]["object"] = self
 
 
     def load(self):
@@ -67,6 +71,8 @@ class Module(object):
         if not self.module_file_name[:-3] in self.ignored_modules_list:
             if self.is_package_module_:
                 # Specify Package Module
+                sys.path.append(self.path_to_module)
+
                 spec_module = importlib.util.spec_from_file_location(self.module_file_name, self.path_to_module + "/__init__.py")
             else:
                 # Specify Module

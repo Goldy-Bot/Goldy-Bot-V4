@@ -59,13 +59,7 @@ class Command():
     @property
     def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion:
         """Finds and returns the object of the command's extenstion."""
-        if self.in_extenstion:
-            if self.module.is_internal_module:
-                return GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["object"]
-            else:
-                return GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["object"]
-        else:
-            return None
+        return GoldyBot.cache.FindExtenstions().find_object_by_extenstion_name(extenstion_name=self.extension_name)
 
     @property
     def in_extenstion(self) -> bool:
@@ -78,7 +72,7 @@ class Command():
     @property
     def module_name(self) -> str:
         """Returns name of module the command is located in."""
-        return self.func.__module__
+        return self.extenstion.module_name
 
     @property
     def module(self) -> GoldyBot.modules.Module:

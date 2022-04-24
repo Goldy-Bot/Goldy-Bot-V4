@@ -43,13 +43,16 @@ class Admin(GoldyBot.Extenstion):
                 return False
 
             try:
-                module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
+                module = GoldyBot.modules.Module(module_file_name = module_name)
             except ModuleNotFound:
-                embed.title = self.msg.reload.ModuleNotFoundEmbed.title
-                embed.description = self.msg.reload.ModuleNotFoundEmbed.des.format(module_name)
-                embed.color = self.msg.reload.ModuleNotFoundEmbed.colour
-                await ctx.send(embed=embed)
-                return False
+                try:
+                    module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
+                except ModuleNotFound:
+                    embed.title = self.msg.reload.ModuleNotFoundEmbed.title
+                    embed.description = self.msg.reload.ModuleNotFoundEmbed.des.format(module_name)
+                    embed.color = self.msg.reload.ModuleNotFoundEmbed.colour
+                    await ctx.send(embed=embed)
+                    return False
             
             try:
                 module.reload()
@@ -85,13 +88,16 @@ class Admin(GoldyBot.Extenstion):
                 return False
 
             try:
-                module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
+                module = GoldyBot.modules.Module(module_file_name = module_name)
             except ModuleNotFound:
-                embed.title = command_msg.ModuleNotFoundEmbed.title
-                embed.description = command_msg.ModuleNotFoundEmbed.des.format(module_name)
-                embed.color = command_msg.ModuleNotFoundEmbed.colour
-                await ctx.send(embed=embed)
-                return False
+                try:
+                    module = GoldyBot.modules.Module(module_file_name = module_name + ".py")
+                except ModuleNotFound:
+                    embed.title = command_msg.ModuleNotFoundEmbed.title
+                    embed.description = command_msg.ModuleNotFoundEmbed.des.format(module_name)
+                    embed.color = command_msg.ModuleNotFoundEmbed.colour
+                    await ctx.send(embed=embed)
+                    return False
             
             module.unload()
 
