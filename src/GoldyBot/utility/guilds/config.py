@@ -42,7 +42,7 @@ class GuildConfig():
             role_id = self.guild_config.read("roles")[f"{role_code_name}"]
             return GoldyBot.objects.role.Role(ctx, role_id=role_id)
         except KeyError:
-            raise FailedToFindGuildRole
+            raise FailedToFindGuildRole(f"Could not find the role '{role_code_name}'! Have you declared it in the guild's config.")
 
     #TODO: Finish this!
     #TODO: #24 Add logging to the guild config class.

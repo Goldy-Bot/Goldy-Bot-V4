@@ -20,7 +20,7 @@ loop = asyncio.get_event_loop()
 
 # Discord Bot
 client = commands.Bot(command_prefix = GoldyBot.utility.nextcordpy.prefix.get_prefix, 
-case_insensitive=True, intents=intents.all())
+case_insensitive=True, intents=intents.all(), help_command=None)
 
 # Caching client object.
 GoldyBot.cache.main_cache_dict["client"] = client
@@ -64,7 +64,7 @@ async def goldy(ctx):
 
         await asyncio.sleep(0.5)
 
-@GoldyBot.command()
+@GoldyBot.command(required_roles=["bot_dev"])
 async def stop(ctx, reason="A user ran the !stop command."):
     GoldyBot.Goldy().stop(reason)
 
