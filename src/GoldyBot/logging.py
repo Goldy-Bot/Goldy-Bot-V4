@@ -7,13 +7,20 @@ import GoldyBot
 
 MODULE_NAME = "LOGGING"
 
-def print_and_log(importance_level=None, text=None):
+def print_and_log(importance_level=None, text=None, no_traceback=False):
     """Goldy Bot's Print statement. PLEASE use this statement instead of the usual 'print()'."""
-    if text == None: #Just makes a new line.
+    if text == None: # Just makes a new line.
         if importance_level == None:
             print("")
             path_to_log = write_to_log("")
             return path_to_log
+
+        if isinstance(importance_level, GoldyBot.errors.GoldyBotError):
+            time = get_time_and_date("time")
+            context = ("({}) [ERROR] {}".format(time, text))
+            print(f"\u001b[31m{context} \n{traceback.format_exc()}\u001b[0m") #Red
+            write_to_log(f"{context}\n\n{traceback.format_exc()}")
+            return
 
         else:
             time = get_time_and_date("time")
@@ -37,7 +44,7 @@ def print_and_log(importance_level=None, text=None):
             time = get_time_and_date("time")
             context = ("({}) [INFO] {}".format(time, text))
 
-            print(f"\u001b[36m{context}\u001b[0m") #Clay
+            print(f"\u001b[36m{context}\u001b[0m") # Blue
             write_to_log(context)
             return
 
@@ -45,15 +52,40 @@ def print_and_log(importance_level=None, text=None):
             time = get_time_and_date("time")
             context = ("({}) [INFO] {}".format(time, text))
 
-            print(f"\u001b[32m{context}\u001b[0m") #Green
+            print(f"\u001b[32m{context}\u001b[0m") # Green
+            write_to_log(context)
+            return
+
+        if importance_level.upper() == 'INFO_3':
+            time = get_time_and_date("time")
+            context = ("({}) [INFO] {}".format(time, text))
+
+            print(f"\u001b[38;5;51m{context}\u001b[0m") # Clay
+            write_to_log(context)
+            return
+
+        if importance_level.upper() == 'INFO_4':
+            time = get_time_and_date("time")
+            context = ("({}) [INFO] {}".format(time, text))
+
+            print(f"\u001b[38;5;200m{context}\u001b[0m") # Purple
+            write_to_log(context)
+            return
+
+        if importance_level.upper() == 'INFO_5':
+            time = get_time_and_date("time")
+            context = ("({}) [INFO] {}".format(time, text))
+
+            print(f"\u001b[38;5;139m{context}\u001b[0m") # Pink Grey
             write_to_log(context)
             return
 
         if importance_level.upper() == 'WARN':
             time = get_time_and_date("time")
             context = ("({}) [WARN] {}".format(time, text))
-
-            print(f"\u001b[33m{context}\u001b[0m") #Yellow
+            
+            if not no_traceback:
+                print(f"\u001b[33m{context}\u001b[0m") #Yellow
             write_to_log(f"{context}\n\n{traceback.format_exc()}")
             return
 
@@ -61,8 +93,8 @@ def print_and_log(importance_level=None, text=None):
         if importance_level.upper() == 'ERROR':
             time = get_time_and_date("time")
             context = ("({}) [ERROR] {}".format(time, text))
-
-            print(f"\u001b[31m{context} \n{traceback.format_exc()}\u001b[0m") #Red
+            if not no_traceback:
+                print(f"\u001b[31m{context} \n{traceback.format_exc()}\u001b[0m") #Red
             write_to_log(f"{context}\n\n{traceback.format_exc()}")
             return
 

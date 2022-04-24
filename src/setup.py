@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
- 
+
 classifiers = [
   'Operating System :: Microsoft :: Windows :: Windows 10',
   'Operating System :: POSIX :: Linux',
@@ -7,10 +7,12 @@ classifiers = [
   'Programming Language :: Python :: 3.8',
   'Programming Language :: Python :: 3.9'
 ]
- 
+
+from GoldyBot import info
+
 setup(
   name='GoldyBot',
-  version='4.0a1',
+  version=info.version,
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=open('README.txt').read(), 
   url='https://github.com/Goldy-Bot', 
@@ -22,6 +24,6 @@ setup(
   keywords=["goldy bot", "Goldy Bot", "Goldy Bot V4", "Goldy Bot V3", "goldy"], 
   packages=find_packages(), 
   include_package_data=True,
-  install_requires=["requests", "motor", "pymongo", "nextcord==2.0.0a9", "dnspython", "psutil"],
+  install_requires=open('requirements.txt').read(),
   python_requires=">=3.8"
 )

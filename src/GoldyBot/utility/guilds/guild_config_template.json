@@ -20,7 +20,7 @@
         "allow_error_logging" : true,
         
         "allowed_extenstions" : [],
-        "disallowed_extenstions" : [""],
+        "disallowed_extenstions" : [],
         "hidden_extenstions" : [],
 
         "money_emoji" : "💷"

@@ -1,0 +1,81 @@
+{
+	// Place your Goldy Bot V4 workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+
+	"Goldy Bot - Msg Template For Command": {
+		"scope": "python",
+		"prefix": "msg",
+		"body": [
+			"help_des = '${1:Tell us about your command, this will be displayed in the help command.}$0'",
+			"",
+			"class Embed:",
+			"    title = '💛 Name of Embed'",
+			"    des = '''This is what will go in the body of the embed.'''"
+			],
+		"description": "Creates a default template for you in a command's msg module."
+	},
+
+	"Goldy Bot - Extenstion Template": {
+		"scope": "python",
+		"prefix": ["ext", "extn", "exten"],
+		"body": [
+			"class YourExtenstion(GoldyBot.Extenstion):",
+			"    '''",
+			"    This GoldyBot extenstion was generated with VS Code.",
+			"",
+			"    NOTICE: Don't forget to run this class in the module's load function.",
+			"    '''",
+			"",
+			"    def __init__(self, package_module=None):",
+			"        super().__init__(self, package_module_name)",
+			"",
+			"    def loader(self):",
+			"",
+			"        @GoldyBot.command()",
+			"        async def uwu(self:YourExtenstion, ctx):",
+			"            await ctx.send(f'Hi, {ctx.author.mention}! UwU!')"
+			],
+
+		"description": "Creates a template of a GoldyBot extenstion."
+	},
+	
+	"Goldy Bot - Module SetUp Template": {
+		"scope": "python",
+		"prefix": ["mod", "module", "add-on"],
+		"body": [
+			"'''",
+			"This GoldyBot module was generated with VS Code.",
+			"'''",
+			"",
+			"import GoldyBot",
+			"",
+			"AUTHOR = 'Dev Goldy'",
+			"AUTHOR_GITHUB = 'https://github.com/THEGOLDENPRO'",
+			"OPEN_SOURCE_LINK = 'https://github.com/Goldy-Bot/Example-GoldyBot-Module'",
+			"",
+			"",
+			"",
+			"def load():",
+			"    # This function get's executed when the module is loaded so run your extenstion classes in here.",
+			"    # Example: YourExtenstion(package_module_name=__name__)",
+			"    pass"
+			],
+
+		"description": "Set's up a GoldyBot module for you."
+	}
+}

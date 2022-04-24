@@ -20,6 +20,7 @@ CONFIG = "./config"
 MODULES = "./modules"
 
 INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_modules/v4"
+INTERNAL_MODULES_V4 = INTERNAL_COGS_V4
 INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_modules/v3"
 TEMPLATES = f"{GOLDY_BOT}/templates"
 
