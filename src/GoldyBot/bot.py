@@ -54,7 +54,7 @@ async def goldy(ctx):
     embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), 
     platform, system.cpu, system.ram, system.disk, hearts[8])
 
-    message = await ctx.send(embed=embed)
+    message = await GoldyBot.utility.commands.send(ctx, embed=embed)
 
     t_end = time.time() + 15
     while time.time() < t_end:
@@ -69,6 +69,11 @@ async def stop(ctx, reason="A user ran the !stop command."):
     GoldyBot.Goldy().stop(reason)
 
 #TODO: #10 Create a goldy bot restart command.
+
+
+@client.slash_command(name="test", description="testing comamnd I guess", guild_ids=[863416692083916820])
+async def test(interaction: Interaction, suck=nextcord.SlashOption("suck", "yes, I mean it", choices={"suck it hard": "suck hard"})):
+    await interaction.response.send_message("it worked!")
 
 try:
 

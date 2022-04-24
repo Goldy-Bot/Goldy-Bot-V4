@@ -1,8 +1,24 @@
-import json
+import os
+
+import nextcord
 import GoldyBot
 import pprint
 
 from GoldyBot.errors import ModuleFailedToLoad, ModuleNotFound
+
+def get_modules_dict_list():
+    """This is used in the unload and reload commands."""
+    dict_list = {}
+
+    for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):
+        if not module in ["__init__.py", "__pycache__"]:
+            dict_list[f"{module}"] = module
+
+    for module in os.listdir(GoldyBot.paths.MODULES):
+        if not module in ["__pycache__"]:
+            dict_list[f"{module}"] = module
+
+    return dict_list
 
 class Admin(GoldyBot.Extenstion):
     def __init__(self):
@@ -26,7 +42,9 @@ class Admin(GoldyBot.Extenstion):
                 cache_embed.description = f"```{cache_string_formatted}```"
                 await ctx.send(embed=cache_embed)
 
-        @GoldyBot.command(required_roles=["bot_dev"])
+        @GoldyBot.command(required_roles=["bot_dev"], slash_options={
+            "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
+        })
         async def reload(self:Admin, ctx, module_name:str):
             embed = GoldyBot.utility.goldy.embed.Embed()
             embed.color = GoldyBot.utility.goldy.colours.PURPLE
@@ -70,7 +88,9 @@ class Admin(GoldyBot.Extenstion):
             await ctx.send(embed=embed)
             return True
 
-        @GoldyBot.command(required_roles=["bot_dev"])
+        @GoldyBot.command(required_roles=["bot_dev"], slash_options={
+            "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
+        })
         async def unload(self:Admin, ctx, module_name:str):
             command_msg = self.msg.unload
             embed = GoldyBot.utility.goldy.embed.Embed()

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 import nextcord
 import GoldyBot
@@ -29,8 +30,12 @@ class Guild():
             #-----------------------------------
             if not self.config_exist:
                 # If the config is empty, write the guild config template to it.
-                self.config_file.write(GoldyBot.files.File(GUILD_CONFIG_TEMPLATE_JSON_PATH).read())
-            
+                template = GoldyBot.files.File(GUILD_CONFIG_TEMPLATE_JSON_PATH).read()
+                template_json_obj = json.loads(template)
+                template_json_obj["id"] = self.id
+                template_json_obj["code_name"] = self.code_name
+                template_json_obj["display_name"] = self.guild.name
+                self.config_file.write(json.dumps(template_json_obj))
 
             # Create a database collection for the guild if there isn't already.
             #--------------------------------------------------------------------
