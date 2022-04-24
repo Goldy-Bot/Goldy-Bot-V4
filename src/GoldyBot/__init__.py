@@ -7,7 +7,7 @@ Copyright (C) 2022 - Dev Goldy
 import nextcord
 
 from .database import database
-from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, errors
+from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, errors, assets
 from . import internal_modules, ext, utility, objects
 
 # Functions
