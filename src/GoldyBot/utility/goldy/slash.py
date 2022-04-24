@@ -32,4 +32,4 @@ class Message():
 
     async def edit(self, text=MISSING, embed=MISSING):
         #TODO: #29 Don't forget to add text to this.
-        await self.interaction.edit_original_message(embed=embed)
+        await self.interaction.edit_original_message(text, embed=embed)
