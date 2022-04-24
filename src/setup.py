@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
- 
+
 classifiers = [
   'Operating System :: Microsoft :: Windows :: Windows 10',
   'Operating System :: POSIX :: Linux',
@@ -7,10 +7,12 @@ classifiers = [
   'Programming Language :: Python :: 3.8',
   'Programming Language :: Python :: 3.9'
 ]
- 
+
+from GoldyBot import info
+
 setup(
   name='GoldyBot',
-  version='4.0dev3',
+  version=info.version,
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=open('README.txt').read(), 
   url='https://github.com/Goldy-Bot', 

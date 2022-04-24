@@ -1,3 +1,7 @@
 # Bot Version
-v_short = 'V4.00'
-bot_version = v_short + ' (DEV) [3RD REWRITE]'
+
+version = "4.0dev3"
+name = f"Goldy Bot ({version})"
+
+v_short = version
+bot_version = name

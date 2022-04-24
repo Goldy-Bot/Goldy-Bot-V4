@@ -35,7 +35,7 @@ class Guild():
             # Create a database collection for the guild if there isn't already.
             #--------------------------------------------------------------------
             if not await self.database_exist:
-                self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
+                await self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
                 "goldy":"I've created this collection automatically for a guild.", 
                 "notice":"Feel free to delete this document."})
 
