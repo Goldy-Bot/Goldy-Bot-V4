@@ -1,1 +1,1 @@
-from . import command, member, role
+from . import command, member, role, slash

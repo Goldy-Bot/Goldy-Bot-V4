@@ -1,8 +1,9 @@
 import asyncio
+from typing import Any
 import nextcord
 
 Interaction = nextcord.Interaction
-MISSING = nextcord.utils.MISSING
+MISSING: Any = nextcord.utils.MISSING
 
 loop = asyncio.get_event_loop()
 
@@ -19,9 +20,11 @@ class InteractionToCtx():
     def author(self):
         return self.interaction.user
 
-    async def send(self, text=None, embed=MISSING):
-        await self.interaction.send(text, embed=embed)
+    async def send(self, stickers=None, nonce=None, reference=None, mention_author=None, **args):
+        await self.interaction.send(**args)
+        
         return Message(self.interaction)
+
 
 class Message():
     def __init__(self, interaction: Interaction):
@@ -30,6 +33,6 @@ class Message():
     async def delete(self):
         await self.interaction.delete_original_message()
 
-    async def edit(self, text=MISSING, embed=MISSING):
+    async def edit(self, **args):
         #TODO: #29 Don't forget to add text to this.
-        await self.interaction.edit_original_message(text, embed=embed)
+        await self.interaction.edit_original_message(**args)
