@@ -141,7 +141,7 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
                     exec(f"""
 @client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
-    ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
+    ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
         if goldy_command.allowed_to_run(ctx):
             await func(class_, ctx{slash_command_params[1]})
@@ -174,7 +174,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                     exec(f"""
 @client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
-    ctx = GoldyBot.utility.goldy.slash.InteractionToCtx(interaction)
+    ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
         if goldy_command.allowed_to_run(ctx):
             await func(ctx{slash_command_params[1]})

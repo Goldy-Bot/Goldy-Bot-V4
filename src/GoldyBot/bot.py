@@ -70,11 +70,6 @@ async def stop(ctx, reason="A user ran the !stop command."):
 
 #TODO: #10 Create a goldy bot restart command.
 
-
-@client.slash_command(name="test", description="testing comamnd I guess", guild_ids=[863416692083916820])
-async def test(interaction: Interaction, suck=nextcord.SlashOption("suck", "yes, I mean it", choices={"suck it hard": "suck hard"})):
-    await interaction.response.send_message("it worked!")
-
 try:
 
     # Load internal modules.

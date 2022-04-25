@@ -1,4 +1,4 @@
-from . import slash, colours, embed
+from . import colours, embed
 
 import GoldyBot
 
