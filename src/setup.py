@@ -8,11 +8,9 @@ classifiers = [
   'Programming Language :: Python :: 3.9'
 ]
 
-from GoldyBot import info
-
 setup(
   name='GoldyBot',
-  version=info.version,
+  version="4.0dev5",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=open('README.txt').read(), 
   url='https://github.com/Goldy-Bot', 

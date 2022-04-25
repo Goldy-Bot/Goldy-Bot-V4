@@ -1,14 +1,23 @@
 import os
+import sys
 import GoldyBot
 
 MODULE_NAME = "PATHS"
 """This module contains all the variables with paths to Goldy Bot folders and files."""
 
 # Creating Path to module
-module_path_list = os.path.abspath(GoldyBot.__file__).split("\\"); module_path_list.pop(-1)
-
 module_path = ""
-for file in module_path_list: module_path += f"{file}/"
+platform = sys.platform
+
+if platform == "win32":
+    module_path_list = os.path.abspath(GoldyBot.__file__).split("\\"); module_path_list.pop(-1)
+
+    for file in module_path_list: module_path += f"{file}/"
+
+else:
+    module_path_list = GoldyBot.__file__.split("/"); module_path_list.pop(-1)
+
+    for file in module_path_list: module_path += f"{file}/"
 
 # Goldy Bot Module Path
 GOLDY_BOT = module_path[:-1]
