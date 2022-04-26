@@ -9,10 +9,10 @@ from GoldyBot.errors import GuildNotRegistered, MemberHasNoPermsForCommand
 
 MODULE_NAME = "COMMANDS"
 
-def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, toggle_slash_cmd=True, toggle_normal_cmd=True, slash_options:dict={}):
+def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, slash_cmd_only=False, normal_cmd_only=False, slash_options:dict={}):
     """Add a command to Goldy Bot with this decorator."""
     def decorate(func):
-        def inner(func, command_name, required_roles, help_des, hidden, toggle_slash_cmd, toggle_normal_cmd, slash_options):
+        def inner(func, command_name, required_roles, help_des, hidden, slash_cmd_only, normal_cmd_only, slash_options):
             func:function = func
             
             goldy_command = GoldyBot.objects.command.Command(func, command_name, required_roles, slash_options)
@@ -21,6 +21,12 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
             if command_name == None: command_name = goldy_command.code_name
 
             if help_des == None: help_des = goldy_command.get_help_des() #TODO: This may need changing.
+
+            toggle_slash_cmd = True
+            toggle_normal_cmd = True
+
+            if slash_cmd_only == True: toggle_normal_cmd = False
+            if normal_cmd_only == True: toggle_slash_cmd = False
 
             #  Add command to nextcord.
             #============================
@@ -206,6 +212,6 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                 GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Slash command created!")
             GoldyBot.logging.log("info_3", f"[{MODULE_NAME}] Command '{command_name}' has been loaded.")
 
-        inner(func, command_name, required_roles, help_des, hidden, toggle_slash_cmd, toggle_normal_cmd, slash_options)
+        inner(func, command_name, required_roles, help_des, hidden, slash_cmd_only, normal_cmd_only, slash_options)
 
     return decorate
