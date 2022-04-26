@@ -25,6 +25,12 @@ class InteractionToCtx():
         
         return Message(self.interaction)
 
+    async def send_modal(self, modal:nextcord.ui.Modal):
+        """Sends modal."""
+        await self.interaction.response.send_modal(modal)
+
+        return Message(self.interaction)
+
 
 class Message():
     def __init__(self, interaction: Interaction):

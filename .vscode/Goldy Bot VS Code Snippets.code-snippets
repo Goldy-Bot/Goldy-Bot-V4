@@ -42,7 +42,7 @@
 			"    '''",
 			"",
 			"    def __init__(self, package_module=None):",
-			"        super().__init__(self, package_module_name)",
+			"        super().__init__(self, package_module_name=package_module)",
 			"",
 			"    def loader(self):",
 			"",
