@@ -80,6 +80,10 @@ Now you should see a folder being created for your guild and also a database fol
  <img src="https://user-images.githubusercontent.com/66202304/165758807-ed28eab3-393a-496f-b76a-7bcf67479c75.png" width="930" />
 </p>
 
+8. **Now your all set for development!**
+
+Documentation presenting how to create your very first extension is coming soon...
+
 <br>
 
 **© Copyright (C) 2022 Dev Goldy (Under the [GPL-3.0 License](LICENSE.md))**
