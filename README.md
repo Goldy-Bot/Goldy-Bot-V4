@@ -17,8 +17,6 @@
 
 #### [⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)
 
-<br>
-
 ## *Install/Set Up*
 1. **Install package from pip.**
 ```sh
@@ -81,10 +79,6 @@ Now you should see a folder being created for your guild and also a database fol
  <img src="https://user-images.githubusercontent.com/66202304/165758807-ed28eab3-393a-496f-b76a-7bcf67479c75.png" width="930" />
 </p>
 
-
-# Documentation
-
-
-
+<br>
 
 **© Copyright (C) 2022 Dev Goldy (Under the [GPL-3.0 License](LICENSE.md))**
