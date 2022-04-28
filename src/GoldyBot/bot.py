@@ -1,12 +1,10 @@
 import asyncio
 import random
-import sys
 import nextcord
 import nextcord.ext as nextcord_ext
 from nextcord import Interaction
 from nextcord.ext import commands
 import os
-import importlib.util
 import time
 
 import GoldyBot
@@ -33,6 +31,8 @@ database = GoldyBot.database.Database(DATABASE_TOKEN) # Initializing goldy bot d
 async def on_ready():
     # Goldy Setup.
     await GoldyBot.Goldy().setup(client)
+
+    await GoldyBot.utility.presence.change(f"{GoldyBot.info.name}", status=GoldyBot.nextcord.Status.online)
 
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
@@ -64,11 +64,9 @@ async def goldy(ctx):
 
         await asyncio.sleep(0.5)
 
-@GoldyBot.command(required_roles=["bot_dev"])
+@GoldyBot.command(required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.")
 async def stop(ctx, reason="A user ran the !stop command."):
     GoldyBot.Goldy().stop(reason)
-
-#TODO: #10 Create a goldy bot restart command.
 
 try:
 

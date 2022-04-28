@@ -1,3 +1,4 @@
+from __future__ import annotations
 import importlib
 from discord import SlashOption
 import nextcord
@@ -52,7 +53,7 @@ class Command():
             return self.params_[0:self.params_amount_]
 
     @property
-    def extension_name(self) -> str:
+    def extension_name(self) -> str | None:
         """Returns extension's code name."""
         if self.in_extenstion:
             # Command is in extenstion.
@@ -62,9 +63,12 @@ class Command():
             return None
 
     @property
-    def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion:
+    def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion | None:
         """Finds and returns the object of the command's extenstion."""
-        return GoldyBot.cache.FindExtenstions().find_object_by_extenstion_name(extenstion_name=self.extension_name)
+        if self.in_extenstion:
+            return GoldyBot.cache.FindExtenstions().find_object_by_extenstion_name(extenstion_name=self.extension_name)
+        else:
+            None
 
     @property
     def in_extenstion(self) -> bool:
