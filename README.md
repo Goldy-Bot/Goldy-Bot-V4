@@ -26,6 +26,7 @@ pip install GoldyBot
 ```
 
 2. **Download MongoDB Community. (You'll need this!) >>> https://www.mongodb.com/try/download/community**
+
 After finishing the install progress the MongoDB compass should open, copy the local host url and click connect. You'll need the url later!
 
 <p align="center">
