@@ -79,7 +79,7 @@ try:
     # Load external modules.
     #----------------------------
     for module in os.listdir(GoldyBot.paths.MODULES):
-        if not module in ["__pycache__"]:
+        if not module in ["__pycache__", ".git"]:
             GoldyBot.modules.Module(module_file_name=module).load()
 
 except GoldyBot.errors.ModuleFailedToLoad:

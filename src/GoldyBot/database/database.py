@@ -50,8 +50,15 @@ class Database():
             GoldyBot.logging.log(f"[{MODULE_NAME}] '{query}' was not found in '{collection}.'")
             return None
         
-
     async def create_collection(self, collection_name:str, data):
         await self.database[collection_name].insert_one(data)
         GoldyBot.logging.log(f"[{MODULE_NAME}] Database collection '{collection_name}' created.")
+
+    def new_instance(self, database_name:str):
+        """Starts a new database instance the efficiant way. 👍"""
+        class NewDatabase(Database):
+            def __init__(self, database_self:Database):
+                self.database = database_self.client[database_name]
+
+        return NewDatabase(self)
 
