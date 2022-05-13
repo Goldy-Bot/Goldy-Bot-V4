@@ -1,4 +1,5 @@
 import asyncio
+from typing import List
 import pymongo
 import motor.motor_asyncio
 import GoldyBot
@@ -34,8 +35,19 @@ class Database():
         GoldyBot.logging.log(f"[{MODULE_NAME}] Inserted '{data}' into '{collection}.'")
         return True
 
-    async def find(self, collection:str, query:dict):
-        return await self.database[collection].find(query)
+    async def find_all(self, collection:str) -> List[dict]:
+        """Finds and returns all documents in a collection. This took me a day to make! 😞"""
+        document_list = []
+        cursor = self.database[collection].find().sort('_id')
+
+        for document in await cursor.to_list(100):
+            document_list.append(document)
+
+        return document_list
+
+    async def get_collection(self, collection):
+        """Returns cursor of the following collection."""
+        return self.database[collection]
 
     async def list_collection_names(self):
         return await self.database.list_collection_names()
