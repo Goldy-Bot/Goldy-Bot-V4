@@ -1,3 +1,4 @@
+from __future__ import annotations
 import asyncio
 from typing import List
 import pymongo
@@ -35,21 +36,40 @@ class Database():
         GoldyBot.logging.log(f"[{MODULE_NAME}] Inserted '{data}' into '{collection}.'")
         return True
 
-    async def find_all(self, collection:str) -> List[dict]:
+    async def find(self, collection:str, query, key, max_to_find=50) -> List[dict]:
+        """Searches for documents with the query."""
+        try:
+            document_list = []
+            cursor = self.database[collection].find(query).sort(key)
+
+            for document in await cursor.to_list(max_to_find):
+                document_list.append(document)
+
+            return document_list
+        except KeyError as e:
+            GoldyBot.logging.log("error", f"[{MODULE_NAME}] Could not find the collection '{collection}'!")
+            return None
+
+    async def find_all(self, collection:str, max_to_find=100) -> List[dict] | None:
         """Finds and returns all documents in a collection. This took me a day to make! 😞"""
-        document_list = []
-        cursor = self.database[collection].find().sort('_id')
+        try:
+            document_list = []
+            cursor = self.database[collection].find().sort('_id')
 
-        for document in await cursor.to_list(100):
-            document_list.append(document)
+            for document in await cursor.to_list(max_to_find):
+                document_list.append(document)
 
-        return document_list
+            return document_list
+        except KeyError as e:
+            GoldyBot.logging.log("error", f"[{MODULE_NAME}] Could not find the collection '{collection}'!")
+            return None
 
     async def get_collection(self, collection):
         """Returns cursor of the following collection."""
         return self.database[collection]
 
-    async def list_collection_names(self):
+    async def list_collection_names(self) -> List[str]:
+        """Returns list of all collection names."""
         return await self.database.list_collection_names()
 
     async def find_one(self, collection:str, query:dict):
