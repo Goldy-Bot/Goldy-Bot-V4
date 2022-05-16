@@ -2,4 +2,5 @@ nextcord==2.0.0a10
 dnspython
 psutil
 requests
+pymongo
 motor>=3.0.0
