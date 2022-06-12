@@ -1,7 +1,9 @@
 import os
 import sys
-import GoldyBot
+import GoldyBot, devgoldyutils
 import nextcord
+import threading, _thread
+import time
 
 MODULE_NAME = "GOLDY"
 
@@ -19,6 +21,11 @@ class Goldy(object):
         # Fixes some werid as fu#k bug when stopping the bot.
         if GoldyBot.system.platform.system() == 'Windows':
             GoldyBot.asyncio.set_event_loop_policy(GoldyBot.asyncio.WindowsSelectorEventLoopPolicy())
+
+        print("")
+        input_thread = threading.Thread(target=input_loop)
+        input_thread.setDaemon(True)
+        input_thread.start()
 
         # Start V4
         from . import bot
@@ -68,3 +75,23 @@ def file_setup():
         goldy_config = GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON).write(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON_TEMPLATE).read())
 
     GoldyBot.log("info_2", f"[{MODULE_NAME}] File Setup Done!")
+
+def input_loop():
+    console = devgoldyutils.Console()
+    goldy = Goldy()
+
+    time.sleep(8)
+
+    try:
+        while True:
+            command = input(console.CLAY(" GOLDY$> "))
+
+            if command.lower() == "stop":
+                raise EOFError
+
+            time.sleep(0.1)
+            
+    except EOFError:
+        print("\n")
+        _thread.interrupt_main()
+        goldy.stop("Master commanded me to stop!")
