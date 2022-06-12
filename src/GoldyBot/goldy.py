@@ -80,11 +80,11 @@ def input_loop():
     console = devgoldyutils.Console()
     goldy = Goldy()
 
-    time.sleep(8)
+    time.sleep(6)
 
     try:
         while True:
-            command = input(console.CLAY(" GOLDY$> "))
+            command = input("")
 
             if command.lower() == "stop":
                 raise EOFError
