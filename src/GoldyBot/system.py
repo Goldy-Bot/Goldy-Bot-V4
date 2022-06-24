@@ -9,7 +9,7 @@ class System():
 
     @property
     def os(self) -> str:
-        return f"{platform.system()} {platform.release()} {platform.version()}"
+        return f"{platform.system()} {platform.release()}"
 
     @property
     def cpu(self) -> int:

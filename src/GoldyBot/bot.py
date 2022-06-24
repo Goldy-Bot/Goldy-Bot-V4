@@ -1,5 +1,6 @@
 import asyncio
 import random
+import sys
 import nextcord
 import nextcord.ext as nextcord_ext
 from nextcord import Interaction
@@ -38,7 +39,7 @@ async def on_ready():
 
 # Core commands
 #----------------
-@GoldyBot.command()
+@GoldyBot.command(slash_cmd_only=True)
 async def goldy(ctx):
     command_msg = GoldyBot.utility.msgs.goldy
     system = GoldyBot.system.System()
@@ -64,7 +65,7 @@ async def goldy(ctx):
 
         await asyncio.sleep(0.5)
 
-@GoldyBot.command(required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.")
+@GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.")
 async def stop(ctx, reason="A user ran the !stop command."):
     GoldyBot.Goldy().stop(reason)
 

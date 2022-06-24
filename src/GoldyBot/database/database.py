@@ -36,6 +36,12 @@ class Database():
         GoldyBot.logging.log(f"[{MODULE_NAME}] Inserted '{data}' into '{collection}.'")
         return True
 
+    async def remove(self, collection:str, data) -> bool:
+        """Tells database to find and delete a copy of this data from the collection."""
+        await self.database[collection].delete_one(data)
+        GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Deleted '{data}' from '{collection}.'")
+        return True
+
     async def find(self, collection:str, query, key, max_to_find=50) -> List[dict]:
         """Searches for documents with the query."""
         try:
@@ -85,6 +91,10 @@ class Database():
     async def create_collection(self, collection_name:str, data):
         await self.database[collection_name].insert_one(data)
         GoldyBot.logging.log(f"[{MODULE_NAME}] Database collection '{collection_name}' created.")
+
+    async def delete_collection(self, collection_name:str):
+        await self.database[collection_name].drop()
+        GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Database collection '{collection_name}' dropped.")
 
     def new_instance(self, database_name:str):
         """Starts a new database instance the efficiant way. 👍"""

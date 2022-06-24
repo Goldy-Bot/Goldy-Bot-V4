@@ -40,6 +40,9 @@ class ModuleNotFound(GoldyBotError):
     def __init__(self, error):
         super().__init__(error)
 
+# Guilds
+#---------
+
 # Guild Config
 class FailedToFindGuildRole(GoldyBotError):
     def __init__(self, error):

@@ -15,11 +15,10 @@ class Member():
         
     @property
     def member_id(self) -> str:
-        """Returns id of discord member."""
+        """Returns id of discord member. Defaults to ctx author if both ``member_id`` and ``mention_str`` are None."""
         if not self.member_id_ == None: return str(self.member_id_)
         if not self.mention_str_ == None: return self.mention_str_[3:-1]
-        
-        return None
+        else: return str(self.ctx.author.id)
 
     @property
     def name(self):
