@@ -1,4 +1,6 @@
+from __future__ import annotations
 import asyncio
+from typing import List
 import pymongo
 import motor.motor_asyncio
 import GoldyBot
@@ -34,10 +36,46 @@ class Database():
         GoldyBot.logging.log(f"[{MODULE_NAME}] Inserted '{data}' into '{collection}.'")
         return True
 
-    async def find(self, collection:str, query:dict):
-        return await self.database[collection].find(query)
+    async def remove(self, collection:str, data) -> bool:
+        """Tells database to find and delete a copy of this data from the collection."""
+        await self.database[collection].delete_one(data)
+        GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Deleted '{data}' from '{collection}.'")
+        return True
 
-    async def list_collection_names(self):
+    async def find(self, collection:str, query, key, max_to_find=50) -> List[dict]:
+        """Searches for documents with the query."""
+        try:
+            document_list = []
+            cursor = self.database[collection].find(query).sort(key)
+
+            for document in await cursor.to_list(max_to_find):
+                document_list.append(document)
+
+            return document_list
+        except KeyError as e:
+            GoldyBot.logging.log("error", f"[{MODULE_NAME}] Could not find the collection '{collection}'!")
+            return None
+
+    async def find_all(self, collection:str, max_to_find=100) -> List[dict] | None:
+        """Finds and returns all documents in a collection. This took me a day to make! 😞"""
+        try:
+            document_list = []
+            cursor = self.database[collection].find().sort('_id')
+
+            for document in await cursor.to_list(max_to_find):
+                document_list.append(document)
+
+            return document_list
+        except KeyError as e:
+            GoldyBot.logging.log("error", f"[{MODULE_NAME}] Could not find the collection '{collection}'!")
+            return None
+
+    async def get_collection(self, collection):
+        """Returns cursor of the following collection."""
+        return self.database[collection]
+
+    async def list_collection_names(self) -> List[str]:
+        """Returns list of all collection names."""
         return await self.database.list_collection_names()
 
     async def find_one(self, collection:str, query:dict):
@@ -50,8 +88,19 @@ class Database():
             GoldyBot.logging.log(f"[{MODULE_NAME}] '{query}' was not found in '{collection}.'")
             return None
         
-
     async def create_collection(self, collection_name:str, data):
         await self.database[collection_name].insert_one(data)
         GoldyBot.logging.log(f"[{MODULE_NAME}] Database collection '{collection_name}' created.")
+
+    async def delete_collection(self, collection_name:str):
+        await self.database[collection_name].drop()
+        GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Database collection '{collection_name}' dropped.")
+
+    def new_instance(self, database_name:str):
+        """Starts a new database instance the efficiant way. 👍"""
+        class NewDatabase(Database):
+            def __init__(self, database_self:Database):
+                self.database = database_self.client[database_name]
+
+        return NewDatabase(self)
 

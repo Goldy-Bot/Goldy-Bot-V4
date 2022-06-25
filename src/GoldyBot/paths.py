@@ -37,6 +37,7 @@ TEMPLATES = f"{GOLDY_BOT}/templates"
 TOKEN = CONFIG + "/BOT_TOKEN.txt"
 DATABASE_TOKEN = CONFIG + "/DATABASE_TOKEN.txt"
 GOLDY_CONFIG_JSON = CONFIG + "/goldy.json"
+DATA_JSON = "./data.json"
 
 # Templates
 GOLDY_CONFIG_JSON_TEMPLATE = f"{TEMPLATES}/goldy_config.json"

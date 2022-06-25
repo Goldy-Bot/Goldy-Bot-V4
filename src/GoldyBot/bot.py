@@ -6,7 +6,6 @@ import nextcord.ext as nextcord_ext
 from nextcord import Interaction
 from nextcord.ext import commands
 import os
-import importlib.util
 import time
 
 import GoldyBot
@@ -34,11 +33,13 @@ async def on_ready():
     # Goldy Setup.
     await GoldyBot.Goldy().setup(client)
 
+    await GoldyBot.utility.presence.change(f"{GoldyBot.info.name}", status=GoldyBot.nextcord.Status.online)
+
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
 # Core commands
 #----------------
-@GoldyBot.command()
+@GoldyBot.command(slash_cmd_only=True)
 async def goldy(ctx):
     command_msg = GoldyBot.utility.msgs.goldy
     system = GoldyBot.system.System()
@@ -64,11 +65,9 @@ async def goldy(ctx):
 
         await asyncio.sleep(0.5)
 
-@GoldyBot.command(required_roles=["bot_dev"])
+@GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.")
 async def stop(ctx, reason="A user ran the !stop command."):
     GoldyBot.Goldy().stop(reason)
-
-#TODO: #10 Create a goldy bot restart command.
 
 try:
 
@@ -81,7 +80,7 @@ try:
     # Load external modules.
     #----------------------------
     for module in os.listdir(GoldyBot.paths.MODULES):
-        if not module in ["__pycache__"]:
+        if not module in ["__pycache__", ".git"]:
             GoldyBot.modules.Module(module_file_name=module).load()
 
 except GoldyBot.errors.ModuleFailedToLoad:
