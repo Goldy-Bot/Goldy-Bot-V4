@@ -7,11 +7,11 @@ Copyright (C) 2022 - Dev Goldy
 import nextcord
 import asyncio
 
+from .objects import *
+
 from .database import database
 from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, errors, assets
 from . import internal_modules, ext, utility, objects
-
-from .objects import *
 
 # Functions
 log = logging.print_and_log
