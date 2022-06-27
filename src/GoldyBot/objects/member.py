@@ -1,6 +1,8 @@
 from __future__ import annotations
 import nextcord
 
+from GoldyBot.objects.slash import Interaction, InteractionToCtx
+
 from . import role
 
 class Member():
@@ -22,9 +24,13 @@ class Member():
         """Returns id of discord member. Defaults to ctx author if ``member_id``, ``mention_str`` and ``member_user_object`` are None."""
         if not self.member_id_ == None: return str(self.member_id_)
         if not self.mention_str_ == None: return self.mention_str_[3:-1]
-        if not self.member_user_object_ == None: return str(self.member_user_object_.id)
-        else: return str(self.ctx.author.id)
-
+        if not self.member_object_ == None: return str(self.member_object_.id)
+        else:
+            if isinstance(self.ctx, Interaction):
+                return str(InteractionToCtx(self.ctx).author.id)
+            else:
+                return str(self.ctx.author.id)
+                
     @property
     def name(self):
         """Returns the discord name of member including tag. Does not return server nickname!"""

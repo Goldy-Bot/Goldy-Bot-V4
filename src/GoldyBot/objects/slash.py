@@ -20,8 +20,11 @@ class InteractionToCtx():
     def author(self):
         return self.interaction.user
 
-    async def send(self, stickers=None, nonce=None, reference=None, mention_author=None, **args):
-        await self.interaction.send(**args)
+    async def send(self, text:str=None, **kwargs):
+        if not text == None:
+            await self.interaction.send(text)
+        else:
+            await self.interaction.send(**kwargs)
         
         return Message(self.interaction)
 
