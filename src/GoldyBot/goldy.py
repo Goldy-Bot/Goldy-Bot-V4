@@ -4,6 +4,7 @@ import GoldyBot, devgoldyutils
 import nextcord
 import threading, _thread
 import time
+import schedule
 
 MODULE_NAME = "GOLDY"
 
@@ -26,6 +27,10 @@ class Goldy(object):
         input_thread = threading.Thread(target=input_loop)
         input_thread.setDaemon(True)
         input_thread.start()
+
+        schedule_thread = threading.Thread(target=schedule_loop)
+        schedule_thread.setDaemon(True)
+        schedule_thread.start()
 
         # Start V4
         from . import bot
@@ -95,3 +100,9 @@ def input_loop():
         print("\n")
         _thread.interrupt_main()
         goldy.stop("Master commanded me to stop!")
+
+def schedule_loop():
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)

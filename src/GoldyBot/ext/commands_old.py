@@ -1,6 +1,9 @@
 from __future__ import annotations
 import asyncio
+from functools import wraps
+import nextcord
 from nextcord.ext import commands
+from nextcord import Interaction
 
 import GoldyBot
 from GoldyBot.errors import GuildNotRegistered, MemberHasNoPermsForCommand
@@ -139,8 +142,78 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
             #--------------------
             if toggle_slash_cmd:
                 GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating slash command...")
-                goldy_command.create_slash()
+                slash_command_params = goldy_command.slash_commands_params_generator()
+
+                return_data = {}
+
+                if is_in_extenstion == True: # Run in EXTENSTION!
+                    exec(f"""
+@client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
+async def slash_command_(interaction: Interaction{slash_command_params[0]}):
+    ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
+    try:
+        if goldy_command.allowed_to_run(ctx):
+            await func(class_, ctx{slash_command_params[1]})
+            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_command.code_name}' was executed.")
+    
+    except GoldyBot.errors.MemberHasNoPermsForCommand:
+        if hidden == False:
+            no_perms_embed.description = GoldyBot.utility.msgs.bot.CommandNoPerms.Embed.des.format(ctx.author.mention)
+            message = await ctx.send(embed=no_perms_embed)
+            await asyncio.sleep(6)
+            await message.delete()
+
+    except GoldyBot.errors.GuildNotRegistered:
+        if hidden == False:
+            guild_not_registered_embed.description = GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.des.format(ctx.author.mention)
+            message = await ctx.send(embed=guild_not_registered_embed)
+            await asyncio.sleep(15)
+            message.delete()
+
+    except Exception as e:
+        GoldyBot.logging.log("error", e)
+                    """, 
+                    
+                    {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
+                    "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":class_, "no_perms_embed":no_perms_embed, 
+                    "guild_not_registered_embed":guild_not_registered_embed, "hidden":hidden}, return_data)
+                    
+                else: # Run as NORMAL command!
+                    exec(f"""
+@client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
+async def slash_command_(interaction: Interaction{slash_command_params[0]}):
+    ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
+    try:
+        if goldy_command.allowed_to_run(ctx):
+            await func(ctx{slash_command_params[1]})
+            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_command.code_name}' was executed.")
+    
+    except GoldyBot.errors.MemberHasNoPermsForCommand:
+        if hidden == False:
+            no_perms_embed.description = GoldyBot.utility.msgs.bot.CommandNoPerms.Embed.des.format(ctx.author.mention)
+            message = await ctx.send(embed=no_perms_embed)
+            await asyncio.sleep(15)
+            await message.delete()
+
+    except GoldyBot.errors.GuildNotRegistered:
+        if hidden == False:
+            guild_not_registered_embed.description = GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.des.format(ctx.author.mention)
+            message = await ctx.send(embed=guild_not_registered_embed)
+            await asyncio.sleep(15)
+            await message.delete()
+    
+    except Exception as e:
+        GoldyBot.logging.log("error", e)
+                    """, 
+                    
+                    {"func":func, "client":client, "command_name":command_name, "help_des":help_des, "goldy_command":goldy_command,
+                    "Interaction": Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "no_perms_embed":no_perms_embed, 
+                    "guild_not_registered_embed":guild_not_registered_embed, "hidden":hidden}, return_data)
+
+                GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Slash command created!")
             GoldyBot.logging.log("info_3", f"[{MODULE_NAME}] Command '{command_name}' has been loaded.")
+
+            goldy_command.update_command_object(return_data["slash_command_"])
 
             return goldy_command
 
