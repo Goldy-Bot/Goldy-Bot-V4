@@ -13,12 +13,10 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
         def inner(func, command_name, required_roles, help_des, hidden, slash_cmd_only, normal_cmd_only, slash_options) -> GoldyBot.objects.command.Command:
             func:function = func
             
-            goldy_command = GoldyBot.objects.command.Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options, hidden=hidden)
+            goldy_command = GoldyBot.objects.command.Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options, help_des=help_des, hidden=hidden)
             print(goldy_command.params)
 
             if command_name == None: command_name = goldy_command.code_name
-
-            if help_des == None: help_des = goldy_command.get_help_des() #TODO: This may need changing.
 
             toggle_slash_cmd = True
             toggle_normal_cmd = True

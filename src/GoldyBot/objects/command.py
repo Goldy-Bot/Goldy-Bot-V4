@@ -27,7 +27,7 @@ class Embeds():
         self.guild_not_registered_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.thumbnail)
 
 class Command(Embeds):
-    def __init__(self, func, command_object:nextcord.ApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, hidden:bool=None):
+    def __init__(self, func, command_object:nextcord.ApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, help_des:str=None, hidden:bool=None):
         """Generates goldy bot command object with command function object."""
         self.func:function = func
         self.command = command_object
@@ -41,6 +41,7 @@ class Command(Embeds):
         self.slash_options_ = slash_options
         self.params_ = list(self.func.__code__.co_varnames)
         self.params_amount_ = self.func.__code__.co_argcount
+        self.help_des_ = help_des
         self.is_hidden_ = hidden
         
         self.in_extenstion_ = False
@@ -297,7 +298,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             def inner(func, command_name, required_roles, help_des, slash_options):
                 parent_command = self.command
 
-                goldy_sub_command = Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options)
+                goldy_sub_command = Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options, help_des=help_des)
                 slash_command_params = goldy_sub_command.slash_commands_params_generator()
 
 
@@ -309,7 +310,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     try:
         if self.allowed_to_run(ctx):
             await func(class_, ctx{slash_command_params[1]})
-            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{self.code_name}' was executed.")
+            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_sub_command.code_name}' was executed.")
 
     except GoldyBot.errors.MemberHasNoPermsForCommand:
         if hidden == False:
@@ -341,7 +342,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     try:
         if self.allowed_to_run(ctx):
             await func(ctx{slash_command_params[1]})
-            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{self.code_name}' was executed.")
+            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_sub_command.code_name}' was executed.")
 
     except GoldyBot.errors.MemberHasNoPermsForCommand:
         if hidden == False:
@@ -417,13 +418,16 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
 
     def get_help_des(self) -> str:
         """Returns the command's help description."""
-        try:
-            return (importlib.import_module(f'.{self.command_name}', package="GoldyBot.utility.msgs")).help_des
+        if self.help_des_ == None:
+            try:
+                return (importlib.import_module(f'.{self.command_name}', package="GoldyBot.utility.msgs")).help_des
 
-        except ImportError:
-            GoldyBot.logging.log("info", f"[{MODULE_NAME}] The command '{self.command_name}' does not have a 'msg' module, so the help command will not display a help description for it.")
-            return "None"
+            except ImportError:
+                GoldyBot.logging.log("info", f"[{MODULE_NAME}] The command '{self.command_name}' does not have a 'msg' module, so the help command will not display a help description for it.")
+                return "None"
 
-        except AttributeError:
-            GoldyBot.logging.log("info", f"[{MODULE_NAME}] The command '{self.command_name}' does not contain 'help_des' variable in it's 'msg' module, so the help command will not display a help description.")
-            return "None"
+            except AttributeError:
+                GoldyBot.logging.log("info", f"[{MODULE_NAME}] The command '{self.command_name}' does not contain 'help_des' variable in it's 'msg' module, so the help command will not display a help description.")
+                return "None"
+        else:
+            return self.help_des_
