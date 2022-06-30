@@ -4,6 +4,7 @@ class Embed:
     title = "💙 Goldy Bot - Stats"
     des = """
     **• Version: ``{}``**
+    **• Nextcord Version: ``{}``**
 
     **• Ping: ``{}ms``**
     **• OS: ``{}``**
@@ -11,5 +12,5 @@ class Embed:
     **• RAM: ``{} GB``**
     **• DISK: ``{} MB/s``**
 
-    ***Developed with {} By Dev Goldy***
+    ***Developed with {} By {}***
     """

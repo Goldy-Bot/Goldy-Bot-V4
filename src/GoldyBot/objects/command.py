@@ -195,6 +195,8 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         """Removes command from nextcord."""
         client:commands.Bot = GoldyBot.cache.main_cache_dict["client"]
         client.remove_command(name=self.code_name)
+        GoldyBot.async_loop.create_task(client.delete_application_commands(GoldyBot.utility.nextcordpy.commands.find_slash_command(self.code_name)))
+        #client.sync_all_application_commands() # CHANGE THIS TO 'Client.sync_application_commands' LATER!
         GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Removed the command '{self.code_name}'!")
         return True
 
@@ -291,7 +293,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         """Adds/updates this command object to the class."""
         self.command = command_object
 
-    def sub_command(self, command_name:str=None, required_roles:list=[], help_des:str=None, slash_options:dict={}):
+    def sub_command(self, command_name:str=None, required_roles:list=[], help_des:str=None, slash_options:dict={}, also_run_parent_CMD:bool=True):
         """Create a lovely sub command from this slash command. 😀 (Only works with slash commands.)"""
 
         def decorate(func):
@@ -300,15 +302,17 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
 
                 goldy_sub_command = Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options, help_des=help_des)
                 slash_command_params = goldy_sub_command.slash_commands_params_generator()
+                parent_slash_command_params = self.slash_commands_params_generator()
 
 
                 if self.in_extenstion == True: # Run in EXTENSTION!
                     exec(f"""
-@parant_command.subcommand(name=command_name, description=help_des)
+@parent_command.subcommand(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
         if self.allowed_to_run(ctx):
+            if also_run_parent_CMD == True: await goldy_parent_command.func(class_, ctx{parent_slash_command_params[1]})
             await func(class_, ctx{slash_command_params[1]})
             GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_sub_command.code_name}' was executed.")
 
@@ -330,17 +334,18 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         GoldyBot.logging.log("error", e)
                     """, 
                     
-                    {"func":goldy_sub_command.func, "parant_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
+                    {"func":goldy_sub_command.func, "parent_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
                     "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":goldy_sub_command.extenstion, "no_perms_embed":self.no_perms_embed, 
-                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden})
+                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self})
                     
                 else: # Run as NORMAL command!
                     exec(f"""
-@parant_command.subcommand(name=command_name, description=help_des)
+@parent_command.subcommand(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
         if self.allowed_to_run(ctx):
+            if also_run_parent_CMD == True: await goldy_parent_command.func(ctx{parent_slash_command_params[1]})
             await func(ctx{slash_command_params[1]})
             GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_sub_command.code_name}' was executed.")
 
@@ -362,9 +367,9 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         GoldyBot.logging.log("error", e)
                     """, 
                     
-                    {"func":goldy_sub_command.func, "parant_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
+                    {"func":goldy_sub_command.func, "parent_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
                     "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "no_perms_embed":self.no_perms_embed, 
-                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden})
+                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self})
 
                 GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Sub Command '{goldy_sub_command.command_name}' of '{parent_command.name}' has been loaded.")
                 return goldy_sub_command
@@ -413,7 +418,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     @property
     def guilds_allowed_in(self) -> List[int]:
         """Returns the ids of the guilds this command is allowed to function in."""
-        # TODO: #42 #41 add guilds_allowed_in method in command class for "guild_ids=".
+        # TODO: #42 add guilds_allowed_in method in command class for "guild_ids=".
         pass
 
     def get_help_des(self) -> str:

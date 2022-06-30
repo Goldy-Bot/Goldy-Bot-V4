@@ -46,21 +46,25 @@ async def goldy(ctx):
     hearts = ["🖤", "🤍", "💙", "💚", "💜", "🤎", "🧡", "❤️", "💛"]
 
     version = GoldyBot.info.bot_version
+    nextcord_version = nextcord.__version__
     platform = system.os
+
+    dev_goldy = GoldyBot.Member(ctx, member_id=332592361307897856)
+    dev_goldy_mention = GoldyBot.utility.commands.mention(dev_goldy)
 
     embed = GoldyBot.utility.goldy.embed.Embed(title=command_msg.Embed.title)
     embed.color = GoldyBot.utility.goldy.colours.AKI_BLUE
     embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
-    embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), 
-    platform, system.cpu, system.ram, system.disk, hearts[8])
+    embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), 
+    platform, system.cpu, system.ram, system.disk, hearts[8], dev_goldy_mention)
 
     message = await GoldyBot.utility.commands.send(ctx, embed=embed)
 
     t_end = time.time() + 15
     while time.time() < t_end:
         heart = random.choice(hearts)
-        embed.description = command_msg.Embed.des.format(version, round(client.latency * 1000), platform, system.cpu, system.ram, system.disk, heart)
+        embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), platform, system.cpu, system.ram, system.disk, heart, dev_goldy_mention)
         await message.edit(embed=embed)
 
         await asyncio.sleep(0.5)
