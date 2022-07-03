@@ -39,7 +39,7 @@ async def on_ready():
 
 # Core commands
 #----------------
-@GoldyBot.command(slash_cmd_only=True)
+@GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"])
 async def goldy(ctx):
     command_msg = GoldyBot.utility.msgs.goldy
     system = GoldyBot.system.System()
