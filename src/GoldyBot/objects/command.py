@@ -391,7 +391,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             if guild_config.is_extenstion_allowed(self.extension_name):
 
                 if not self.required_roles_ == []:
-                    # If the required roles contain 'bot_dev' and the bot dev is running the command allow the command to exacute.
+                    # If the required roles contain 'bot_dev' and the bot dev is running the command allow the command to execute.
                     #----------------------------------------------------------------------------------------------------------------
                     if "bot_dev" in self.required_roles_:
                         if str(ctx.author.id) in GoldyBot.settings.BOT_DEVS:
@@ -419,6 +419,12 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     def guilds_allowed_in(self) -> List[int]:
         """Returns the ids of the guilds this command is allowed to function in."""
         # TODO: #42 add guilds_allowed_in method in command class for "guild_ids=".
+        
+        goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
+
+        goldy_config.read("allowed_guilds")
+
+        
         pass
 
     def get_help_des(self) -> str:
