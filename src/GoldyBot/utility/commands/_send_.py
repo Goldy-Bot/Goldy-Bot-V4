@@ -5,7 +5,7 @@ MISSING = nextcord.utils.MISSING
 
 async def send(ctx, text=None, embed=None, tts=None, 
     embeds=None, file=None, files=None, stickers=None, delete_after=None, nonce=None, allowed_mentions=None, 
-    reference=None, mention_author=None, view=None, private=False):
+    reference=None, mention_author=None, view=None, private=False) -> nextcord.Message:
     """Goldy Bot method for sending messages."""
     message:GoldyBot.objects.slash.Message
 

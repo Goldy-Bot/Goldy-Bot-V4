@@ -18,7 +18,7 @@ class Goldy(object):
 
         file_setup() # Run file setup.
         
-        # Fixes some werid as fu#k bug when stopping the bot.
+        # Fixes some werid as fu#k bug when stopping the bot on windows.
         if GoldyBot.system.platform.system() == 'Windows':
             GoldyBot.asyncio.set_event_loop_policy(GoldyBot.asyncio.WindowsSelectorEventLoopPolicy())
 

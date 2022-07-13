@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import sys
 from typing import List
@@ -16,6 +18,11 @@ class Module(object):
     def __init__(self, path_to_module:str=None, module_file_name:str=None):
         self.path_to_module = path_to_module
         self.module_file_name = module_file_name
+
+        self.version_ = None
+        self.author_ = None
+        self.author_github_ = None
+        self.open_source_link_ = None
 
         self.is_internal_module_ = False
         self.is_external_module_ = False
@@ -91,9 +98,20 @@ class Module(object):
 
                 GoldyBot.logging.log("info_4", f"[{MODULE_NAME}] Loaded the internal module '{self.module_file_name}'!")
             except AttributeError:
-                #TODO: #21 Raise a Goldy Bot error here.
-                #GoldyBot.logging.log("error", f"[{MODULE_NAME}] The internal module '{self.module_file_name[:-3]}' failed to load because it did not contain the 'load()' function.")
                 raise ModuleFailedToLoad(f"[{MODULE_NAME}] The internal module '{self.name}' failed to load because it did not contain the 'load()' function.")
+
+            # Find information variables in module.
+            try: self.version_ = getattr(module_py, "VERSION")
+            except AttributeError: self.version_ = None
+
+            try: self.author_ = getattr(module_py, "AUTHOR")
+            except AttributeError: self.author_ = None
+
+            try: self.author_github_ = getattr(module_py, "AUTHOR_GITHUB")
+            except AttributeError: self.author_github_ = None
+
+            try: self.open_source_link_ = getattr(module_py, "OPEN_SOURCE_LINK")
+            except AttributeError: self.open_source_link_ = None
 
         else:
             GoldyBot.logging.log("info", f"[{MODULE_NAME}] The internal module '{self.name}' is not being loaded as it was ignored.")
@@ -133,6 +151,28 @@ class Module(object):
         else:
             return self.module_file_name[:-3]
 
+    @property
+    def version(self) -> float|None:
+        """Returns the current version of the module if stated."""
+        return self.version_
+
+    @property
+    def author(self) -> str|None:
+        """Returns the name of the developer who created this module if stated. """
+        return self.author_
+
+    @property
+    def author_github(self) -> str|None:
+        """Returns a link to the authors github page if stated."""
+        return self.author_github_
+
+    @property
+    def open_source_link(self) -> str|None:
+        """Returns link to github repository for this module."""
+        return self.open_source_link_
+
+    github_repo = open_source_link
+    """Alias of ``open_source_link``"""
 
     @property
     def commands(self):

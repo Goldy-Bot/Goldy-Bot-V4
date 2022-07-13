@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from typing import List
 import nextcord
 import GoldyBot
 from . import config
@@ -121,3 +122,12 @@ class Guild():
         config_file = GoldyBot.files.File(GUILD_CONFIG_FOLDER_PATH + "config.json")
 
         return config_file
+
+    async def get_members(self):
+        """Method to get all the dicord guild members."""
+
+        member_list_:List[GoldyBot.Member] = []
+        for member in self.guild.members:
+            member_list_.append(GoldyBot.Member(member_object=member))
+
+        return member_list_
