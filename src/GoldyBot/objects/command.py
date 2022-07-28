@@ -312,9 +312,13 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
         if self.allowed_to_run(ctx):
-            if also_run_parent_CMD == True: await goldy_parent_command.func(class_, ctx{parent_slash_command_params[1]})
-            await func(class_, ctx{slash_command_params[1]})
-            GoldyBot.logging.log(f"[{MODULE_NAME}] The slash command '{goldy_sub_command.code_name}' was executed.")
+            continue_onto_subcommand = None
+            if also_run_parent_CMD == True: continue_onto_subcommand = await goldy_parent_command.func(class_, ctx{parent_slash_command_params[1]})
+            if not continue_onto_subcommand == False:
+                await func(class_, ctx{slash_command_params[1]})
+                GoldyBot.logging.log(f"[{MODULE_NAME}] The slash subcommand '{goldy_sub_command.code_name}' was executed.")
+            else:
+                GoldyBot.logging.log(f"[{MODULE_NAME}] The slash subcommand '{goldy_sub_command.code_name}' never executed because parent command returned 'False'.")
 
     except GoldyBot.errors.MemberHasNoPermsForCommand:
         if hidden == False:
