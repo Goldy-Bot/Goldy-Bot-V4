@@ -16,15 +16,20 @@ class Database():
         config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
 
         try:
-            # Initializing MongoDB database
-            self.client:pymongo.MongoClient = motor.motor_asyncio.AsyncIOMotorClient(self.database_token_url, serverSelectionTimeoutMS=2000)
-            self.loop.run_until_complete(self.client.server_info())
-            self.database = self.client[config.read("database_name")]
+            if not database_token_url.lower() in ["none", "null"]: 
+                # Initializing MongoDB database
+                self.client:pymongo.MongoClient = motor.motor_asyncio.AsyncIOMotorClient(self.database_token_url, serverSelectionTimeoutMS=2000)
+                self.loop.run_until_complete(self.client.server_info())
+                self.database = self.client[config.read("database_name")]
 
-            # Cache database class.
-            GoldyBot.cache.main_cache_dict["database"] = self
+                # Cache database class.
+                GoldyBot.cache.main_cache_dict["database"] = self
 
-            GoldyBot.logging.log("info_2", f"[{MODULE_NAME}] [CONNECTED]")
+                GoldyBot.logging.log("info_2", f"[{MODULE_NAME}] [CONNECTED]")
+            
+            else:
+                GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] [DATABASE DISABLED]")
+                GoldyBot.logging.log("info_3", f"[{MODULE_NAME}] Database is disabled because '{database_token_url}' was entered.")
 
         except Exception:
             GoldyBot.logging.log("error", f"[{MODULE_NAME}] Couldn't connect to Database! Check the database URL you entered.")
