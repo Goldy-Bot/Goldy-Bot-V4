@@ -20,6 +20,10 @@ class InteractionToCtx():
     def author(self):
         return self.interaction.user
 
+    @property
+    def channel(self):
+        return self.interaction.channel
+
     async def send(self, text:str=None, **kwargs):
         if not text == None:
             await self.interaction.send(text)

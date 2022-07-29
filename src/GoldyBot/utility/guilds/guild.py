@@ -123,11 +123,20 @@ class Guild():
 
         return config_file
 
-    async def get_members(self):
+    async def get_members(self, ctx):
         """Method to get all the dicord guild members."""
 
         member_list_:List[GoldyBot.Member] = []
         for member in self.guild.members:
-            member_list_.append(GoldyBot.Member(member_object=member))
+            member_list_.append(GoldyBot.objects.member.Member(ctx, member_object=member))
 
         return member_list_
+
+    async def get_channels(self, ctx):
+        """Method to get all the dicord guild's channels."""
+
+        channel_list_:List[GoldyBot.Channel] = []
+        for channel in self.guild.channels:
+            channel_list_.append(GoldyBot.objects.channel.Channel(ctx, channel_object=channel))
+
+        return channel_list_
