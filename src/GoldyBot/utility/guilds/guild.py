@@ -6,6 +6,8 @@ import nextcord
 import GoldyBot
 from . import config
 
+MODULE_NAME = "GUILD"
+
 GUILD_CONFIG_TEMPLATE_JSON_PATH = GoldyBot.paths.GOLDY_BOT + "/utility/guilds/guild_config_template.json"
 
 class Guild():
@@ -40,10 +42,13 @@ class Guild():
 
             # Create a database collection for the guild if there isn't already.
             #--------------------------------------------------------------------
-            if not await self.database_exist:
-                await self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
-                "goldy":"I've created this collection automatically for a guild.", 
-                "notice":"Feel free to delete this document."})
+            if not self.database == None:
+                if not await self.database_exist:
+                    await self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
+                    "goldy":"I've created this collection automatically for a guild.", 
+                    "notice":"Feel free to delete this document."})
+
+                GoldyBot.logging.log("warn", f"[{MODULE_NAME}] Skipping database guild collection creation because database is disabled.")
 
             GoldyBot.logging.log(f"We ran setup for the guild '{self.code_name}'.")
         else:
@@ -123,11 +128,20 @@ class Guild():
 
         return config_file
 
-    async def get_members(self):
-        """Method to get all the dicord guild members."""
+    async def get_members(self, ctx):
+        """Method to get all the discord guild members."""
 
         member_list_:List[GoldyBot.Member] = []
         for member in self.guild.members:
-            member_list_.append(GoldyBot.Member(member_object=member))
+            member_list_.append(GoldyBot.objects.member.Member(ctx, member_object=member))
 
         return member_list_
+
+    async def get_channels(self, ctx):
+        """Method to get all the discord guild's channels."""
+
+        channel_list_:List[GoldyBot.Channel] = []
+        for channel in self.guild.channels:
+            channel_list_.append(GoldyBot.objects.channel.Channel(ctx, channel_object=channel))
+
+        return channel_list_
