@@ -6,20 +6,21 @@ async def yes_or_no(ctx:GoldyBot.InteractionToCtx, names:tuple=("Yes", "No!")):
         def __init__(self, author:GoldyBot.Member):
             super().__init__()
             self.value = None
+            self.response_message:GoldyBot.nextcord.PartialInteractionMessage = None
 
             self.author = author
 
         @GoldyBot.nextcord.ui.button(label=names[0], style=GoldyBot.nextcord.ButtonStyle.green)
         async def yes(self, button: GoldyBot.nextcord.ui.Button, interaction: GoldyBot.nextcord.Interaction):
             if self.author.member == interaction.user:
-                await interaction.response.send_message("**Okay! 💛**", ephemeral=True)
+                self.response_message = await interaction.response.send_message("**Okay! 💛**", ephemeral=True)
                 self.value = True
                 self.stop()
 
         @GoldyBot.nextcord.ui.button(label=names[1], style=GoldyBot.nextcord.ButtonStyle.red)
         async def no(self, button: GoldyBot.nextcord.ui.Button, interaction: GoldyBot.nextcord.Interaction):
             if self.author.member == interaction.user:
-                await interaction.response.send_message("**Alright, cancelled! 💚**", ephemeral=True)
+                self.response_message = await interaction.response.send_message("**Alright, cancelled! 💚**", ephemeral=True)
                 self.value = False
                 self.stop()
 

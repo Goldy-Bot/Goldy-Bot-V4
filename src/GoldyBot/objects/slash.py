@@ -38,7 +38,6 @@ class InteractionToCtx():
 
         return Message(self.interaction)
 
-
 class Message():
     def __init__(self, interaction: Interaction):
         self.interaction = interaction

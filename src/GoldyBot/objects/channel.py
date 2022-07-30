@@ -1,7 +1,10 @@
 from __future__ import annotations
 import nextcord
 
+import GoldyBot
 from GoldyBot.objects.slash import Interaction, InteractionToCtx
+
+MODULE_NAME = "CHANNEL"
 
 class Channel():
     """A class representing a discord channel in Goldy Bot."""
@@ -39,6 +42,22 @@ class Channel():
     def display_name(self):
         """Alias of ``Channel().name``"""
         return self.name
+
+    async def purge(self, amount:int|None):
+        """Deletes specified number of messages in this channel. (Only works if this channel is a text channel.)"""
+        if isinstance(self.channel, nextcord.TextChannel):
+            self.channel:nextcord.TextChannel
+            deleted = None
+            try:
+                deleted = await self.channel.purge(limit=amount)
+                GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Deleted '{len(deleted)}' messages from the channel '{self.name}'.")
+            except Exception as e:
+                GoldyBot.logging.log("warn", f"[{MODULE_NAME}] Couldn't delete from '{self.name}' because '{e}'.")
+                
+            return deleted
+        else:
+            GoldyBot.logging.log("warn", f"[{MODULE_NAME}] Can't purge messages because this channel isn't a text channel!")
+
 
     def find_channel(self, channel_id:int|str) -> nextcord.abc.GuildChannel | None:
         """Finds the damn channel!"""
