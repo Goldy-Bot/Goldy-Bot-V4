@@ -7,6 +7,8 @@ MODULE_NAME = "CACHE"
 main_cache_dict = {
     "client" : None,
 
+    "goldy_class" : None,
+
     "database" : None,
 
     "modules" : {

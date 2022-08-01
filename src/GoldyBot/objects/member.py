@@ -73,3 +73,8 @@ class Member():
             return nextcord.utils.get(self.ctx.guild.members, id=int(member_id))
         else:
             return None
+
+    # Utils
+    async def send(self, **args):
+        args.pop("ephemeral")
+        await self.member.send(**args)
