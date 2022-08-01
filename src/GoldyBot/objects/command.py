@@ -27,7 +27,7 @@ class Embeds():
         self.guild_not_registered_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.thumbnail)
 
 class Command(Embeds):
-    def __init__(self, func, command_object:nextcord.ApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, help_des:str=None, hidden:bool=None):
+    def __init__(self, func, command_object:nextcord.ApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, help_des:str=None, hidden:bool=False):
         """Generates goldy bot command object with command function object."""
         self.func:function = func
         self.command = command_object
@@ -401,11 +401,11 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                         if str(ctx.author.id) in GoldyBot.settings.BOT_DEVS:
                             return True
                         else:
-                            return False # It will look like the command doesn't exist.
+                            #return False # It will look like the command doesn't exist.
+                            self.required_roles_.remove("bot_dev")
 
                     # Check if member has any of the required roles.
                     #----------------------------------------------------
-                    
                     for role_code_name in self.required_roles_:
                         role = guild_config.get_role(ctx, role_code_name)
                         if GoldyBot.objects.member.Member(ctx).has_role(role):
