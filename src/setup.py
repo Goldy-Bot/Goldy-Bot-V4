@@ -10,7 +10,7 @@ classifiers = [
 
 setup(
   name='GoldyBot',
-  version="4.0dev15",
+  version="4.0dev16",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=open('README.txt').read(), 
   url='https://github.com/Goldy-Bot', 
