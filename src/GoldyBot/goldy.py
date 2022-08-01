@@ -10,7 +10,7 @@ MODULE_NAME = "GOLDY"
 class Goldy(object):
     """💛 Goldy herself. More precisely the main class to control the whole of the Bot."""
     def __init__(self):
-        pass
+        GoldyBot.cache.main_cache_dict["goldy_class"] = self
 
     def start(self):
         """Awakens Goldy Bot! 👀💡⏰"""
@@ -59,6 +59,7 @@ class Goldy(object):
 
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy is Shuting down...")
         GoldyBot.log("info", f"[{MODULE_NAME}] Here's the reason why I was requested to shutdown for >>> {reason}")
+
         sys.exit(reason)
 
 def file_setup():
