@@ -1,6 +1,6 @@
 from __future__ import annotations
 import asyncio
-from typing import List
+from typing import Any, List
 import pymongo
 import motor.motor_asyncio
 import GoldyBot
@@ -39,6 +39,12 @@ class Database():
         """Tells database to insert the data provided into a collection."""
         await self.database[collection].insert_one(data)
         GoldyBot.logging.log(f"[{MODULE_NAME}] Inserted '{data}' into '{collection}.'")
+        return True
+
+    async def edit(self, collection:str, query, data:dict) -> bool:
+        """Tells database to find and edit a document with the data provided in a collection."""
+        await self.database[collection].update_one(query, {"$set": data})
+        GoldyBot.logging.log(f"[{MODULE_NAME}] Edited '{query}' into '{data}.'")
         return True
 
     async def remove(self, collection:str, data) -> bool:
@@ -83,7 +89,7 @@ class Database():
         """Returns list of all collection names."""
         return await self.database.list_collection_names()
 
-    async def find_one(self, collection:str, query:dict):
+    async def find_one(self, collection:str, query:dict) -> (Any | None):
         """Tells database to search for and return specific data from a collection."""
         data = await self.database[collection].find_one(query)
         if not data == None:
