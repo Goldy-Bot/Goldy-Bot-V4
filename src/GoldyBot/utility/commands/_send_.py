@@ -2,6 +2,7 @@ import nextcord
 import GoldyBot
 
 MISSING = nextcord.utils.MISSING
+EMPTY_DISCORD_STRING = "**‎ **"
 
 async def send(ctx, text=None, embed=None, tts=None, 
     embeds=None, file=None, files=None, stickers=None, delete_after=None, nonce=None, allowed_mentions=None, 
@@ -56,13 +57,13 @@ async def send(ctx, text=None, embed=None, tts=None,
         if not file == None:
             message = await ctx.send(content=text, file=file, 
             delete_after=delete_after, allowed_mentions=allowed_mentions, 
-            ephemeral=private, view=view)
+            ephemeral=private)
             return message
         
         if not files == None:
             message = await ctx.send(content=text, files=files, 
             delete_after=delete_after, allowed_mentions=allowed_mentions, 
-            ephemeral=private, view=view)
+            ephemeral=private)
             return message
 
         if not view == None:
