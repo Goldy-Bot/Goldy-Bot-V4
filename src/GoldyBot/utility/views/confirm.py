@@ -1,6 +1,6 @@
 import GoldyBot
 
-async def yes_or_no(ctx:GoldyBot.InteractionToCtx, names:tuple=("Yes", "No!"), auto_delete:bool=True):
+async def yes_or_no(ctx:GoldyBot.InteractionToCtx, names:tuple=("Yes", "No!")):
     """
     Goldy Bot's yes or no button view. (Only the command author can interact with this!)
     """
@@ -21,15 +21,11 @@ async def yes_or_no(ctx:GoldyBot.InteractionToCtx, names:tuple=("Yes", "No!"), a
                 self.value = True
                 self.stop()
 
-                if self.auto_delete: await self.response_message.delete()
-
         @GoldyBot.nextcord.ui.button(label=names[1], style=GoldyBot.nextcord.ButtonStyle.red)
         async def no(self, button: GoldyBot.nextcord.ui.Button, interaction: GoldyBot.nextcord.Interaction):
             if self.author.member.id == interaction.user.id:
                 self.response_message = await interaction.response.send_message("**Alright, cancelled! 💚**", ephemeral=True)
                 self.value = False
                 self.stop()
-
-                if self.auto_delete: await self.response_message.delete()
 
     return yes_or_no_button_view(GoldyBot.Member(ctx), auto_delete)
