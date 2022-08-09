@@ -53,7 +53,7 @@ class Database():
         GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Deleted '{data}' from '{collection}.'")
         return True
 
-    async def find(self, collection:str, query, key, max_to_find=50) -> List[dict]:
+    async def find(self, collection:str, query, key:str, max_to_find=50) -> List[dict]:
         """Searches for documents with the query."""
         try:
             document_list = []
