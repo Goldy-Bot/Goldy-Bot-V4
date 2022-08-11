@@ -37,6 +37,10 @@ async def on_ready():
 
     GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
+# Goldy Setup.
+#---------------
+GoldyBot.async_loop.create_task(GoldyBot.Goldy().setup(client))
+
 # Core commands
 #----------------
 @GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"])
@@ -77,7 +81,6 @@ async def stop(ctx:GoldyBot.objects.InteractionToCtx, reason="A user ran the !st
     GoldyBot.Goldy().stop(reason)
 
 try:
-
     # Load internal modules.
     #----------------------------
     for module in os.listdir(GoldyBot.paths.INTERNAL_COGS_V4):

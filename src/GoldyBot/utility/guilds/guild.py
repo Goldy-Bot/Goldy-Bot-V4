@@ -47,7 +47,7 @@ class Guild():
                     await self.database.create_collection(f"{self.code_name} (server)", {"_id":1, 
                     "goldy":"I've created this collection automatically for a guild.", 
                     "notice":"Feel free to delete this document."})
-
+            else:
                 GoldyBot.logging.log("warn", f"[{MODULE_NAME}] Skipping database guild collection creation because database is disabled.")
 
             GoldyBot.logging.log(f"We ran setup for the guild '{self.code_name}'.")

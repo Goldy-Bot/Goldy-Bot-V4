@@ -36,7 +36,7 @@ class Goldy(object):
         #  Run setup on all allowed guilds.
         #------------------------------
         for guild in client.guilds:
-            goldy_bot_guild = GoldyBot.utility.guilds.guild.Guild(guild) #TODO: Finish this.
+            goldy_bot_guild = GoldyBot.utility.guilds.guild.Guild(guild)
 
             if goldy_bot_guild.is_allowed:
                 await goldy_bot_guild.setup()
