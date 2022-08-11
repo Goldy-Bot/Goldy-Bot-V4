@@ -124,7 +124,7 @@ class Command(Embeds):
 
         if self.in_extenstion == True: # Run in EXTENSTION!
             exec(f"""
-@client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
+@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
@@ -152,11 +152,11 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             
             {"func":self.func, "client":GoldyBot.cache.main_cache_dict["client"], "command_name":self.command_name, "help_des":self.get_help_des(), "self":self,
             "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":self.extenstion, "no_perms_embed":self.no_perms_embed, 
-            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden}, return_data)
+            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in}, return_data)
             
         else: # Run as NORMAL command!
             exec(f"""
-@client.slash_command(name=command_name, description=help_des, guild_ids=GoldyBot.utility.guilds.get_guild_ids())
+@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
@@ -184,7 +184,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             
             {"func":self.func, "client":GoldyBot.cache.main_cache_dict["client"], "command_name":self.command_name, "help_des":self.get_help_des(), "self":self,
             "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "no_perms_embed":self.no_perms_embed, 
-            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden}, return_data)
+            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in}, return_data)
 
         GoldyBot.logging.log(f"[{MODULE_NAME}] [{self.command_name.upper()}] Slash command created!")
 
@@ -423,14 +423,22 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     @property
     def guilds_allowed_in(self) -> List[int]:
         """Returns the ids of the guilds this command is allowed to function in."""
-        # TODO: #42 add guilds_allowed_in method in command class for "guild_ids=".
-        
         goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
+        allowed_guilds = goldy_config.read("allowed_guilds")
 
-        goldy_config.read("allowed_guilds")
+        guilds_command_is_allowed_in:List[int] = []
 
-        
-        pass
+        for guild_id in allowed_guilds:
+            guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{allowed_guilds[guild_id]}/config.json")))
+                
+            if guild_config.is_extenstion_allowed(self.extension_name):
+                guilds_command_is_allowed_in.append(int(guild_id))
+            
+        if guilds_command_is_allowed_in == []: guilds_command_is_allowed_in = [123]
+
+        print(guilds_command_is_allowed_in)
+
+        return guilds_command_is_allowed_in
 
     def get_help_des(self) -> str:
         """Returns the command's help description."""
