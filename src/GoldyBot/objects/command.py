@@ -429,10 +429,13 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         guilds_command_is_allowed_in:List[int] = []
 
         for guild_id in allowed_guilds:
-            guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{allowed_guilds[guild_id]}/config.json")))
+            try:
+                guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{allowed_guilds[guild_id]}/config.json")))
                 
-            if guild_config.is_extenstion_allowed(self.extension_name):
-                guilds_command_is_allowed_in.append(int(guild_id))
+                if guild_config.is_extenstion_allowed(self.extension_name):
+                    guilds_command_is_allowed_in.append(int(guild_id))
+            except FileNotFoundError:
+                pass
             
         if guilds_command_is_allowed_in == []: guilds_command_is_allowed_in = [123]
 

@@ -101,7 +101,7 @@ class Guild():
     def config_exist(self) -> bool:
         """Commands Goldy Bot to check if the guild exist in config."""
         if self.code_name in os.listdir(GoldyBot.paths.CONFIG):
-            if self.config_file.read() == "":
+            if self.config_file.read() in ["", "{}"]:
                 return False
             return True
         else:
