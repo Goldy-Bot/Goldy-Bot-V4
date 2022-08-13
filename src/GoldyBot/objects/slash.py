@@ -42,8 +42,8 @@ class Message():
     def __init__(self, interaction: Interaction):
         self.interaction = interaction
 
-    async def delete(self):
-        await self.interaction.delete_original_message()
+    async def delete(self, delay=None):
+        await self.interaction.delete_original_message(delay=delay)
 
     async def edit(self, **args):
         #TODO: #29 Don't forget to add text to this.
