@@ -401,16 +401,14 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                     if "bot_dev" in self.required_roles_:
                         if str(ctx.author.id) in GoldyBot.settings.BOT_DEVS:
                             return True
-                        else:
-                            #return False # It will look like the command doesn't exist.
-                            self.required_roles_.remove("bot_dev")
 
                     # Check if member has any of the required roles.
                     #----------------------------------------------------
                     for role_code_name in self.required_roles_:
-                        role = guild_config.get_role(ctx, role_code_name)
-                        if GoldyBot.objects.member.Member(ctx).has_role(role):
-                            return True
+                        if not role_code_name == "bot_dev":
+                            role = guild_config.get_role(ctx, role_code_name)
+                            if GoldyBot.objects.member.Member(ctx).has_role(role):
+                                return True
 
                     raise GoldyBot.errors.MemberHasNoPermsForCommand(f"The member '{ctx.author.name}' does not have the right permissions to use this command.")
 

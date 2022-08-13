@@ -74,7 +74,7 @@ async def goldy(ctx):
         await asyncio.sleep(0.5)
 
 @GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.", slash_options= {
-    "reason" : GoldyBot.nextcord.SlashOption(required=False)
+    "reason" : GoldyBot.nextcord.SlashOption()
 })
 async def stop(ctx:GoldyBot.objects.InteractionToCtx, reason="A user ran the !stop command."):
     await ctx.send("*Shutting down...*")
