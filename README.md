@@ -3,6 +3,7 @@
 [![Powered by Nextcord](https://custom-icon-badges.herokuapp.com/badge/-Powered%20by%20Nextcord-0d1620?logo=nextcord)](https://github.com/nextcord/nextcord "Powered by Nextcord Python API Wrapper")
 [![Pypi Badge](https://img.shields.io/pypi/v/GoldyBot?style=flat)](https://pypi.org/project/GoldyBot/ "We're on pypi!")
 [![Python Badge](https://img.shields.io/pypi/pyversions/GoldyBot?style=flat)](https://pypi.org/project/GoldyBot/ "Supported python versions.")
+[![Docs Badge](https://img.shields.io/static/v1?label=docs&message=Available&color=light-green)](https://goldybot.devgoldy.me/)
 
 <p align="center">
  <img src="./assets/banner_1.png" width="960" />
@@ -88,7 +89,7 @@ Now you should see a folder being created for your guild and also a database fol
 
 8. **Now your all set for development!**
 
-Documentation presenting how to create your very first extension is coming soon...
+#### *More Docs [Here](https://goldybot.devgoldy.me/)*
 
 <br>
 
