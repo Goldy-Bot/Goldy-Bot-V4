@@ -1,6 +1,6 @@
 # Bot Version
 
-version = "4.0dev20"
+version = "4.0dev21"
 """Goldy Bot version number."""
 
 name = f"Goldy Bot ({version})"
