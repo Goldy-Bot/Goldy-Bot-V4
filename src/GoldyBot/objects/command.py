@@ -27,7 +27,7 @@ class Embeds():
         self.guild_not_registered_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.thumbnail)
 
 class Command(Embeds):
-    def __init__(self, func, command_object:nextcord.ApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, help_des:str=None, hidden:bool=False):
+    def __init__(self, func, command_object:nextcord.BaseApplicationCommand | commands.Command=None, command_name=None, required_roles:list=[], slash_options:dict={}, help_des:str=None, hidden:bool=False):
         """Generates goldy bot command object with command function object."""
         self.func:function = func
         self.command = command_object
@@ -114,7 +114,7 @@ class Command(Embeds):
         """Is the command hidden."""
         return self.is_hidden_
 
-    def create_slash(self) -> nextcord.ApplicationCommand:
+    def create_slash(self) -> nextcord.BaseApplicationCommand:
         """Creates slash command."""
 
         GoldyBot.logging.log(f"[{MODULE_NAME}] [{self.command_name.upper()}] Creating slash command...")

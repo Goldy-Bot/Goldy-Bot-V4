@@ -15,17 +15,23 @@ from . import internal_modules, ext, utility, objects
 
 # Functions
 log = logging.print_and_log
+""""""
 
 # Function Decorators
 command = ext.commands.command
+""""""
 cmd = command
+""""""
 
 # Class Inheritors
 Extenstion = ext.extenstions.Extenstion
+""""""
 
 # Classes
 Goldy = goldy.Goldy
+""""""
 Database = database.Database
+""""""
 
 # Async Loop
 async_loop = asyncio.get_event_loop()

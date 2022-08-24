@@ -2,6 +2,8 @@ import GoldyBot
 import nextcord
 from nextcord.ext import commands
 
+"""
+
 class goldy_help_command(commands.HelpCommand):
     def __init__(self):
         super().__init__()
@@ -144,13 +146,13 @@ class goldy_help_command(commands.HelpCommand):
 
         usage = command.usage
         
-        command_context = f"""\n
+        command_context = f"\n
         **❗┃ Name: **``!{command.name}``
         **📋┃ Description: *{description}***
         **🧡┃ Usage: ``{usage}``**
 
         **💙 From: __{command.cog.qualified_name}__**
-        """
+        "
         
         if servers.cogs.is_allowed(self.get_destination().guild.id, command.cog.cog_name):
             embed = await goldy_help_command.embed.create(f"__!{command.name}__", 
@@ -166,3 +168,5 @@ class goldy_help_command(commands.HelpCommand):
         await self.send_command_help(await self.get_command_signature(command[1:len(command)]))
         '''
         await self.get_destination().send(GoldyBot.utility.msgs.help.command_not_found)
+
+"""
