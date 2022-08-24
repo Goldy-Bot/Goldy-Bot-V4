@@ -29,6 +29,7 @@ class Goldy(object):
 
         # Start V4
         from . import bot
+        bot.start()
 
     async def setup(self, client:nextcord.Client):
         """Notifies Goldy Bot that the client is ready and it can do it's setup."""
