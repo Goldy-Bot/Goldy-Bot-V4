@@ -14,7 +14,7 @@
     --accent: #eee;
     --accent2: #c1c1c1;
 
-    --nav-hover: rgba(255, 255, 255, 0.5);
+    --nav-hover: var(--colour-2);
     --name: #0066BB;
     --def: #008800;
     --annotation: #007020;
