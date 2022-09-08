@@ -4,7 +4,7 @@
 }
 
 .pdoc {
-    --text: #212529;
+    --text: var(--colour-4);
     --muted: #6c757d;
     --link: #3660a5;
     --link-hover: #1659c5;

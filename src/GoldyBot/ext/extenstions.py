@@ -4,7 +4,28 @@ import GoldyBot
 MODULE_NAME = "EXTENSTION"
 
 class Extenstion(object):
-    """The base class for a Goldy Bot extenstion."""
+    """
+    The base class for a Goldy Bot extenstion.
+
+    ---------------
+    ### • ``Example``
+
+    ```python
+    class YourExtenstion(GoldyBot.Extenstion):
+        def __init__(self, package_module=None):
+            super().__init__(self, package_module_name=package_module)
+
+        def loader(self):
+
+            @GoldyBot.command()
+            async def uwu(self:YourExtenstion, ctx):
+                await ctx.send(f'Hi, {ctx.author.mention}! UwU!')
+
+    def load():
+        YourExtenstion(package_module_name=__name__)
+        pass
+    ```
+    """
 
     def __init__(self, class_object, package_module_name:str=None):
         """Tells Goldy Bot to Load this class as an extenstion."""

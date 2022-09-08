@@ -18,7 +18,6 @@ def start():
     TOKEN = GoldyBot.token.get()
     DATABASE_TOKEN = GoldyBot.token.get_database()
     intents = nextcord.Intents()
-    loop = asyncio.get_event_loop()
 
     # Discord Bot
     client = commands.Bot(command_prefix = GoldyBot.utility.nextcordpy.prefix.get_prefix, 
