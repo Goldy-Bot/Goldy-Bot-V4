@@ -8,7 +8,18 @@ from GoldyBot.errors import GuildNotRegistered, MemberHasNoPermsForCommand
 MODULE_NAME = "COMMANDS"
 
 def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, slash_cmd_only=False, normal_cmd_only=False, slash_options:dict={}):
-    """Add a command to Goldy Bot with this decorator."""
+    """
+    Add a command to Goldy Bot with this decorator.
+    
+    ---------------
+    ### • ``Example``
+
+    ```python
+    @GoldyBot.command()
+    async def uwu(ctx):
+        await ctx.send(f'Hi, {ctx.author.mention}! UwU!')
+    ```
+    """
     def decorate(func):
         def inner(func, command_name, required_roles, help_des, hidden, slash_cmd_only, normal_cmd_only, slash_options) -> GoldyBot.objects.command.Command:
             func:function = func

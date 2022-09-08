@@ -13,7 +13,19 @@ class Goldy(object):
         GoldyBot.cache.main_cache_dict["goldy_class"] = self
 
     def start(self):
-        """Awakens Goldy Bot! 👀💡⏰"""
+        """
+        Awakens Goldy Bot! 👀💡⏰
+        -------------
+        ### • ``Example``
+
+        ```python
+        import GoldyBot
+
+        goldy = GoldyBot.Goldy()
+
+        goldy.start()
+        ```
+        """
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy Bot is awakening...")
 
         file_setup() # Run file setup.
