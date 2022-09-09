@@ -1,6 +1,7 @@
-from nextcord.ext import commands
+from __future__ import annotations
 
 import GoldyBot
+from nextcord.ext import commands
 
 MODULE_NAME = "CACHE"
 
@@ -30,9 +31,13 @@ main_cache_dict = {
     }
 }
 
+def database() -> GoldyBot.database.Database|None:
+    """Returns current database."""
+    return main_cache_dict["database"]
+
 class FindGuilds():
     """A class dedicated to finding guilds from cache."""
-    def __init__(self, goldy_config:object=None):
+    def __init__(self, goldy_config:GoldyBot.config.Config=None):
         if goldy_config == None:
             self.goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
         else:

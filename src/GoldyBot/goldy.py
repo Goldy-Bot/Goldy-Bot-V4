@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 import GoldyBot, devgoldyutils
@@ -41,7 +42,12 @@ class Goldy(object):
 
         # Start V4
         from . import bot
-        bot.start()
+        nextcord_thread = threading.Thread(target=bot.start)
+        nextcord_thread.setDaemon(True)
+        nextcord_thread.start()
+
+        try: input_thread.join()
+        except KeyboardInterrupt: pass # Stops KeyboardInterrupt traceback.
 
     async def setup(self, client:nextcord.Client):
         """Notifies Goldy Bot that the client is ready and it can do it's setup."""

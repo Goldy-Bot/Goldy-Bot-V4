@@ -14,10 +14,11 @@ Copyright (C) 2022 - Dev Goldy
 
 import nextcord
 import asyncio
+import nest_asyncio
 
 from .objects import *
 
-from .database import database
+from . import database
 from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, errors, assets
 from . import internal_modules, ext, utility, objects
 
@@ -40,6 +41,8 @@ Goldy = goldy.Goldy
 """Alias of object from ``GoldyBot.goldy``"""
 Database = database.Database
 """Alias of ``GoldyBot.database.Database``"""
+Embed = utility.goldy.embed.Embed
+"""Alias of object from ``GoldyBot.utility.goldy.embed``"""
 
 # Async Loop
 async_loop = asyncio.get_event_loop()
@@ -47,3 +50,8 @@ async_loop = asyncio.get_event_loop()
 Goldy Bot's async loop. You can use this to run async methods in non async functions.
 Like this ``async_loop.run_until_complete(async_function())``
 """
+nest_asyncio.apply(async_loop)
+
+# Colours
+colours = utility.goldy.colours
+"""Alias of ``GoldyBot.utility.goldy.colours``"""
