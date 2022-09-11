@@ -63,12 +63,12 @@ class Module(object):
         if self.is_external_module_:
             if not self.name in GoldyBot.cache.main_cache_dict["modules"]:
                 GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"] = {}
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"]["extenstions"] = {}
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"]["extensions"] = {}
                 GoldyBot.cache.main_cache_dict["modules"][f"{self.name}"]["object"] = self
         else:
             if not self.name in GoldyBot.cache.main_cache_dict["internal_modules"]:
                 GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"] = {}
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"]["extenstions"] = {}
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"]["extensions"] = {}
                 GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.name}"]["object"] = self
 
 
@@ -185,8 +185,8 @@ class Module(object):
         # Finding all commands in this.
         #-----------------------
         GoldyBot.logging.log(f"[{MODULE_NAME}] Finding all commands in the module '{self.name}'...")
-        for extenstion in GoldyBot.cache.main_cache_dict[modules_list_name][self.name]["extenstions"]:
-            for command in GoldyBot.cache.main_cache_dict[modules_list_name][self.name]["extenstions"][extenstion]["commands"]:
+        for extension in GoldyBot.cache.main_cache_dict[modules_list_name][self.name]["extensions"]:
+            for command in GoldyBot.cache.main_cache_dict[modules_list_name][self.name]["extensions"][extension]["commands"]:
                 command:GoldyBot.objects.command.Command
 
                 commands.append(command)

@@ -11,7 +11,7 @@ def get() -> str:
         GoldyBot.log("error", "Please enter your discord token in the 'TOKEN.txt' file located in 'config' and run Goldy Bot again.")
         file.write("{ENTER BOT TOKEN HERE}")
 
-        # Stop bot immedently.
+        # Stop bot immediately.
         GoldyBot.Goldy().stop("There's no Discord Token!")
 
     else:
@@ -26,7 +26,7 @@ def get_database() -> str:
         GoldyBot.log("error", "Please enter your MongoDB database URL in the 'DATABASE_TOKEN.txt' file located in 'config' and run Goldy Bot again.")
         file.write("{ENTER DATABASE URL HERE}")
 
-        # Stop bot immedently.
+        # Stop bot immediately.
         GoldyBot.Goldy().stop("There's no MongoDB database URL!")
 
     else:

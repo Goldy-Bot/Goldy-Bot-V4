@@ -3,7 +3,7 @@ import psutil
 import platform
 
 class System():
-    """Goldy Bot class used to check how much Goldy is utalizing on the host system."""
+    """Goldy Bot class used to check how much Goldy is utilizing on the host system."""
     def __init__(self):
         self.process = psutil.Process(os.getpid())
 

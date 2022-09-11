@@ -12,6 +12,7 @@ Copyright (C) 2022 - Dev Goldy
 <img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/banner_1.png" width="100%"/>
 """
 
+import sys
 import nextcord
 import asyncio
 import nest_asyncio
@@ -33,8 +34,10 @@ cmd = command
 """Alias of object from ``GoldyBot.ext.commands``"""
 
 # Class Inheritors
-Extenstion = ext.extenstions.Extenstion
-"""Alias of object from ``GoldyBot.ext.extenstions``"""
+Extension = ext.extensions.Extension
+"""Alias of object from ``GoldyBot.ext.extensions``"""
+
+setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing.
 
 # Classes
 Goldy = goldy.Goldy

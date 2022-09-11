@@ -44,32 +44,32 @@ class Command(Embeds):
         self.help_des_ = help_des
         self.is_hidden_ = hidden
         
-        self.in_extenstion_ = False
+        self.in_extension_ = False
 
         if self.params[0] == "self":
-            self.in_extenstion_ = True
+            self.in_extension_ = True
             self.params_.pop(0)
 
-        # Add command to extenstion in cache.
-        if self.in_extenstion:
+        # Add command to extension in cache.
+        if self.in_extension:
             if self.module.is_internal_module:
-                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"].append(self)
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.extension_name}"]["commands"].append(self)
             else:
-                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extenstions"][f"{self.extension_name}"]["commands"].append(self)
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.extension_name}"]["commands"].append(self)
         else:
-            GoldyBot.cache.main_cache_dict["internal_modules"]["goldy"]["extenstions"]["core"]["commands"].append(self)
+            GoldyBot.cache.main_cache_dict["internal_modules"]["goldy"]["extensions"]["core"]["commands"].append(self)
 
         super().__init__()
 
     @property
     def code_name(self) -> str:
-        """Returns code name of comamnd."""
+        """Returns code name of command."""
         return self.command_name
 
     @property
     def params(self) -> list:
         """Returns list of function parameters."""
-        if self.in_extenstion:
+        if self.in_extension:
             return self.params_[0:self.params_amount_ - 1]
         else:
             return self.params_[0:self.params_amount_]
@@ -77,25 +77,25 @@ class Command(Embeds):
     @property
     def extension_name(self) -> str | None:
         """Returns extension's code name."""
-        if self.in_extenstion:
-            # Command is in extenstion.
+        if self.in_extension:
+            # Command is in extension.
             return str(self.func).split(" ")[1].split(".")[0]
         else:
-            # Command is not in any extenstion.
+            # Command is not in any extension.
             return None
 
     @property
-    def extenstion(self) -> GoldyBot.ext.extenstions.Extenstion | None:
-        """Finds and returns the object of the command's extenstion."""
-        if self.in_extenstion:
-            return GoldyBot.cache.FindExtenstions().find_object_by_extenstion_name(extenstion_name=self.extension_name)
+    def extension(self) -> GoldyBot.ext.extensions.Extension | None:
+        """Finds and returns the object of the command's extension."""
+        if self.in_extension:
+            return GoldyBot.cache.FindExtensions().find_object_by_extension_name(extension_name=self.extension_name)
         else:
             None
 
     @property
-    def in_extenstion(self) -> bool:
-        """Returns true/false if the command is in a extenstion."""
-        if self.in_extenstion_:
+    def in_extension(self) -> bool:
+        """Returns true/false if the command is in a extension."""
+        if self.in_extension_:
             return True
         else:
             return False
@@ -103,7 +103,7 @@ class Command(Embeds):
     @property
     def module_name(self) -> str:
         """Returns name of module the command is located in."""
-        return self.extenstion.module_name
+        return self.extension.module_name
 
     @property
     def module(self) -> GoldyBot.modules.Module:
@@ -122,7 +122,7 @@ class Command(Embeds):
 
         return_data = {}
 
-        if self.in_extenstion == True: # Run in EXTENSTION!
+        if self.in_extension == True: # Run in EXTENSION!
             exec(f"""
 @client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
@@ -151,7 +151,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             """, 
             
             {"func":self.func, "client":GoldyBot.cache.main_cache_dict["client"], "command_name":self.command_name, "help_des":self.get_help_des(), "self":self,
-            "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":self.extenstion, "no_perms_embed":self.no_perms_embed, 
+            "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":self.extension, "no_perms_embed":self.no_perms_embed, 
             "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in}, return_data)
             
         else: # Run as NORMAL command!
@@ -202,7 +202,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         return True
 
     def any_args_missing(self, command_executers_args:tuple) -> bool:
-        """Checks if the args given by the command executer matches what paramaters the command needs."""
+        """Checks if the args given by the command executer matches what parameters the command needs."""
         if len(command_executers_args) == len(self.params[1:]):
             return True
         else:
@@ -306,7 +306,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                 parent_slash_command_params = self.slash_commands_params_generator()
 
 
-                if self.in_extenstion == True: # Run in EXTENSTION!
+                if self.in_extension == True: # Run in EXTENSION!
                     exec(f"""
 @parent_command.subcommand(name=command_name, description=help_des)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
@@ -340,7 +340,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                     """, 
                     
                     {"func":goldy_sub_command.func, "parent_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
-                    "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":goldy_sub_command.extenstion, "no_perms_embed":self.no_perms_embed, 
+                    "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":goldy_sub_command.extension, "no_perms_embed":self.no_perms_embed, 
                     "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self})
                     
                 else: # Run as NORMAL command!
@@ -384,7 +384,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         return decorate
 
     def allowed_to_run(self, ctx):
-        """Checks if the command is allowed to run with currect circumstances."""
+        """Checks if the command is allowed to run with current circumstances."""
         goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
         
         # Check if guild is registered.
@@ -393,7 +393,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             guild_code_name = GoldyBot.cache.FindGuilds(goldy_config).find_object_by_id(ctx.guild.id).code_name
             guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{guild_code_name}/config.json")))
             
-            if guild_config.is_extenstion_allowed(self.extension_name):
+            if guild_config.is_extension_allowed(self.extension_name):
 
                 if not self.required_roles_ == []:
                     # If the required roles contain 'bot_dev' and the bot dev is running the command allow the command to execute.
@@ -430,7 +430,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             try:
                 guild_config = GoldyBot.utility.guilds.config.GuildConfig(GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{allowed_guilds[guild_id]}/config.json")))
                 
-                if guild_config.is_extenstion_allowed(self.extension_name):
+                if guild_config.is_extension_allowed(self.extension_name):
                     guilds_command_is_allowed_in.append(int(guild_id))
             except FileNotFoundError:
                 pass

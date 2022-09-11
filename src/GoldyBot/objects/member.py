@@ -54,7 +54,7 @@ class Member(database.member.Member):
             return False
 
     async def add_role(self, role:role.Role):
-        """This method addes the specified role to this member."""
+        """This method adds the specified role to this member."""
         if not self.has_role(role):
             await self.member.add_roles(role)
             return True

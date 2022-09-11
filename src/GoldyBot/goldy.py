@@ -31,7 +31,7 @@ class Goldy(object):
 
         file_setup() # Run file setup.
         
-        # Fixes some werid as fu#k bug when stopping the bot on windows.
+        # Fixes some weird as fu#k bug when stopping the bot on windows.
         if GoldyBot.system.platform.system() == 'Windows':
             GoldyBot.asyncio.set_event_loop_policy(GoldyBot.asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -74,7 +74,7 @@ class Goldy(object):
         GoldyBot.logging.log(f"[{MODULE_NAME}] Guilds Setup Done!")
 
     def stop(self, reason="Unknown"):
-        """Safely shutdowns Goldy Bot and stops her from perfoming anymore actions, incase you know, things get weird. 😳"""
+        """Safely shutdowns Goldy Bot and stops her from performing anymore actions, incase you know, things get weird. 😳"""
 
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy is Shuting down...")
         GoldyBot.log("info", f"[{MODULE_NAME}] Here's the reason why I was requested to shutdown for >>> {reason}")
@@ -82,7 +82,7 @@ class Goldy(object):
         sys.exit(reason)
 
 def file_setup():
-    """Makes sure all files and directoires are setup and ready to go."""
+    """Makes sure all files and directories are setup and ready to go."""
     GoldyBot.log(f"[{MODULE_NAME}] Setup is running...")
 
     # Directories

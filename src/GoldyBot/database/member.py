@@ -16,7 +16,7 @@ class Member():
         
  
     async def give_money(self, currency_class:Currency, amount:int):
-        """Gives the member the specifed amount of money on that specifed currency."""
+        """Gives the member the specified amount of money on that specified currency."""
 
         self.database
         pass

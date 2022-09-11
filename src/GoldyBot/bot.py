@@ -98,7 +98,7 @@ def start():
                 GoldyBot.modules.Module(module_file_name=module).load()
 
     except GoldyBot.errors.ModuleFailedToLoad:
-        # I just don't want it to stop the whole bot so I'm passing this expection.
+        # I just don't want it to stop the whole bot so I'm passing this exception.
         pass
 
     # Run Bot

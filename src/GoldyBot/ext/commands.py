@@ -62,9 +62,9 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
             guild_not_registered_embed.set_thumbnail(url=GoldyBot.utility.msgs.bot.CommandGuildNotRegistered.Embed.thumbnail)
 
             # Preparing to add command.
-            # Checking if this command is in an extenstion.
-            is_in_extenstion = goldy_command.in_extenstion
-            class_ = goldy_command.extenstion
+            # Checking if this command is in an extension.
+            is_in_extension = goldy_command.in_extension
+            class_ = goldy_command.extension
 
             if not params[0] == "ctx": # Check if command has 'ctx' as first argument.
                 GoldyBot.logging.log("warn", f"Failed to load the command '{command_name}', it must contain 'ctx' as it's first argument!")
@@ -74,7 +74,7 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
             #----------------
             if toggle_normal_cmd:
                 GoldyBot.logging.log(f"[{MODULE_NAME}] [{command_name.upper()}] Creating normal command...")
-                if is_in_extenstion == True: # Run in EXTENSTION!
+                if is_in_extension == True: # Run in EXTENSION!
                     @client.command(name=command_name, help_message=help_des)
                     async def command_(ctx=params[0], *params):
                         command_usage_embed.description = GoldyBot.utility.msgs.bot.CommandUsage.Embed.des.format(ctx.author.mention, command_usage_args)
