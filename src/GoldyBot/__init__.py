@@ -53,5 +53,8 @@ Like this ``async_loop.run_until_complete(async_function())``
 nest_asyncio.apply(async_loop)
 
 # Colours
-colours = utility.goldy.colours
-"""Alias of ``GoldyBot.utility.goldy.colours``"""
+colours = utility.goldy.colours.Colours
+"""Alias of object from ``GoldyBot.utility.goldy.colours``"""
+
+colors = utility.goldy.colours.Colors
+"""Alias of ``GoldyBot.colours``"""

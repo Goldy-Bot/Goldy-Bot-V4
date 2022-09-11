@@ -8,7 +8,9 @@ class Extenstion(object):
     The base class for a Goldy Bot extenstion.
 
     ---------------
-    ### • ``Example``
+    ### ***``Example:``***
+
+    This is how you set up an extenstion in a GoldyBot module. 😍
 
     ```python
     class YourExtenstion(GoldyBot.Extenstion):

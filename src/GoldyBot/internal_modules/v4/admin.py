@@ -21,6 +21,7 @@ def get_modules_dict_list():
     return dict_list
 
 class Admin(GoldyBot.Extenstion):
+    """Admin extenstion."""
     def __init__(self):
         super().__init__(self)
 

@@ -16,8 +16,8 @@ class Goldy(object):
     def start(self):
         """
         Awakens Goldy Bot! 👀💡⏰
-        -------------
-        ### • ``Example``
+        ---------------
+        ### ***``Example:``***
 
         ```python
         import GoldyBot

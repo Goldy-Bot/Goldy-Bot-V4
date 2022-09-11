@@ -12,7 +12,9 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
     Add a command to Goldy Bot with this decorator.
     
     ---------------
-    ### • ``Example``
+    ### ***``Example:``***
+
+    This is how you create a command in GoldyBot. 😀
 
     ```python
     @GoldyBot.command()

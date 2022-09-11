@@ -1,21 +1,29 @@
 /* pdoc color scheme (see also: examples/dark-mode) */
+
 :root {
-    --pdoc-background: #fff;
+    --colour-1: #e7fdff;
+    --background-colour: #212529;
+    --background-colour-2: #555;
+    --colour-3: #FFB97B;
+    --colour-5: #77C1FF;
+    --colour-6: #7790ff;
+    
+    --pdoc-background: var(--background-colour);
 }
 
 .pdoc {
-    --text: var(--colour-4);
-    --muted: #6c757d;
-    --link: #3660a5;
-    --link-hover: #1659c5;
-    --code: #f8f8f8;
-    --active: #fff598;
+    --text: var(--colour-1);
+    --muted: #9d9d9d;
+    --link: #58a6ff;
+    --link-hover: #3989ff;
+    --code: #333;
+    --active: var(--background-colour-2);
 
-    --accent: #eee;
-    --accent2: #c1c1c1;
+    --accent: #343434;
+    --accent2: var(--background-colour-2);
 
-    --nav-hover: var(--colour-2);
-    --name: #0066BB;
-    --def: #008800;
-    --annotation: #007020;
+    --nav-hover: rgba(0, 0, 0, 0.1);
+    --name: var(--colour-3);
+    --def: var(--colour-5);
+    --annotation: var(--colour-6);
 }

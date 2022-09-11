@@ -7,6 +7,7 @@ AUTHOR_GITHUB = 'https://github.com/THEGOLDENPRO'
 OPEN_SOURCE_LINK = ''
 
 class Timestamps(GoldyBot.Extenstion):
+    """Timestamps extenstion."""
     def __init__(self, package_module=None):
         super().__init__(self, package_module_name=package_module)
 
