@@ -1,11 +1,12 @@
 import random
+
 import GoldyBot
 
-from .currency import Currency
+from .money import Money
 
-class Member():
+class Member(Money):
     """Creates member database interface with ctx to allow for easy grabbing of member data."""
-    def __init__(self, ctx, member):
+    def __init__(self, ctx, member) -> None:
         self.ctx = ctx
         self.actual_member:GoldyBot.member.Member = member
 
@@ -13,13 +14,12 @@ class Member():
 
         # Generate document if member doesn't exists in database.
         GoldyBot.async_loop.run_until_complete(self.setup())
-        
- 
-    async def give_money(self, currency_class:Currency, amount:int):
-        """Gives the member the specified amount of money on that specified currency."""
 
-        self.database
-        pass
+        super().__init__(member)
+
+    async def get_member_data(self):
+        """Returns member's database collection."""
+        return await self.database.find_one("global", {"_id":int(self.actual_member.member_id)})
 
     async def setup(self):
         """Makes sure this member is setup in global and guild collection."""

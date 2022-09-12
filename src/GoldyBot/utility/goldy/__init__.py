@@ -1,4 +1,4 @@
-from . import colours, embed
+from . import colours, embed, currencies
 
 import GoldyBot
 

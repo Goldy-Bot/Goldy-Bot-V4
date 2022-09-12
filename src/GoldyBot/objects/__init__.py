@@ -1,4 +1,4 @@
-from . import command, member, role, slash, channel
+from . import command, member, role, slash, channel, currency
 
 Command = command.Command
 """"""
@@ -9,4 +9,6 @@ Role = role.Role
 InteractionToCtx = slash.InteractionToCtx
 """"""
 Channel = channel.Channel
+""""""
+Currency = currency.Currency
 """"""

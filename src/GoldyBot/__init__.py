@@ -25,27 +25,27 @@ from . import internal_modules, ext, utility, objects
 
 # Functions
 log = logging.print_and_log
-"""Alias of ``GoldyBot.logging.log``"""
+"""Shortcut of ``GoldyBot.logging.log``"""
 
 # Function Decorators
 command = ext.commands.command
-"""Alias of object from ``GoldyBot.ext.commands``"""
+"""Shortcut of object from ``GoldyBot.ext.commands``"""
 cmd = command
 """Alias of object from ``GoldyBot.ext.commands``"""
 
 # Class Inheritors
 Extension = ext.extensions.Extension
-"""Alias of object from ``GoldyBot.ext.extensions``"""
+"""Shortcut of object from ``GoldyBot.ext.extensions``"""
 
 setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing.
 
 # Classes
 Goldy = goldy.Goldy
-"""Alias of object from ``GoldyBot.goldy``"""
+"""Shortcut of object from ``GoldyBot.goldy``"""
 Database = database.Database
-"""Alias of ``GoldyBot.database.Database``"""
+"""Shortcut of ``GoldyBot.database.Database``"""
 Embed = utility.goldy.embed.Embed
-"""Alias of object from ``GoldyBot.utility.goldy.embed``"""
+"""Shortcut of object from ``GoldyBot.utility.goldy.embed``"""
 
 # Async Loop
 async_loop = asyncio.get_event_loop()
@@ -57,7 +57,11 @@ nest_asyncio.apply(async_loop)
 
 # Colours
 colours = utility.goldy.colours.Colours
-"""Alias of object from ``GoldyBot.utility.goldy.colours``"""
+"""Shortcut of object from ``GoldyBot.utility.goldy.colours``"""
 
 colors = utility.goldy.colours.Colors
 """Alias of ``GoldyBot.colours``"""
+
+# Goldy Bot Currencies
+Currencies = utility.goldy.currencies.Currencies
+"""Shortcut of object from ``GoldyBot.utility.goldy.currencies``"""
