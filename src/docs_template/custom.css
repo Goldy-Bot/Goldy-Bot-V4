@@ -3,27 +3,16 @@ This file is empty by default.
 Override it in your custom template to provide additional CSS rules.
 */
 
-:root {
-    --colour-1: #bc4b7a;
-    --colour-2: #C28CAE;
-    --background-colour: #0E0907;
-    --background-colour-2: #140d0a;
-    --colour-3: #FFB97B;
-    --colour-4: #FF0066;
-}
-
 @font-face {
     font-family: YanoneKaffeesatz;
     src: url("https://raw.githubusercontent.com/THEGOLDENPRO/thegoldenpro.github.io/main/fonts/YanoneKaffeesatz/font.ttf");
 }
 
 body {
-    background-color: var(--background-colour);
-
     font-family: YanoneKaffeesatz !important;
     letter-spacing: 2px !important;
 
-    text-shadow: 1px 1px black !important;
+    text-shadow: 0.5px 0.5px black !important;
 }
 
 ::selection {
@@ -34,12 +23,7 @@ body {
 }
 
 nav.pdoc {
-    background-color: var(--background-colour-2);
     border-right: none;
-}
-
-nav.pdoc h2, nav.pdoc li a {
-    color: var(--colour-4) !important;
 }
 
 nav.pdoc li a {
@@ -58,82 +42,50 @@ nav.pdoc .logo {
     image-rendering: -webkit-optimize-contrast !important;
 }
 
-nav.pdoc .module-list-button {
-    color: var(--colour-3);
-    border-color: var(--colour-2)
-}
-
 
 
 .pdoc .attr {
-    background-color: #ffb97b05 !important;
-    border-radius: 10px;
+    border-radius: 5px;
 
-    box-shadow: 0px 0px 10px black;
+    box-shadow: 0px 0px 7px black;
 }
 
 .pdoc code {
     font-weight: 900 !important;
-
-    background-color: var(--background-colour) !important;
-
-    color: var(--colour-2) !important;
 }
 
 .pdoc pre {
-    border-width: 2px;
-    border-color: var(--colour-3) !important;
-
-    background-color: var(--background-colour) !important
-}
-
-.pdoc pre span .n, .pdoc pre span .p {
-    color: var(--colour-3);
-}
-
-.pdoc .attr span .n, .pdoc .attr span .p, h4 {
-    color: var(--colour-3);
-}
-
-.pdoc .signature, .pdoc .return-annotation {
-    color: var(--colour-4);
+    border-width: 10px;
 }
 
 
 
 h1 {
-    color: var(--colour-2);
+    color: var(--colour-3) !important;
     font-weight: 900;
     letter-spacing: 4px;
-}
-
-p {
-    color: var(--colour-4)
 }
 
 input {
     height: 40px !important;
 
-    background-color: var(--background-colour);
     border: none;
     border-radius: 10px;
 
     padding: 10px;
 
-    color: var(--colour-1);
+    color: var(--text);
+    background-color: var(--active);
+
     font-weight: 700;
     letter-spacing: 2px;
 
     text-shadow: 1px 1px black !important;
-    box-shadow: 1px 1px black;
+    box-shadow: 0px 0px 30px black;
 }
 
-input::placeholder {
-    color: var(--colour-2);
-}
-
-footer {
-    color: var(--colour-3);
+.docstring {
+    max-height: none !important;
 }
 
 
@@ -145,17 +97,14 @@ footer {
   
 /* Track */
 ::-webkit-scrollbar-track {
-    background: var(--background-colour-2);
 }
   
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: var(--colour-2);
 }
   
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--colour-1);
 }
 
 
@@ -167,15 +116,12 @@ nav::-webkit-scrollbar {
   
 /* Track */
 nav::-webkit-scrollbar-track {
-    background: var(--background-colour-2) !important;
 }
   
 /* Handle */
 nav::-webkit-scrollbar-thumb {
-    background: var(--colour-2) !important;
 }
   
 /* Handle on hover */
 nav::-webkit-scrollbar-thumb:hover {
-    background: var(--colour-1);
 }

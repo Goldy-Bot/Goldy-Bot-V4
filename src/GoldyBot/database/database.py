@@ -1,6 +1,6 @@
 from __future__ import annotations
 import asyncio
-from typing import Any, List
+from typing import Any, Dict, List
 import pymongo
 import motor.motor_asyncio
 import GoldyBot
@@ -89,7 +89,7 @@ class Database():
         """Returns list of all collection names."""
         return await self.database.list_collection_names()
 
-    async def find_one(self, collection:str, query:dict) -> (Any | None):
+    async def find_one(self, collection:str, query:dict) -> (dict | None):
         """Tells database to search for and return specific data from a collection."""
         data = await self.database[collection].find_one(query)
         if not data == None:
@@ -108,7 +108,7 @@ class Database():
         GoldyBot.logging.log("INFO_5", f"[{MODULE_NAME}] Database collection '{collection_name}' dropped.")
 
     def new_instance(self, database_name:str):
-        """Starts a new database instance the efficiant way. 👍"""
+        """Starts a new database instance the efficient way. 👍"""
         class NewDatabase(Database):
             def __init__(self, database_self:Database):
                 self.database = database_self.client[database_name]

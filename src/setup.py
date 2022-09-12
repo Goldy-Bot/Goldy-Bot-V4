@@ -5,14 +5,15 @@ classifiers = [
   'Operating System :: POSIX :: Linux',
   'License :: OSI Approved :: MIT License',
   'Programming Language :: Python :: 3.8',
-  'Programming Language :: Python :: 3.9'
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10'
 ]
 
 setup(
   name='GoldyBot',
   version="4.0dev21",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
-  long_description=open('README.txt').read(), 
+  long_description=open('../README.md', encoding="UTF-8").read(), 
   url='https://github.com/Goldy-Bot', 
   project_urls={"Bug Tracker": "https://github.com/Goldy-Bot/Goldy-Bot-V4/issues"}, 
   author='Dev Goldy', 

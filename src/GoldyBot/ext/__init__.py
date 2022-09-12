@@ -1,1 +1,1 @@
-from . import commands, extenstions
+from . import commands, extensions

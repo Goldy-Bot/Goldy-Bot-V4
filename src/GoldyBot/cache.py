@@ -1,6 +1,7 @@
-from nextcord.ext import commands
+from __future__ import annotations
 
 import GoldyBot
+from nextcord.ext import commands
 
 MODULE_NAME = "CACHE"
 
@@ -17,7 +18,7 @@ main_cache_dict = {
 
     "internal_modules" : {
         "goldy" : {
-            "extenstions" : {
+            "extensions" : {
                 "core" : {
                     "commands" : []
                 }
@@ -30,9 +31,13 @@ main_cache_dict = {
     }
 }
 
+def database() -> GoldyBot.database.Database|None:
+    """Returns current database."""
+    return main_cache_dict["database"]
+
 class FindGuilds():
     """A class dedicated to finding guilds from cache."""
-    def __init__(self, goldy_config:object=None):
+    def __init__(self, goldy_config:GoldyBot.config.Config=None):
         if goldy_config == None:
             self.goldy_config = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON))
         else:
@@ -78,29 +83,29 @@ class FindModules():
                 GoldyBot.logging.log("error", f"[{MODULE_NAME}] Failed to find the module '{module_name}'.")
                 return None
 
-class FindExtenstions():
-    """A class dedicated to finding loaded Goldy Bot extenstions from cache."""
+class FindExtensions():
+    """A class dedicated to finding loaded Goldy Bot extensions from cache."""
     def __init__(self):
         pass
 
-    def find_object_by_extenstion_name(self, extenstion_name:str):
-        """A fast way to grab the class object of a extenstion from Goldy Bot cache."""
-        GoldyBot.logging.log(f"[{MODULE_NAME}] Finding extenstion '{extenstion_name}' by name...")
+    def find_object_by_extension_name(self, extension_name:str):
+        """A fast way to grab the class object of a extension from Goldy Bot cache."""
+        GoldyBot.logging.log(f"[{MODULE_NAME}] Finding extension '{extension_name}' by name...")
         for module in main_cache_dict["modules"]:
             try:
-                extenstion_object:GoldyBot.ext.extenstions.Extenstion = main_cache_dict["modules"][f"{module}"]["extenstions"][f"{extenstion_name}"]["object"]
-                GoldyBot.logging.log(f"[{MODULE_NAME}] Found the extenstion '{extenstion_name}'!")
-                return extenstion_object
+                extension_object:GoldyBot.ext.extensions.Extension = main_cache_dict["modules"][f"{module}"]["extensions"][f"{extension_name}"]["object"]
+                GoldyBot.logging.log(f"[{MODULE_NAME}] Found the extension '{extension_name}'!")
+                return extension_object
             except KeyError:
                 pass
 
         for module in main_cache_dict["internal_modules"]:
             try:
-                extenstion_object:GoldyBot.ext.extenstions.Extenstion = main_cache_dict["internal_modules"][f"{module}"]["extenstions"][f"{extenstion_name}"]["object"]
-                GoldyBot.logging.log(f"[{MODULE_NAME}] Found the extenstion '{extenstion_name}'!")
-                return extenstion_object
+                extension_object:GoldyBot.ext.extensions.Extension = main_cache_dict["internal_modules"][f"{module}"]["extensions"][f"{extension_name}"]["object"]
+                GoldyBot.logging.log(f"[{MODULE_NAME}] Found the extension '{extension_name}'!")
+                return extension_object
             except KeyError:
                 pass
 
-        GoldyBot.logging.log("error", f"[{MODULE_NAME}] Failed to find the extenstion '{extenstion_name}'.")
+        GoldyBot.logging.log("error", f"[{MODULE_NAME}] Failed to find the extension '{extension_name}'.")
         return None

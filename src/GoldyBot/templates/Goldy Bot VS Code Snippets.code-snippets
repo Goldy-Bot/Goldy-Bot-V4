@@ -30,28 +30,28 @@
 		"description": "Creates a default template for you in a command's msg module."
 	},
 
-	"Goldy Bot - Extenstion Template": {
+	"Goldy Bot - Extension Template": {
 		"scope": "python",
 		"prefix": ["ext", "extn", "exten"],
 		"body": [
-			"class YourExtenstion(GoldyBot.Extenstion):",
+			"class YourExtension(GoldyBot.Extension):",
 			"    '''",
-			"    This GoldyBot extenstion was generated with VS Code.",
+			"    This GoldyBot extension was generated with VS Code.",
 			"",
 			"    NOTICE: Don't forget to run this class in the module's load function.",
 			"    '''",
 			"",
-			"    def __init__(self):",
-			"        super().__init__(self)",
+			"    def __init__(self, package_module=None):",
+			"        super().__init__(self, package_module_name=package_module)",
 			"",
 			"    def loader(self):",
 			"",
 			"        @GoldyBot.command()",
-			"        async def uwu(self:YourExtenstion, ctx):",
+			"        async def uwu(self:YourExtension, ctx):",
 			"            await ctx.send(f'Hi, {ctx.author.mention}! UwU!')"
 			],
 
-		"description": "Creates a template of a GoldyBot extenstion."
+		"description": "Creates a template of a GoldyBot extension."
 	},
 	
 	"Goldy Bot - Module SetUp Template": {
@@ -70,9 +70,9 @@
 			"",
 			"",
 			"",
-			"def load(self):",
-			"    # This function get's executed when the module is loaded so run your extenstion classes in here.",
-			"    # Example: YourExtenstion()",
+			"def load():",
+			"    # This function get's executed when the module is loaded so run your extension classes in here.",
+			"    # Example: YourExtension(package_module_name=__name__)",
 			"    pass"
 			],
 

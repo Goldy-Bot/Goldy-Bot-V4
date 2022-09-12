@@ -19,9 +19,9 @@
         "allow_bad_words" : false,
         "allow_error_logging" : true,
         
-        "allowed_extenstions" : [],
-        "disallowed_extenstions" : [],
-        "hidden_extenstions" : [],
+        "allowed_extensions" : [],
+        "disallowed_extensions" : [],
+        "hidden_extensions" : [],
 
         "money_emoji" : "💷"
     }

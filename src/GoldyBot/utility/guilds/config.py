@@ -10,28 +10,28 @@ class GuildConfig():
     def prefix(self) -> str:
         return self.guild_config.read("prefix")
 
-    def is_extenstion_allowed(self, extenstion_name:str):
+    def is_extension_allowed(self, extension_name:str):
 
-        if extenstion_name == None:
+        if extension_name == None:
             return True
 
-        if extenstion_name in ["Admin"]:
+        if extension_name in ["Admin"]:
             return True
 
         config = self.guild_config.read("config")
-        allowed_extenstions = config["allowed_extenstions"]
-        disallowed_extenstions = config["disallowed_extenstions"]
+        allowed_extensions = config["allowed_extensions"]
+        disallowed_extensions = config["disallowed_extensions"]
 
-        if extenstion_name in allowed_extenstions:
+        if extension_name in allowed_extensions:
             return True
 
-        if extenstion_name in disallowed_extenstions:
+        if extension_name in disallowed_extensions:
             return False
 
-        if allowed_extenstions == ["."]:
+        if allowed_extensions == ["."]:
             return True
 
-        if disallowed_extenstions == ["."]:
+        if disallowed_extensions == ["."]:
             return False
 
         return True

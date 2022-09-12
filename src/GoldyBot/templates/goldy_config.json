@@ -1,6 +1,6 @@
 {
     "load_first" : [],
-    "ignored_extenstions" : [],
+    "ignored_extensions" : [],
     "ignored_modules" : [],
     "bot_mode" : "D",
     "database_name" : "",
@@ -8,7 +8,7 @@
 
     "commands" : {
         "help" : {
-            "max_extenstions" : 6
+            "max_extensions" : 6
         }
     },
 

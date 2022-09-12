@@ -14,6 +14,8 @@ MODULE_NAME = "GOLDY CORE"
 
 def start():
     """Start the nextcord bot."""
+
+    asyncio.set_event_loop(GoldyBot.async_loop)
     
     TOKEN = GoldyBot.token.get()
     DATABASE_TOKEN = GoldyBot.token.get_database()
@@ -96,12 +98,12 @@ def start():
                 GoldyBot.modules.Module(module_file_name=module).load()
 
     except GoldyBot.errors.ModuleFailedToLoad:
-        # I just don't want it to stop the whole bot.
+        # I just don't want it to stop the whole bot so I'm passing this exception.
         pass
 
     # Run Bot
     #----------
     try:
-        client.run(TOKEN)
+        GoldyBot.async_loop.run_until_complete(client.start(TOKEN))
     except Exception as e: # Error Handling
         GoldyBot.logging.log("error", e); GoldyBot.Goldy().stop(e)

@@ -1,11 +1,12 @@
 from __future__ import annotations
 import nextcord
 
+from .. import database
 from GoldyBot.objects.slash import Interaction, InteractionToCtx
 
 from . import role
 
-class Member():
+class Member(database.member.Member):
     """A class representing a discord member in Goldy Bot."""
     def __init__(self, ctx, member_id:str|int=None, mention_str:str=None, member_object:nextcord.Member=None):
         self.ctx = ctx
@@ -18,6 +19,8 @@ class Member():
             self.member = self.find_member(self.member_id)
         else:
             self.member = self.member_object_
+
+        super().__init__(ctx, self)
         
     @property
     def member_id(self) -> str:
@@ -51,7 +54,7 @@ class Member():
             return False
 
     async def add_role(self, role:role.Role):
-        """This method addes the specified role to this member."""
+        """This method adds the specified role to this member."""
         if not self.has_role(role):
             await self.member.add_roles(role)
             return True

@@ -6,7 +6,8 @@ AUTHOR = 'Dev Goldy'
 AUTHOR_GITHUB = 'https://github.com/THEGOLDENPRO'
 OPEN_SOURCE_LINK = ''
 
-class Timestamps(GoldyBot.Extenstion):
+class Timestamps(GoldyBot.Extension):
+    """Timestamps extension."""
     def __init__(self, package_module=None):
         super().__init__(self, package_module_name=package_module)
 
@@ -24,7 +25,7 @@ class Timestamps(GoldyBot.Extenstion):
                 "Saturday, August 13, 2022 6:00 PM" : "F",
                 "in 3 hours": "R"
             }),
-            "timezone" : GoldyBot.nextcord.SlashOption(description="The timezone to convert to; Goldy Bot defauts to Europe/London timezone.", default="Europe/London")
+            "timezone" : GoldyBot.nextcord.SlashOption(description="The timezone to convert to; Goldy Bot defaults to Europe/London timezone.", default="Europe/London")
         })
         async def timestamp(self:Timestamps, ctx, date, time, flag, timezone):
             datetime = GoldyBot.utility.datetime.user_input.get_time_and_date(f"{date} {time}")
@@ -53,7 +54,7 @@ class Timestamps(GoldyBot.Extenstion):
 
 
 def load():
-    # This function get's executed when the module is loaded so run your extenstion classes in here.
-    # Example: YourExtenstion(package_module_name=__name__)
+    # This function get's executed when the module is loaded so run your extension classes in here.
+    # Example: YourExtension(package_module_name=__name__)
 
     Timestamps(__name__)

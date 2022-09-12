@@ -20,9 +20,10 @@ def get_modules_dict_list():
 
     return dict_list
 
-class Admin(GoldyBot.Extenstion):
-    def __init__(self):
-        super().__init__(self)
+class Admin(GoldyBot.Extension):
+    """Admin extension."""
+    def __init__(self, package_module=None):
+        super().__init__(self, package_module_name=package_module)
 
     def loader(self):
         
@@ -129,4 +130,4 @@ class Admin(GoldyBot.Extenstion):
             return True
 
 def load():
-    Admin()
+    Admin(__name__)
