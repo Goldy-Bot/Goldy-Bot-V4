@@ -14,6 +14,7 @@ setup(
   version="4.0dev21",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=open('../README.md', encoding="UTF-8").read(), 
+  long_description_content_type="text/markdown",
   url='https://github.com/Goldy-Bot', 
   project_urls={"Bug Tracker": "https://github.com/Goldy-Bot/Goldy-Bot-V4/issues"}, 
   author='Dev Goldy', 
