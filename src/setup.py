@@ -1,3 +1,4 @@
+import re
 from setuptools import setup, find_packages
 
 classifiers = [
@@ -9,11 +10,14 @@ classifiers = [
   'Programming Language :: Python :: 3.10'
 ]
 
+import requests
+readme_request = requests.get("https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/README.md")
+
 setup(
   name='GoldyBot',
-  version="4.0dev21",
+  version="4.0dev22",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
-  long_description=open('../README.md', encoding="UTF-8").read(), 
+  long_description=readme_request.text, 
   long_description_content_type="text/markdown",
   url='https://github.com/Goldy-Bot', 
   project_urls={"Bug Tracker": "https://github.com/Goldy-Bot/Goldy-Bot-V4/issues"}, 
