@@ -1,10 +1,7 @@
 import asyncio
 import random
-import sys
 import nextcord
-import nextcord.ext as nextcord_ext
-from nextcord import Interaction
-from nextcord.ext import commands
+from nextcord.ext import commands, tasks
 import os
 import time
 
@@ -41,6 +38,14 @@ def start():
 
         GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
+    # Keep client in cache up to date.
+    #------------------------------------
+    @tasks.loop(seconds=0)
+    async def update_cached_client():
+        GoldyBot.cache.main_cache_dict["client"] = client
+
+    #update_cached_client.start()
+
     # Goldy Setup.
     #---------------
     GoldyBot.async_loop.create_task(GoldyBot.Goldy().setup(client))
@@ -65,14 +70,14 @@ def start():
         embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
         embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), 
-        platform, system.cpu, system.ram, system.disk, hearts[8], dev_goldy_mention)
+        platform, f"{system.cpu:.1f}", system.ram, system.disk, hearts[8], dev_goldy_mention)
 
         message = await GoldyBot.utility.commands.send(ctx, embed=embed)
 
         t_end = time.time() + 15
         while time.time() < t_end:
             heart = random.choice(hearts)
-            embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), platform, system.cpu, system.ram, system.disk, heart, dev_goldy_mention)
+            embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), platform, f"{system.cpu:.1f}", system.ram, system.disk, heart, dev_goldy_mention)
             await message.edit(embed=embed)
 
             await asyncio.sleep(0.5)

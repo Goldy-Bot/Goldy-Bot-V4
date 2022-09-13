@@ -14,7 +14,7 @@ class System():
     @property
     def cpu(self) -> int:
         """Returns amount of CPU Goldy Bot is using on this system."""
-        return self.process.cpu_percent(0.5)
+        return self.process.cpu_percent(0)/psutil.cpu_count()
 
     @property
     def ram(self) -> int:

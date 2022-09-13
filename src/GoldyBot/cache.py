@@ -36,7 +36,7 @@ def database() -> GoldyBot.database.Database|None:
     """Returns current database."""
     return main_cache_dict["database"]
 
-def client() -> nextcord.Client|None:
+def client() -> commands.Bot|None:
     """Returns the nextcord client from cache."""
     return main_cache_dict["client"]
 

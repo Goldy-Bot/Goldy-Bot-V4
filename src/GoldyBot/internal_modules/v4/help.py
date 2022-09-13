@@ -16,5 +16,5 @@ class Help(GoldyBot.Extension):
             await send(ctx, "whoo hoo! OwO o/")
 
 def load():
-    #Help(__name__)
+    Help(__name__)
     pass

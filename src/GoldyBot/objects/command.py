@@ -193,11 +193,27 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
 
     def remove(self):
         """Removes command from nextcord."""
-        client:commands.Bot = GoldyBot.cache.main_cache_dict["client"]
+        command_application_object = self.command
+
+        # Remove command from extension in cache.
+        if self.in_extension:
+            if self.module.is_internal_module:
+                GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.extension_name}"]["commands"].remove(self)
+            else:
+                GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.extension_name}"]["commands"].remove(self)
+        else:
+            GoldyBot.cache.main_cache_dict["internal_modules"]["goldy"]["extensions"]["core"]["commands"].remove(self)
+
+        # Remove from nextcord.
+        client = GoldyBot.cache.client()
         client.remove_command(name=self.code_name)
+
         for guild_id in self.guilds_allowed_in:
-            command_application_object = GoldyBot.utility.nextcordpy.commands.find_slash_command(self.code_name)
+            print(command_application_object.command_ids) #TODO: Problem here!
             GoldyBot.async_loop.run_until_complete(client.delete_application_commands(command_application_object, guild_id=guild_id))
+            #client._connection._application_commands.remove(command_application_object)
+            GoldyBot.cache.main_cache_dict["client"] = client
+
         GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Removed the command '{self.code_name}'!")
         return True
 

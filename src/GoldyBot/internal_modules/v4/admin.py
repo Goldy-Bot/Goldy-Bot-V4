@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 import nextcord
 import GoldyBot
@@ -74,9 +75,13 @@ class Admin(GoldyBot.Extension):
                     return False
             
             try:
-                module.reload()
+                reloaded_commands = module.reload()
 
-                await GoldyBot.cache.client().sync_all_application_commands()
+                for command in reloaded_commands:
+                    for guild_id in command.guilds_allowed_in:
+                        payload = command.command.get_payload(guild_id)
+                        await GoldyBot.cache.client().sync_application_commands([payload], guild_id=guild_id)
+
             except ModuleFailedToLoad:
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)

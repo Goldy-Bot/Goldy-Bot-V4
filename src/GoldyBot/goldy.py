@@ -109,6 +109,11 @@ def input_loop():
             if command.lower() == "stop":
                 raise EOFError
 
+            if command.lower() == "test":
+                print("")
+                for cmd in GoldyBot.cache.client().get_all_application_commands():
+                    print(cmd.name)
+
             time.sleep(0.1)
             
     except EOFError:
