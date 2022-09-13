@@ -22,7 +22,7 @@
  Feel free to use this module to develop your extenstions.
 </p> 
 
-#### [⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)
+#### [[⭐The Future of this Project.](https://gist.github.com/THEGOLDENPRO/6d9e0ee2376ac9b7743a0709eab06ca6)] ‎ [[📘Docs](https://goldybot.devgoldy.me)]
 
 ## *Install/Set Up*
 1. **Install package from pip.**
