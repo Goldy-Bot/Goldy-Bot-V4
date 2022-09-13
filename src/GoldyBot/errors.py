@@ -1,10 +1,13 @@
 import GoldyBot
+from GoldyBot.logging import print_and_log
+
+import time
 
 class GoldyBotError(Exception):
     """The parent/master class of all the errors in Goldy Bot."""
     def __init__(self, error):
-        GoldyBot.logging.log("error", error)
         super().__init__(error)
+        GoldyBot.logging.log("error", error)
 
 # Commands
 #-------------
@@ -17,7 +20,7 @@ class CommandNotAllowedInGuild(GoldyBotError):
     pass
 
 class MemberHasNoPermsForCommand(GoldyBotError):
-    """Raised when a member without the proper roles trys to execute a command."""
+    """Raised when a member without the proper roles tries to execute a command."""
     pass
 
 # Roles
@@ -47,3 +50,18 @@ class ModuleNotFound(GoldyBotError):
 class FailedToFindGuildRole(GoldyBotError):
     def __init__(self, error):
         super().__init__(error)
+
+
+
+# Config
+#---------
+
+# Config Incorrect
+class ConfigIsIncorrect(GoldyBotError):
+    def __init__(self, error, what_is_incorrect:str=None):
+        """Error that is raised whenever a configuration file is incorrect or missing something."""
+        super().__init__(error)
+        print_and_log("info", "^ This usually means you misspelt something in the config or the layout of the config is incorrect. ^")
+
+        if not what_is_incorrect == None:
+            print_and_log("warn", f"We actually think you might of misspelt '{what_is_incorrect}'.")

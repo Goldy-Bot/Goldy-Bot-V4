@@ -15,7 +15,7 @@ readme_request = requests.get("https://raw.githubusercontent.com/Goldy-Bot/Goldy
 
 setup(
   name='GoldyBot',
-  version="4.0dev22",
+  version="4.0dev23",
   description='Yet another rewrite of Goldy Bot, a discord bot that I develop for FUN.', 
   long_description=readme_request.text, 
   long_description_content_type="text/markdown",

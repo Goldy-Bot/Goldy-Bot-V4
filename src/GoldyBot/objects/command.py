@@ -195,9 +195,9 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         """Removes command from nextcord."""
         client:commands.Bot = GoldyBot.cache.main_cache_dict["client"]
         client.remove_command(name=self.code_name)
-        GoldyBot.async_loop.create_task(client.delete_application_commands(GoldyBot.utility.nextcordpy.commands.find_slash_command(self.code_name)))
-        #client.sync_all_application_commands() # CHANGE THIS TO 'Client.sync_application_commands' LATER!
-        GoldyBot.async_loop.create_task(client.rollout_application_commands()) # Updates slash commands. #TODO: This still doesn't work.
+        for guild_id in self.guilds_allowed_in:
+            command_application_object = GoldyBot.utility.nextcordpy.commands.find_slash_command(self.code_name)
+            GoldyBot.async_loop.run_until_complete(client.delete_application_commands(command_application_object, guild_id=guild_id))
         GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Removed the command '{self.code_name}'!")
         return True
 

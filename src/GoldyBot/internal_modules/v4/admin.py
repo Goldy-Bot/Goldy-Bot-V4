@@ -75,6 +75,8 @@ class Admin(GoldyBot.Extension):
             
             try:
                 module.reload()
+
+                await GoldyBot.cache.client().sync_all_application_commands()
             except ModuleFailedToLoad:
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)
@@ -88,6 +90,9 @@ class Admin(GoldyBot.Extension):
             embed.set_thumbnail(url=self.msg.reload.ReloadedEmbed.thumbnail)
             await ctx.send(embed=embed)
             return True
+
+
+
 
         @GoldyBot.command(required_roles=["bot_dev"], slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
