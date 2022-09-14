@@ -84,7 +84,7 @@ class Admin(GoldyBot.Extension):
                         await GoldyBot.cache.client().sync_application_commands([payload], guild_id=guild_id)
                 """
 
-                temp:dict = []
+                temp:dict = {}
                 for guild_id in GoldyBot.utility.guilds.get_guild_ids():
                     temp[guild_id] = []
 
@@ -94,7 +94,7 @@ class Admin(GoldyBot.Extension):
 
                 def test(): GoldyBot.async_loop.run_until_complete(GoldyBot.cache.client().sync_all_application_commands(temp))
 
-                #GoldyBot.async_loop.call_later(6.0, test)
+                GoldyBot.async_loop.call_later(3.0, test)
             except ModuleFailedToLoad:
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)
