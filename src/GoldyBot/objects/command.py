@@ -211,7 +211,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         for guild_id in self.guilds_allowed_in:
             print(command_application_object.command_ids) #TODO: Problem here!
             GoldyBot.async_loop.run_until_complete(client.delete_application_commands(command_application_object, guild_id=guild_id))
-            #client._connection._application_commands.remove(command_application_object)
+            
             GoldyBot.cache.main_cache_dict["client"] = client
 
         GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Removed the command '{self.code_name}'!")
