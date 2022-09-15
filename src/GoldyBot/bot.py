@@ -4,6 +4,7 @@ import nextcord
 from nextcord.ext import commands, tasks
 import os
 import time
+from platform import python_version
 
 import GoldyBot
 
@@ -22,12 +23,18 @@ def start():
     client = commands.Bot(command_prefix = GoldyBot.utility.nextcordpy.prefix.get_prefix, 
     case_insensitive=True, intents=intents.all(), help_command=None)
 
+    """ # Ignore this please.
+    @client.slash_command(guild_ids=[863416692083916820], default_member_permissions=8)
+    async def daddy():
+        pass
+    """
+
     # Caching client object.
     GoldyBot.cache.main_cache_dict["client"] = client
 
     # Initializing Stuff
     #----------------------
-    database = GoldyBot.database.Database(DATABASE_TOKEN) # Initializing goldy bot database connection.
+    GoldyBot.database.Database(DATABASE_TOKEN) # Initializing goldy bot database connection.
 
     @client.event
     async def on_ready():
@@ -38,13 +45,14 @@ def start():
 
         GoldyBot.log("info_2", f"[{MODULE_NAME}] [BOT READY]")
 
-    # Keep client in cache up to date.
-    #------------------------------------
-    @tasks.loop(seconds=0)
-    async def update_cached_client():
-        GoldyBot.cache.main_cache_dict["client"] = client
+    # Initializing Loops
+    #-------------------------
+    @tasks.loop(seconds=1) # Rate Limited Warning.
+    async def rate_limit_warning():
+        if client.is_ws_ratelimited() == True:
+            GoldyBot.logging.log("warn", "We're being rate limited!")
 
-    #update_cached_client.start()
+    rate_limit_warning.start()
 
     # Goldy Setup.
     #---------------
@@ -60,6 +68,7 @@ def start():
 
         version = GoldyBot.info.bot_version
         nextcord_version = nextcord.__version__
+        python_ver = python_version()
         platform = system.os
 
         dev_goldy = GoldyBot.Member(ctx, member_id=332592361307897856)
@@ -69,7 +78,7 @@ def start():
         embed.color = GoldyBot.utility.goldy.colours.AKI_BLUE
         embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
-        embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), 
+        embed.description = command_msg.Embed.des.format(version, nextcord_version, python_ver, round(client.latency * 1000), 
         platform, f"{system.cpu:.1f}", system.ram, system.disk, hearts[8], dev_goldy_mention)
 
         message = await GoldyBot.utility.commands.send(ctx, embed=embed)
@@ -77,7 +86,7 @@ def start():
         t_end = time.time() + 15
         while time.time() < t_end:
             heart = random.choice(hearts)
-            embed.description = command_msg.Embed.des.format(version, nextcord_version, round(client.latency * 1000), platform, f"{system.cpu:.1f}", system.ram, system.disk, heart, dev_goldy_mention)
+            embed.description = command_msg.Embed.des.format(version, nextcord_version, python_ver, round(client.latency * 1000), platform, f"{system.cpu:.1f}", system.ram, system.disk, heart, dev_goldy_mention)
             await message.edit(embed=embed)
 
             await asyncio.sleep(0.5)

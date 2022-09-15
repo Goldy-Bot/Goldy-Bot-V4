@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+v4.0dev23 = BREAKING CHANGE! (25/06/2022)
+---------------------------
+- Role object parameters have been changed, so make sure you update it in your code. A complete new redesign has been done to it. (BREAKING CHANGE!)
+- Added python version to /goldy command.
+- Much more accurate cpu usage percentage.
+- Added rate limit warning. A warning will print in console if Goldy Bot is rate limited by Discord.
+
 v4.0dev10 = New Release (25/06/2022)
 ---------------------------
 - Backend changes and improvements.
