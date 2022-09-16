@@ -1,4 +1,3 @@
-import asyncio
 import os
 import sys
 import GoldyBot, devgoldyutils
@@ -108,6 +107,11 @@ def input_loop():
 
             if command.lower() == "stop":
                 raise EOFError
+
+            if command.lower() == "nextcord_app_commands":
+                print("")
+                for cmd in GoldyBot.cache.client().get_all_application_commands():
+                    print(cmd.name)
 
             time.sleep(0.1)
             

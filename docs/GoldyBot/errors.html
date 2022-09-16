@@ -94,6 +94,15 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#ConfigIsIncorrect">ConfigIsIncorrect</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ConfigIsIncorrect.__init__">ConfigIsIncorrect</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -117,54 +126,75 @@
                         <label class="view-source-button" for="errors-view-source"><span>View Source</span></label>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">import</span> <span class="nn">GoldyBot</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">class</span> <span class="nc">GoldyBotError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>    <span class="sd">&quot;&quot;&quot;The parent/master class of all the errors in Goldy Bot.&quot;&quot;&quot;</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="c1"># Commands</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="c1">#-------------</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">class</span> <span class="nc">GuildNotRegistered</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member executes a command from a guild that has not been registered.&quot;&quot;&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">pass</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="k">class</span> <span class="nc">CommandNotAllowedInGuild</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a command that isn&#39;t allowed in that guild executes.&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span> <span class="nn">GoldyBot.logging</span> <span class="kn">import</span> <span class="n">print_and_log</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="k">class</span> <span class="nc">GoldyBotError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="sd">&quot;&quot;&quot;The parent/master class of all the errors in Goldy Bot.&quot;&quot;&quot;</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>        <span class="sd">&quot;&quot;&quot;Raise me! UwU OwO&quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">)</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="c1"># Commands</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="c1">#-------------</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="k">class</span> <span class="nc">GuildNotRegistered</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member executes a command from a guild that has not been registered.&quot;&quot;&quot;</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="k">pass</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="k">class</span> <span class="nc">MemberHasNoPermsForCommand</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member without the proper roles trys to execute a command.&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="k">class</span> <span class="nc">CommandNotAllowedInGuild</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a command that isn&#39;t allowed in that guild executes.&quot;&quot;&quot;</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">pass</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="c1"># Roles</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="c1">#-----------</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="k">class</span> <span class="nc">FailedToFindRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">option_value</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>                <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="c1"># Modules</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="c1">#------------</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="k">class</span> <span class="nc">ModuleFailedToLoad</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="k">class</span> <span class="nc">ModuleNotFound</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="c1"># Guilds</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="c1">#---------</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="c1"># Guild Config</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="k">class</span> <span class="nc">FailedToFindGuildRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="k">class</span> <span class="nc">MemberHasNoPermsForCommand</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member without the proper roles tries to execute a command.&quot;&quot;&quot;</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="k">pass</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="c1"># Roles</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="c1">#-----------</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="k">class</span> <span class="nc">FailedToFindRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="sd">&quot;&quot;&quot;This exception is raised by ``GoldyBot.objects.Role`` when a role can&#39;t be found.&quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Failed to find role!&quot;</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>            <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="c1"># Modules</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="c1">#------------</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="k">class</span> <span class="nc">ModuleFailedToLoad</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="k">class</span> <span class="nc">ModuleNotFound</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="c1"># Guilds</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="c1">#---------</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="c1"># Guild Config</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="k">class</span> <span class="nc">FailedToFindGuildRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a guild role can&#39;t be found by ``GoldyBot.objects.Role``.&quot;&quot;&quot;</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="c1"># Config</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="c1">#---------</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="c1"># Config Incorrect</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="k">class</span> <span class="nc">ConfigIsIncorrect</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">what_is_incorrect</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="sd">&quot;&quot;&quot;Error that is raised whenever a configuration file is incorrect or missing something.&quot;&quot;&quot;</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>        <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;^ This usually means you misspelt something in the config or the layout of the config is incorrect. ^&quot;</span><span class="p">)</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">what_is_incorrect</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>            <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;We actually think you might of misspelt &#39;</span><span class="si">{</span><span class="n">what_is_incorrect</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -180,11 +210,12 @@
 
     </div>
     <a class="headerlink" href="#GoldyBotError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="GoldyBotError-4"><a href="#GoldyBotError-4"><span class="linenos">4</span></a><span class="k">class</span> <span class="nc">GoldyBotError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-</span><span id="GoldyBotError-5"><a href="#GoldyBotError-5"><span class="linenos">5</span></a>    <span class="sd">&quot;&quot;&quot;The parent/master class of all the errors in Goldy Bot.&quot;&quot;&quot;</span>
-</span><span id="GoldyBotError-6"><a href="#GoldyBotError-6"><span class="linenos">6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="GoldyBotError-7"><a href="#GoldyBotError-7"><span class="linenos">7</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span id="GoldyBotError-8"><a href="#GoldyBotError-8"><span class="linenos">8</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="GoldyBotError-7"><a href="#GoldyBotError-7"><span class="linenos"> 7</span></a><span class="k">class</span> <span class="nc">GoldyBotError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span><span id="GoldyBotError-8"><a href="#GoldyBotError-8"><span class="linenos"> 8</span></a>    <span class="sd">&quot;&quot;&quot;The parent/master class of all the errors in Goldy Bot.&quot;&quot;&quot;</span>
+</span><span id="GoldyBotError-9"><a href="#GoldyBotError-9"><span class="linenos"> 9</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="GoldyBotError-10"><a href="#GoldyBotError-10"><span class="linenos">10</span></a>        <span class="sd">&quot;&quot;&quot;Raise me! UwU OwO&quot;&quot;&quot;</span>
+</span><span id="GoldyBotError-11"><a href="#GoldyBotError-11"><span class="linenos">11</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="GoldyBotError-12"><a href="#GoldyBotError-12"><span class="linenos">12</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -196,19 +227,22 @@
                                         <input id="GoldyBotError.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
-        <span class="name">GoldyBotError</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">error</span></span>)</span>
+        <span class="name">GoldyBotError</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">error</span>, </span><span class="param"><span class="n">no_traceback</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span>)</span>
 
                 <label class="view-source-button" for="GoldyBotError.__init__-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#GoldyBotError.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="GoldyBotError.__init__-6"><a href="#GoldyBotError.__init__-6"><span class="linenos">6</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="GoldyBotError.__init__-7"><a href="#GoldyBotError.__init__-7"><span class="linenos">7</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
-</span><span id="GoldyBotError.__init__-8"><a href="#GoldyBotError.__init__-8"><span class="linenos">8</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="GoldyBotError.__init__-9"><a href="#GoldyBotError.__init__-9"><span class="linenos"> 9</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="GoldyBotError.__init__-10"><a href="#GoldyBotError.__init__-10"><span class="linenos">10</span></a>        <span class="sd">&quot;&quot;&quot;Raise me! UwU OwO&quot;&quot;&quot;</span>
+</span><span id="GoldyBotError.__init__-11"><a href="#GoldyBotError.__init__-11"><span class="linenos">11</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="GoldyBotError.__init__-12"><a href="#GoldyBotError.__init__-12"><span class="linenos">12</span></a>        <span class="n">GoldyBot</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Raise me! UwU OwO</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
@@ -233,9 +267,9 @@
 
     </div>
     <a class="headerlink" href="#GuildNotRegistered"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="GuildNotRegistered-12"><a href="#GuildNotRegistered-12"><span class="linenos">12</span></a><span class="k">class</span> <span class="nc">GuildNotRegistered</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="GuildNotRegistered-13"><a href="#GuildNotRegistered-13"><span class="linenos">13</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member executes a command from a guild that has not been registered.&quot;&quot;&quot;</span>
-</span><span id="GuildNotRegistered-14"><a href="#GuildNotRegistered-14"><span class="linenos">14</span></a>    <span class="k">pass</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="GuildNotRegistered-16"><a href="#GuildNotRegistered-16"><span class="linenos">16</span></a><span class="k">class</span> <span class="nc">GuildNotRegistered</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="GuildNotRegistered-17"><a href="#GuildNotRegistered-17"><span class="linenos">17</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member executes a command from a guild that has not been registered.&quot;&quot;&quot;</span>
+</span><span id="GuildNotRegistered-18"><a href="#GuildNotRegistered-18"><span class="linenos">18</span></a>    <span class="k">pass</span>
 </span></pre></div>
 
 
@@ -269,9 +303,9 @@
 
     </div>
     <a class="headerlink" href="#CommandNotAllowedInGuild"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="CommandNotAllowedInGuild-16"><a href="#CommandNotAllowedInGuild-16"><span class="linenos">16</span></a><span class="k">class</span> <span class="nc">CommandNotAllowedInGuild</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="CommandNotAllowedInGuild-17"><a href="#CommandNotAllowedInGuild-17"><span class="linenos">17</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a command that isn&#39;t allowed in that guild executes.&quot;&quot;&quot;</span>
-</span><span id="CommandNotAllowedInGuild-18"><a href="#CommandNotAllowedInGuild-18"><span class="linenos">18</span></a>    <span class="k">pass</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="CommandNotAllowedInGuild-20"><a href="#CommandNotAllowedInGuild-20"><span class="linenos">20</span></a><span class="k">class</span> <span class="nc">CommandNotAllowedInGuild</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="CommandNotAllowedInGuild-21"><a href="#CommandNotAllowedInGuild-21"><span class="linenos">21</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a command that isn&#39;t allowed in that guild executes.&quot;&quot;&quot;</span>
+</span><span id="CommandNotAllowedInGuild-22"><a href="#CommandNotAllowedInGuild-22"><span class="linenos">22</span></a>    <span class="k">pass</span>
 </span></pre></div>
 
 
@@ -305,13 +339,13 @@
 
     </div>
     <a class="headerlink" href="#MemberHasNoPermsForCommand"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MemberHasNoPermsForCommand-20"><a href="#MemberHasNoPermsForCommand-20"><span class="linenos">20</span></a><span class="k">class</span> <span class="nc">MemberHasNoPermsForCommand</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="MemberHasNoPermsForCommand-21"><a href="#MemberHasNoPermsForCommand-21"><span class="linenos">21</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member without the proper roles trys to execute a command.&quot;&quot;&quot;</span>
-</span><span id="MemberHasNoPermsForCommand-22"><a href="#MemberHasNoPermsForCommand-22"><span class="linenos">22</span></a>    <span class="k">pass</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MemberHasNoPermsForCommand-24"><a href="#MemberHasNoPermsForCommand-24"><span class="linenos">24</span></a><span class="k">class</span> <span class="nc">MemberHasNoPermsForCommand</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="MemberHasNoPermsForCommand-25"><a href="#MemberHasNoPermsForCommand-25"><span class="linenos">25</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a member without the proper roles tries to execute a command.&quot;&quot;&quot;</span>
+</span><span id="MemberHasNoPermsForCommand-26"><a href="#MemberHasNoPermsForCommand-26"><span class="linenos">26</span></a>    <span class="k">pass</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Raised when a member without the proper roles trys to execute a command.</p>
+            <div class="docstring"><p>Raised when a member without the proper roles tries to execute a command.</p>
 </div>
 
 
@@ -341,17 +375,18 @@
 
     </div>
     <a class="headerlink" href="#FailedToFindRole"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindRole-26"><a href="#FailedToFindRole-26"><span class="linenos">26</span></a><span class="k">class</span> <span class="nc">FailedToFindRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="FailedToFindRole-27"><a href="#FailedToFindRole-27"><span class="linenos">27</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="FailedToFindRole-28"><a href="#FailedToFindRole-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="FailedToFindRole-29"><a href="#FailedToFindRole-29"><span class="linenos">29</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">option_value</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="FailedToFindRole-30"><a href="#FailedToFindRole-30"><span class="linenos">30</span></a>                <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-</span><span id="FailedToFindRole-31"><a href="#FailedToFindRole-31"><span class="linenos">31</span></a>
-</span><span id="FailedToFindRole-32"><a href="#FailedToFindRole-32"><span class="linenos">32</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindRole-30"><a href="#FailedToFindRole-30"><span class="linenos">30</span></a><span class="k">class</span> <span class="nc">FailedToFindRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="FailedToFindRole-31"><a href="#FailedToFindRole-31"><span class="linenos">31</span></a>    <span class="sd">&quot;&quot;&quot;This exception is raised by ``GoldyBot.objects.Role`` when a role can&#39;t be found.&quot;&quot;&quot;</span>
+</span><span id="FailedToFindRole-32"><a href="#FailedToFindRole-32"><span class="linenos">32</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="FailedToFindRole-33"><a href="#FailedToFindRole-33"><span class="linenos">33</span></a>        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Failed to find role!&quot;</span>
+</span><span id="FailedToFindRole-34"><a href="#FailedToFindRole-34"><span class="linenos">34</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="FailedToFindRole-35"><a href="#FailedToFindRole-35"><span class="linenos">35</span></a>            <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+</span><span id="FailedToFindRole-36"><a href="#FailedToFindRole-36"><span class="linenos">36</span></a>
+</span><span id="FailedToFindRole-37"><a href="#FailedToFindRole-37"><span class="linenos">37</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>The parent/master class of all the errors in Goldy Bot.</p>
+            <div class="docstring"><p>This exception is raised by <code><a href="objects.html#Role">GoldyBot.objects.Role</a></code> when a role can't be found.</p>
 </div>
 
 
@@ -365,16 +400,18 @@
 
     </div>
     <a class="headerlink" href="#FailedToFindRole.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindRole.__init__-27"><a href="#FailedToFindRole.__init__-27"><span class="linenos">27</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="FailedToFindRole.__init__-28"><a href="#FailedToFindRole.__init__-28"><span class="linenos">28</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="FailedToFindRole.__init__-29"><a href="#FailedToFindRole.__init__-29"><span class="linenos">29</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="n">option_value</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="FailedToFindRole.__init__-30"><a href="#FailedToFindRole.__init__-30"><span class="linenos">30</span></a>                <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
-</span><span id="FailedToFindRole.__init__-31"><a href="#FailedToFindRole.__init__-31"><span class="linenos">31</span></a>
-</span><span id="FailedToFindRole.__init__-32"><a href="#FailedToFindRole.__init__-32"><span class="linenos">32</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindRole.__init__-32"><a href="#FailedToFindRole.__init__-32"><span class="linenos">32</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option_used</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">option_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="FailedToFindRole.__init__-33"><a href="#FailedToFindRole.__init__-33"><span class="linenos">33</span></a>        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Failed to find role!&quot;</span>
+</span><span id="FailedToFindRole.__init__-34"><a href="#FailedToFindRole.__init__-34"><span class="linenos">34</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">option_used</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="FailedToFindRole.__init__-35"><a href="#FailedToFindRole.__init__-35"><span class="linenos">35</span></a>            <span class="n">error</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed to find role by the </span><span class="si">{</span><span class="n">option_used</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">option_value</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+</span><span id="FailedToFindRole.__init__-36"><a href="#FailedToFindRole.__init__-36"><span class="linenos">36</span></a>
+</span><span id="FailedToFindRole.__init__-37"><a href="#FailedToFindRole.__init__-37"><span class="linenos">37</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Raise me! UwU OwO</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
@@ -399,9 +436,9 @@
 
     </div>
     <a class="headerlink" href="#ModuleFailedToLoad"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleFailedToLoad-36"><a href="#ModuleFailedToLoad-36"><span class="linenos">36</span></a><span class="k">class</span> <span class="nc">ModuleFailedToLoad</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="ModuleFailedToLoad-37"><a href="#ModuleFailedToLoad-37"><span class="linenos">37</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="ModuleFailedToLoad-38"><a href="#ModuleFailedToLoad-38"><span class="linenos">38</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleFailedToLoad-41"><a href="#ModuleFailedToLoad-41"><span class="linenos">41</span></a><span class="k">class</span> <span class="nc">ModuleFailedToLoad</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="ModuleFailedToLoad-42"><a href="#ModuleFailedToLoad-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="ModuleFailedToLoad-43"><a href="#ModuleFailedToLoad-43"><span class="linenos">43</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -419,12 +456,14 @@
 
     </div>
     <a class="headerlink" href="#ModuleFailedToLoad.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleFailedToLoad.__init__-37"><a href="#ModuleFailedToLoad.__init__-37"><span class="linenos">37</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="ModuleFailedToLoad.__init__-38"><a href="#ModuleFailedToLoad.__init__-38"><span class="linenos">38</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleFailedToLoad.__init__-42"><a href="#ModuleFailedToLoad.__init__-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="ModuleFailedToLoad.__init__-43"><a href="#ModuleFailedToLoad.__init__-43"><span class="linenos">43</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Raise me! UwU OwO</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
@@ -449,9 +488,9 @@
 
     </div>
     <a class="headerlink" href="#ModuleNotFound"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleNotFound-40"><a href="#ModuleNotFound-40"><span class="linenos">40</span></a><span class="k">class</span> <span class="nc">ModuleNotFound</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="ModuleNotFound-41"><a href="#ModuleNotFound-41"><span class="linenos">41</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="ModuleNotFound-42"><a href="#ModuleNotFound-42"><span class="linenos">42</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleNotFound-45"><a href="#ModuleNotFound-45"><span class="linenos">45</span></a><span class="k">class</span> <span class="nc">ModuleNotFound</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="ModuleNotFound-46"><a href="#ModuleNotFound-46"><span class="linenos">46</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="ModuleNotFound-47"><a href="#ModuleNotFound-47"><span class="linenos">47</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -469,12 +508,14 @@
 
     </div>
     <a class="headerlink" href="#ModuleNotFound.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleNotFound.__init__-41"><a href="#ModuleNotFound.__init__-41"><span class="linenos">41</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="ModuleNotFound.__init__-42"><a href="#ModuleNotFound.__init__-42"><span class="linenos">42</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ModuleNotFound.__init__-46"><a href="#ModuleNotFound.__init__-46"><span class="linenos">46</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="ModuleNotFound.__init__-47"><a href="#ModuleNotFound.__init__-47"><span class="linenos">47</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Raise me! UwU OwO</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
@@ -499,13 +540,14 @@
 
     </div>
     <a class="headerlink" href="#FailedToFindGuildRole"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindGuildRole-48"><a href="#FailedToFindGuildRole-48"><span class="linenos">48</span></a><span class="k">class</span> <span class="nc">FailedToFindGuildRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
-</span><span id="FailedToFindGuildRole-49"><a href="#FailedToFindGuildRole-49"><span class="linenos">49</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="FailedToFindGuildRole-50"><a href="#FailedToFindGuildRole-50"><span class="linenos">50</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindGuildRole-53"><a href="#FailedToFindGuildRole-53"><span class="linenos">53</span></a><span class="k">class</span> <span class="nc">FailedToFindGuildRole</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="FailedToFindGuildRole-54"><a href="#FailedToFindGuildRole-54"><span class="linenos">54</span></a>    <span class="sd">&quot;&quot;&quot;Raised when a guild role can&#39;t be found by ``GoldyBot.objects.Role``.&quot;&quot;&quot;</span>
+</span><span id="FailedToFindGuildRole-55"><a href="#FailedToFindGuildRole-55"><span class="linenos">55</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="FailedToFindGuildRole-56"><a href="#FailedToFindGuildRole-56"><span class="linenos">56</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>The parent/master class of all the errors in Goldy Bot.</p>
+            <div class="docstring"><p>Raised when a guild role can't be found by <code><a href="objects.html#Role">GoldyBot.objects.Role</a></code>.</p>
 </div>
 
 
@@ -519,12 +561,14 @@
 
     </div>
     <a class="headerlink" href="#FailedToFindGuildRole.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindGuildRole.__init__-49"><a href="#FailedToFindGuildRole.__init__-49"><span class="linenos">49</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
-</span><span id="FailedToFindGuildRole.__init__-50"><a href="#FailedToFindGuildRole.__init__-50"><span class="linenos">50</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FailedToFindGuildRole.__init__-55"><a href="#FailedToFindGuildRole.__init__-55"><span class="linenos">55</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+</span><span id="FailedToFindGuildRole.__init__-56"><a href="#FailedToFindGuildRole.__init__-56"><span class="linenos">56</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">no_traceback</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Raise me! UwU OwO</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
@@ -533,6 +577,68 @@
                                     <div><dt>builtins.BaseException</dt>
                                 <dd id="FailedToFindGuildRole.with_traceback" class="function">with_traceback</dd>
                 <dd id="FailedToFindGuildRole.args" class="variable">args</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ConfigIsIncorrect">
+                            <input id="ConfigIsIncorrect-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">ConfigIsIncorrect</span><wbr>(<span class="base"><a href="#GoldyBotError">GoldyBotError</a></span>):
+
+                <label class="view-source-button" for="ConfigIsIncorrect-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ConfigIsIncorrect"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ConfigIsIncorrect-64"><a href="#ConfigIsIncorrect-64"><span class="linenos">64</span></a><span class="k">class</span> <span class="nc">ConfigIsIncorrect</span><span class="p">(</span><span class="n">GoldyBotError</span><span class="p">):</span>
+</span><span id="ConfigIsIncorrect-65"><a href="#ConfigIsIncorrect-65"><span class="linenos">65</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">what_is_incorrect</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="ConfigIsIncorrect-66"><a href="#ConfigIsIncorrect-66"><span class="linenos">66</span></a>        <span class="sd">&quot;&quot;&quot;Error that is raised whenever a configuration file is incorrect or missing something.&quot;&quot;&quot;</span>
+</span><span id="ConfigIsIncorrect-67"><a href="#ConfigIsIncorrect-67"><span class="linenos">67</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="ConfigIsIncorrect-68"><a href="#ConfigIsIncorrect-68"><span class="linenos">68</span></a>        <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;^ This usually means you misspelt something in the config or the layout of the config is incorrect. ^&quot;</span><span class="p">)</span>
+</span><span id="ConfigIsIncorrect-69"><a href="#ConfigIsIncorrect-69"><span class="linenos">69</span></a>
+</span><span id="ConfigIsIncorrect-70"><a href="#ConfigIsIncorrect-70"><span class="linenos">70</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">what_is_incorrect</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="ConfigIsIncorrect-71"><a href="#ConfigIsIncorrect-71"><span class="linenos">71</span></a>            <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;We actually think you might of misspelt &#39;</span><span class="si">{</span><span class="n">what_is_incorrect</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The parent/master class of all the errors in Goldy Bot.</p>
+</div>
+
+
+                            <div id="ConfigIsIncorrect.__init__" class="classattr">
+                                        <input id="ConfigIsIncorrect.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">ConfigIsIncorrect</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">error</span>, </span><span class="param"><span class="n">what_is_incorrect</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+
+                <label class="view-source-button" for="ConfigIsIncorrect.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ConfigIsIncorrect.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ConfigIsIncorrect.__init__-65"><a href="#ConfigIsIncorrect.__init__-65"><span class="linenos">65</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">what_is_incorrect</span><span class="p">:</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="ConfigIsIncorrect.__init__-66"><a href="#ConfigIsIncorrect.__init__-66"><span class="linenos">66</span></a>        <span class="sd">&quot;&quot;&quot;Error that is raised whenever a configuration file is incorrect or missing something.&quot;&quot;&quot;</span>
+</span><span id="ConfigIsIncorrect.__init__-67"><a href="#ConfigIsIncorrect.__init__-67"><span class="linenos">67</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+</span><span id="ConfigIsIncorrect.__init__-68"><a href="#ConfigIsIncorrect.__init__-68"><span class="linenos">68</span></a>        <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="s2">&quot;^ This usually means you misspelt something in the config or the layout of the config is incorrect. ^&quot;</span><span class="p">)</span>
+</span><span id="ConfigIsIncorrect.__init__-69"><a href="#ConfigIsIncorrect.__init__-69"><span class="linenos">69</span></a>
+</span><span id="ConfigIsIncorrect.__init__-70"><a href="#ConfigIsIncorrect.__init__-70"><span class="linenos">70</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">what_is_incorrect</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="ConfigIsIncorrect.__init__-71"><a href="#ConfigIsIncorrect.__init__-71"><span class="linenos">71</span></a>            <span class="n">print_and_log</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;We actually think you might of misspelt &#39;</span><span class="si">{</span><span class="n">what_is_incorrect</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Error that is raised whenever a configuration file is incorrect or missing something.</p>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>builtins.BaseException</dt>
+                                <dd id="ConfigIsIncorrect.with_traceback" class="function">with_traceback</dd>
+                <dd id="ConfigIsIncorrect.args" class="variable">args</dd>
 
             </div>
                                 </dl>

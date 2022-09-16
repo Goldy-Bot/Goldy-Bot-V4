@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+v4.0dev23 = BREAKING CHANGE! ()
+---------------------------
+- Optimizations/speed ups.
+- Role object parameters have been changed, so make sure you update it in your code. A complete new redesign has been done to it. (BREAKING CHANGE!)
+- Added python version to /goldy command.
+- Much more accurate cpu usage percentage.
+- Added rate limit warning. A warning will print in console if Goldy Bot is rate limited by Discord.
+- Fixed some error handling stuff.
+- Added custom_colour() method in ``GoldyBot.Colours``.
+- Fixed Role() object. (It was having issues initializing.)
+- Added incorrect config exception.
+- Updated Nextcord to V2.2.0.
+
 v4.0dev10 = New Release (25/06/2022)
 ---------------------------
 - Backend changes and improvements.

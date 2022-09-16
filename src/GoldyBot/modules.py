@@ -116,7 +116,7 @@ class Module(object):
         else:
             GoldyBot.logging.log("info", f"[{MODULE_NAME}] The internal module '{self.name}' is not being loaded as it was ignored.")
 
-    def reload(self):
+    def reload(self) -> List[GoldyBot.objects.command.Command]:
         """Commands Goldy Bot to reload this module."""
 
         # Unload the module.
@@ -127,6 +127,8 @@ class Module(object):
         #--------------------------
         GoldyBot.logging.log(f"[{MODULE_NAME}] Reloading module...")
         self.load()
+
+        return self.commands
 
     def unload(self):
         """Commands Goldy Bot to unload this module with it's commands."""
