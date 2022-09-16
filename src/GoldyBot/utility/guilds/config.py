@@ -1,5 +1,5 @@
 import GoldyBot
-from GoldyBot.errors import FailedToFindGuildRole
+from GoldyBot.errors import FailedToFindGuildRole, FailedToFindRole
 
 class GuildConfig():
     """This class gives you access to all the configuration settings a Goldy Bot guild possess."""
@@ -36,7 +36,7 @@ class GuildConfig():
 
         return True
 
-    def get_role(self, ctx, role_code_name):
+    def get_role(self, ctx, role_code_name) -> GoldyBot.objects.role.Role:
         """Finds and returns a Goldy Bot role from the guild's config with given code name."""
         try:
             role_id = self.guild_config.read("roles")[f"{role_code_name}"]

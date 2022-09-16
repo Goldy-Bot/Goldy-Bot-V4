@@ -1,3 +1,6 @@
+from __future__ import annotations
+import nextcord
+
 class Colours:
     AKI_PINK = 0xFF1493
     AKI_ORANGE = 0xF4900C
@@ -10,6 +13,13 @@ class Colours:
     RED = 0xFF0000
     GREY = 0x3B3B3B
     WHITE = 0xFFFFFF
+
+    def custom_colour(self, rgb:tuple=None, hex:int|str=None):
+        if not rgb == None:
+            if isinstance(rgb, tuple):
+                return nextcord.Colour.from_rgb(rgb[0], rgb[1], rgb[2]).value
+
+        return self.WHITE
 
 class Colors(Colours):
     pass

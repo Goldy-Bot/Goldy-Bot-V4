@@ -1,4 +1,5 @@
 import os
+from typing import Dict, List
 
 import nextcord
 import GoldyBot
@@ -74,7 +75,26 @@ class Admin(GoldyBot.Extension):
                     return False
             
             try:
-                module.reload()
+                registered_commands = module.reload()
+
+                """
+                for command in reloaded_commands:
+                    for guild_id in command.guilds_allowed_in:
+                        payload = command.command.get_payload(guild_id)
+                        await GoldyBot.cache.client().sync_application_commands([payload], guild_id=guild_id)
+                """
+
+                temp:dict = {}
+                for guild_id in GoldyBot.utility.guilds.get_guild_ids():
+                    temp[guild_id] = []
+
+                for cmd in registered_commands:
+                    for guild_id in cmd.guilds_allowed_in:
+                        temp[guild_id].append(cmd.command)
+
+                def test(): GoldyBot.async_loop.run_until_complete(GoldyBot.cache.client().sync_all_application_commands(temp))
+
+                GoldyBot.async_loop.call_later(3.0, test)
             except ModuleFailedToLoad:
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)
@@ -88,6 +108,9 @@ class Admin(GoldyBot.Extension):
             embed.set_thumbnail(url=self.msg.reload.ReloadedEmbed.thumbnail)
             await ctx.send(embed=embed)
             return True
+
+
+
 
         @GoldyBot.command(required_roles=["bot_dev"], slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())

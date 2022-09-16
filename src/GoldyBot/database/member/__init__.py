@@ -12,13 +12,14 @@ class Member(Money):
 
         self.database = GoldyBot.cache.database()
 
-        # Generate document if member doesn't exists in database.
-        GoldyBot.async_loop.run_until_complete(self.setup())
-
         super().__init__(member)
 
     async def get_member_data(self):
         """Returns member's database collection."""
+        # Generate document if member doesn't exists in database.
+        await self.setup()
+
+        # Return member data.
         return await self.database.find_one("global", {"_id":int(self.actual_member.member_id)})
 
     async def setup(self):

@@ -35,29 +35,37 @@ class Extension(object):
         self.module_name_ = package_module_name
         self.ignored_extensions_list = GoldyBot.config.Config(GoldyBot.files.File(GoldyBot.paths.GOLDY_CONFIG_JSON)).read("ignored_extensions")
         
-        if not self.code_name in self.ignored_extensions_list:
-            # Cache it.
-            #------------
-            try:
-                if self.module.is_internal_module:
-                    GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"] = {}
-                    GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["commands"] = []
-                    GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["object"] = self
-                else:
-                    GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"] = {}
-                    GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["commands"] = []
-                    GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["object"] = self
-            except AttributeError:
-                GoldyBot.logging.log("error", f"""[{MODULE_NAME}] Did you specify the module name when loading this extension. Looks like the module '{self.module_name}' did not get loaded by Goldy Bot. 
-                Perhaps this is a package module and you forgot to specify the module name when loading this extension.\n""")
-                
-                GoldyBot.Goldy().stop(f"I think you forgot to specify the module name when loading the '{self.code_name}' extension.")
+        try:
+            if not self.code_name in self.ignored_extensions_list:
+                # Cache it.
+                #------------
+                try:
+                    if self.module.is_internal_module:
+                        GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"] = {}
+                        GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["commands"] = []
+                        GoldyBot.cache.main_cache_dict["internal_modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["object"] = self
+                    else:
+                        GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"] = {}
+                        GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["commands"] = []
+                        GoldyBot.cache.main_cache_dict["modules"][f"{self.module_name}"]["extensions"][f"{self.code_name}"]["object"] = self
+                except AttributeError:
+                    GoldyBot.logging.log("error", f"""[{MODULE_NAME}] Did you specify the module name when loading this extension. Looks like the module '{self.module_name}' did not get loaded by Goldy Bot. 
+                    Perhaps this is a package module and you forgot to specify the module name when loading this extension.\n""")
+                    
+                    GoldyBot.Goldy().stop(f"I think you forgot to specify the module name when loading the '{self.code_name}' extension.")
 
-            GoldyBot.logging.log(f"[{self.code_name}] Loading my commands...")
-            self.loader() # Load commands.
+                GoldyBot.logging.log(f"[{self.code_name}] Loading my commands...")
+                self.loader() # Load commands.
 
-        else:
-            GoldyBot.logging.log("info", f"[{class_object.__class__.__name__}] Not loading commands as this extension is ignored.")
+            else:
+                GoldyBot.logging.log("info", f"[{class_object.__class__.__name__}] Not loading commands as this extension is ignored.")
+
+        except TypeError as e:
+            what_is_incorrect = None
+
+            if self.ignored_extensions_list == None: what_is_incorrect = "ignored_extensions"
+
+            raise GoldyBot.errors.ConfigIsIncorrect(e, what_is_incorrect)
 
         # Setting all variable shortcuts.
         #-----------------------------------
