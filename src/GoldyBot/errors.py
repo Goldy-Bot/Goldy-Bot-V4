@@ -5,9 +5,10 @@ import time
 
 class GoldyBotError(Exception):
     """The parent/master class of all the errors in Goldy Bot."""
-    def __init__(self, error):
+    def __init__(self, error, no_traceback:bool=False):
+        """Raise me! UwU OwO"""
         super().__init__(error)
-        GoldyBot.logging.log("error", error)
+        GoldyBot.logging.log("error", error, no_traceback)
 
 # Commands
 #-------------
@@ -26,10 +27,11 @@ class MemberHasNoPermsForCommand(GoldyBotError):
 # Roles
 #-----------
 class FailedToFindRole(GoldyBotError):
+    """This exception is raised by ``GoldyBot.objects.Role`` when a role can't be found."""
     def __init__(self, option_used=None, option_value=None):
+        error = "Failed to find role!"
         if not option_used == None:
-            if not option_value == None:
-                error = f"Failed to find role by the {option_used} '{option_value}'."
+            error = f"Failed to find role by the {option_used} '{option_value}'."
 
         super().__init__(error)
 
@@ -48,8 +50,9 @@ class ModuleNotFound(GoldyBotError):
 
 # Guild Config
 class FailedToFindGuildRole(GoldyBotError):
+    """Raised when a guild role can't be found by ``GoldyBot.objects.Role``."""
     def __init__(self, error):
-        super().__init__(error)
+        super().__init__(error, no_traceback=True)
 
 
 

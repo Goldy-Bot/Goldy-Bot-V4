@@ -13,8 +13,8 @@ class Help(GoldyBot.Extension):
 
         @GoldyBot.command()
         async def help(self:Help, ctx):
-            await send(ctx, "whoo hoo! OwO o/")
+            pass
 
 def load():
-    Help(__name__)
+    #Help(__name__) # Help extension is not done yet.
     pass

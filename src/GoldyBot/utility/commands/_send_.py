@@ -13,9 +13,14 @@ async def send(ctx, text=None, embed=None, tts=None,
     if GoldyBot.utility.commands.what_command_type(ctx) == "slash":
         if not embed == None:
             if not file == None:
-                message = await ctx.send(content=text, embed=embed, file=file, delete_after=delete_after, 
-                allowed_mentions=allowed_mentions, ephemeral=private)
-                return message
+                if not text == None:
+                    message = await ctx.send(content=text, embed=embed, file=file, delete_after=delete_after, 
+                    allowed_mentions=allowed_mentions, ephemeral=private)
+                    return message
+                else: # Without context.
+                    message = await ctx.send(embed=embed, file=file, delete_after=delete_after, 
+                    allowed_mentions=allowed_mentions, ephemeral=private)
+                    return message
             
             if not files == None:
                 message = await ctx.send(content=text, embed=embed, files=files, delete_after=delete_after, 

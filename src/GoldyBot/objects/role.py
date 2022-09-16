@@ -33,12 +33,11 @@ class Role():
     @property
     def role_id(self) -> str|None:
         """Returns id of discord role. Returns ``None`` if ``role_id``, ``role_name``, ``mention_str`` and ``role_object`` are left blank."""
-        if self.role_id_ == None:
-            if not self.role_id_ == None: return str(self.role_id_)
-            if not self.mention_str_ == None: return self.mention_str_[3:-1]
-            if not self.role_object_ == None: return str(self.role_object_.id)
-        else:
-            return None
+        if not self.role_id_ == None: return str(self.role_id_)
+        if not self.mention_str_ == None: return self.mention_str_[3:-1]
+        if not self.role_object_ == None: return str(self.role_object_.id)
+
+        return None
 
     @property
     def role_name(self) -> str:
@@ -49,7 +48,10 @@ class Role():
         role:nextcord.Role
 
         if role_name == None:
-            role = self.ctx.guild.get_role(int(role_id))
+            if not role_id == None:
+                role = self.ctx.guild.get_role(int(role_id))
+            else:
+                role = None
 
             if role == None:
                 raise FailedToFindRole(option_used="id", option_value=role_id)
