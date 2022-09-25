@@ -6,6 +6,7 @@ import GoldyBot
 import pprint
 
 from GoldyBot.errors import ModuleFailedToLoad, ModuleNotFound
+from GoldyBot.utility.commands import send
 
 def get_modules_dict_list():
     """This is used in the unload and reload commands."""
@@ -28,7 +29,7 @@ class Admin(GoldyBot.Extension):
 
     def loader(self):
         
-        @GoldyBot.command(required_roles=["bot_dev"])
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"])
         async def cache(self:Admin, ctx):
             cache_embed = GoldyBot.utility.goldy.embed.Embed(title=self.msg.cache.Embed.title)
             cache_embed.color = GoldyBot.utility.goldy.colours.BLUE
@@ -37,14 +38,14 @@ class Admin(GoldyBot.Extension):
 
             if len(cache_string_formatted) >= 5000:
                 cache_embed.description = "Oh oh, the cache is way too long to display in an embed right now. I'll print it in the console instead."
-                await ctx.send(embed=cache_embed)
+                await send(embed=cache_embed)
 
                 GoldyBot.logging.log("info", cache_string_formatted)
             else:
                 cache_embed.description = f"```{cache_string_formatted}```"
-                await ctx.send(embed=cache_embed)
+                await send(embed=cache_embed)
 
-        @GoldyBot.command(required_roles=["bot_dev"], slash_options={
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
         })
         async def reload(self:Admin, ctx, module_name:str):
@@ -59,7 +60,7 @@ class Admin(GoldyBot.Extension):
                 embed.title = self.msg.reload.AdminCanNotBeReloadedEmbed.title
                 embed.description = self.msg.reload.AdminCanNotBeReloadedEmbed.des.format(module_name)
                 embed.color = self.msg.reload.AdminCanNotBeReloadedEmbed.colour
-                await ctx.send(embed=embed)
+                await send(embed=embed)
                 return False
 
             try:
@@ -71,7 +72,7 @@ class Admin(GoldyBot.Extension):
                     embed.title = self.msg.reload.ModuleNotFoundEmbed.title
                     embed.description = self.msg.reload.ModuleNotFoundEmbed.des.format(module_name)
                     embed.color = self.msg.reload.ModuleNotFoundEmbed.colour
-                    await ctx.send(embed=embed)
+                    await send(embed=embed)
                     return False
             
             try:
@@ -99,20 +100,20 @@ class Admin(GoldyBot.Extension):
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)
                 embed.color = self.msg.reload.FailedToLoadEmbed.colour
-                await ctx.send(embed=embed)
+                await send(embed=embed)
                 return False
 
             embed.title = self.msg.reload.ReloadedEmbed.title
             embed.description = self.msg.reload.ReloadedEmbed.des.format(module.name)
             embed.color = self.msg.reload.ReloadedEmbed.colour
             embed.set_thumbnail(url=self.msg.reload.ReloadedEmbed.thumbnail)
-            await ctx.send(embed=embed)
+            await send(embed=embed)
             return True
 
 
 
 
-        @GoldyBot.command(required_roles=["bot_dev"], slash_options={
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
         })
         async def unload(self:Admin, ctx, module_name:str):
@@ -128,7 +129,7 @@ class Admin(GoldyBot.Extension):
                 embed.title = command_msg.AdminCanNotBeUnloadedEmbed.title
                 embed.description = command_msg.AdminCanNotBeUnloadedEmbed.des.format(module_name)
                 embed.color = command_msg.AdminCanNotBeUnloadedEmbed.colour
-                await ctx.send(embed=embed)
+                await send(embed=embed)
                 return False
 
             try:
@@ -140,7 +141,7 @@ class Admin(GoldyBot.Extension):
                     embed.title = command_msg.ModuleNotFoundEmbed.title
                     embed.description = command_msg.ModuleNotFoundEmbed.des.format(module_name)
                     embed.color = command_msg.ModuleNotFoundEmbed.colour
-                    await ctx.send(embed=embed)
+                    await send(embed=embed)
                     return False
             
             module.unload()
@@ -149,7 +150,7 @@ class Admin(GoldyBot.Extension):
             embed.description = command_msg.UnloadedEmbed.des.format(module.name)
             embed.color = command_msg.UnloadedEmbed.colour
             embed.set_thumbnail(url=self.msg.reload.ReloadedEmbed.thumbnail)
-            await ctx.send(embed=embed)
+            await send(embed=embed)
             return True
 
 def load():

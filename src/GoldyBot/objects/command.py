@@ -1,7 +1,7 @@
 from __future__ import annotations
 import asyncio
 import importlib
-from typing import List
+from typing import Dict, List
 import nextcord
 from nextcord.ext import commands
 
@@ -310,7 +310,7 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         """Adds/updates this command object to the class."""
         self.command = command_object
 
-    def sub_command(self, command_name:str=None, required_roles:list=[], help_des:str=None, slash_options:dict={}, also_run_parent_CMD:bool=True):
+    def sub_command(self, command_name:str=None, required_roles:list=[], help_des:str=None, slash_options:Dict[str, nextcord.SlashOption]={}, also_run_parent_CMD:bool=True):
         """Create a lovely sub command from this slash command. 😀 (Only works with slash commands.)"""
 
         def decorate(func):
@@ -418,10 +418,16 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
                         if str(ctx.author.id) in GoldyBot.settings.BOT_DEVS:
                             return True
 
+                    # If the required roles contain 'bot_admin' and a bot admin is running the command allow the command to execute. (NEW)
+                    #----------------------------------------------------------------------------------------------------------------
+                    if "bot_admin" in self.required_roles_:
+                        if str(ctx.author.id) in goldy_config.read("admin_users"):
+                            return True
+
                     # Check if member has any of the required roles.
                     #----------------------------------------------------
                     for role_code_name in self.required_roles_:
-                        if not role_code_name == "bot_dev":
+                        if not role_code_name in ["bot_dev", "bot_admin"]:
                             role = guild_config.get_role(ctx, role_code_name)
                             if GoldyBot.objects.member.Member(ctx).has_role(role):
                                 return True

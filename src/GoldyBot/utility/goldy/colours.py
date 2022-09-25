@@ -1,7 +1,11 @@
 from __future__ import annotations
+from typing import Literal
 import nextcord
+import GoldyBot
+from colorthief import ColorThief
 
 class Colours:
+    """Hardcoded GoldyBot colour codes. These can be used in Embeds and stuff."""
     AKI_PINK = 0xFF1493
     AKI_ORANGE = 0xF4900C
     AKI_RED = 0xff0051
@@ -13,16 +17,28 @@ class Colours:
     RED = 0xFF0000
     GREY = 0x3B3B3B
     WHITE = 0xFFFFFF
-
-    def custom_colour(self, rgb:tuple=None, hex:int|str=None):
+    
+    def custom_colour(self, rgb:tuple=None, hex:int|str=None) -> Literal|int:
+        """
+        Method to create custom colour with rgb or hex values.
+        (WARNING: Hex is currently not supported, if hex is entered value of ``WHITE`` will be returned.)
+        """
         if not rgb == None:
             if isinstance(rgb, tuple):
                 return nextcord.Colour.from_rgb(rgb[0], rgb[1], rgb[2]).value
 
         return self.WHITE
+    
+    def get_colour_from_image(self, image_file:GoldyBot.files.File, quality:int=5) -> Literal|int:
+        """Returns most common colour from any image."""
+        return self.custom_colour(
+            rgb=ColorThief(image_file.file_path).get_color(quality)
+        )
 
 class Colors(Colours):
     pass
+
+
 
 # This section below is all Deprecated, use Colours enum class instead.
 AKI_PINK = Colours.AKI_PINK

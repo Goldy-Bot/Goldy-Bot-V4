@@ -1,8 +1,8 @@
-from . import colours, embed, currencies
+from . import colours, embed, currencies, hearts
 
 import GoldyBot
 
-def get_pfp():
+def get_pfp() -> str:
     """Returns the profile picture of Goldy Bot."""
     client:GoldyBot.nextcord.Client = GoldyBot.cache.main_cache_dict["client"]
 

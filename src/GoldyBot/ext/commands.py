@@ -1,5 +1,7 @@
 from __future__ import annotations
 import asyncio
+from typing import Dict
+import nextcord
 from nextcord.ext import commands
 
 import GoldyBot
@@ -7,7 +9,7 @@ from GoldyBot.errors import GuildNotRegistered, MemberHasNoPermsForCommand
 
 MODULE_NAME = "COMMANDS"
 
-def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, slash_cmd_only=False, normal_cmd_only=False, slash_options:dict={}):
+def command(command_name:str=None, required_roles:list=[], help_des:str=None, hidden=False, slash_cmd_only=False, normal_cmd_only=False, slash_options:Dict[str, nextcord.SlashOption]={}):
     """
     Add a command to Goldy Bot with this decorator.
     

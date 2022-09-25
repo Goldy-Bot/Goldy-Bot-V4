@@ -1,4 +1,5 @@
 import os
+from typing import IO
 import GoldyBot
 
 MODULE_NAME = "FILES"
@@ -54,6 +55,12 @@ class File(object):
         else:
             return False
 
-    def get_file(self, mode="r+"):
+    def get_file(self, mode="r+") -> IO:
         """Commands Goldy to open the file."""
         return open(self.file_path, mode, encoding='utf-8')
+
+#TODO: Where I left off on 25/09/2022.
+class WebFile(File):
+    """A web file is a child of the GoldyBot.File() class but instead of taking in file path it takes in a URL of a file on a web server."""
+    def __init__(self, path):
+        super().__init__(path)

@@ -1,8 +1,6 @@
 import GoldyBot
 from GoldyBot.logging import print_and_log
 
-import time
-
 class GoldyBotError(Exception):
     """The parent/master class of all the errors in Goldy Bot."""
     def __init__(self, error, no_traceback:bool=False):
@@ -61,8 +59,8 @@ class FailedToFindGuildRole(GoldyBotError):
 
 # Config Incorrect
 class ConfigIsIncorrect(GoldyBotError):
+    """Error that is raised whenever a configuration file is incorrect or missing something."""
     def __init__(self, error, what_is_incorrect:str=None):
-        """Error that is raised whenever a configuration file is incorrect or missing something."""
         super().__init__(error)
         print_and_log("info", "^ This usually means you misspelt something in the config or the layout of the config is incorrect. ^")
 
