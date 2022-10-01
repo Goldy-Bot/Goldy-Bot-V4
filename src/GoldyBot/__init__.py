@@ -18,9 +18,10 @@ import asyncio
 import nest_asyncio
 
 from .objects import *
+from .errors import *
 
 from . import database
-from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, errors, assets
+from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, assets
 from . import internal_modules, ext, utility, objects
 
 # Functions
@@ -46,6 +47,10 @@ Database = database.Database
 """Shortcut of ``GoldyBot.database.Database``"""
 Embed = utility.goldy.embed.Embed
 """Shortcut of object from ``GoldyBot.utility.goldy.embed``"""
+File = files.File
+"""Shortcut of object from ``GoldyBot.files.File``"""
+WebFile = files.WebFile
+"""Shortcut of object from ``GoldyBot.files.WebFile``"""
 
 # Async Loop
 async_loop = asyncio.get_event_loop()
@@ -56,11 +61,19 @@ Like this ``async_loop.run_until_complete(async_function())``
 nest_asyncio.apply(async_loop)
 
 # Colours
-colours = utility.goldy.colours.Colours
+Colours = utility.goldy.colours.Colours
 """Shortcut of object from ``GoldyBot.utility.goldy.colours``"""
 
-colors = utility.goldy.colours.Colors
-"""Alias of ``GoldyBot.colours``"""
+Colors = utility.goldy.colours.Colors
+"""Alias of ``GoldyBot.Colours``"""
+
+# Stops Goldy Bot extensions made before the dev24 update from crashing. ('Colours' used to be all lowercase in previous versions.)
+setattr(sys.modules[__name__], 'colours', Colours) 
+setattr(sys.modules[__name__], 'colors', Colors) 
+
+# Hearts
+Hearts = utility.goldy.hearts.Hearts
+"""Shortcut of object from ``GoldyBot.utility.goldy.hearts``"""
 
 # Goldy Bot Currencies
 Currencies = utility.goldy.currencies.Currencies

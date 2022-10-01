@@ -34,27 +34,49 @@ class Timestamps(GoldyBot.Extension):
                 try:
                     # Convert to chosen timezone.
                     chosen_timezone = pytz.timezone(timezone)
-                    datetime = chosen_timezone.normalize(chosen_timezone.localize(datetime, is_dst=True)) 
+                    datetime = chosen_timezone.normalize(chosen_timezone.localize(datetime, is_dst=True))
 
                     await send(ctx, f"<t:{int(datetime.timestamp())}:{flag}>")
 
                     return True
 
+                except pytz.UnknownTimeZoneError as e:
+                    GoldyBot.log("error", e)
+
+                    message = await send(ctx, embed=GoldyBot.utility.goldy.embed.Embed(
+                        title="❤ Unknown Time Zone!",
+                        description="""
+***This is how the ``timezone`` parameter should be used.*
+
+``Europe/London`` = Uk Time
+``US/New_York`` = New York Time
+``Europe/Stockholm`` = Sweden Time
+
+*The list goes on... To see the full list click [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).***
+                            """,
+                        colour=GoldyBot.utility.goldy.colours.RED,
+                        ).set_thumbnail(GoldyBot.assets.ANIME_ONE_PUNCH_CLOCK_GIF)
+                    )
+                    
                 except Exception as e:
                     GoldyBot.log("error", e)
-                    pass
 
-            message = await send(ctx, embed=GoldyBot.utility.goldy.embed.Embed(
-                title="❓ Did you enter it correctly?",
-                description="I couldn't read either your time or date properly, please could you try again. Perhaps you mistyped something.",
-                colour=GoldyBot.utility.goldy.colours.RED
-            ))
+                    message = await send(ctx, embed=GoldyBot.utility.goldy.embed.Embed(
+                        title="❓ Did you enter it correctly?",
+                        description="I couldn't read either your time or date properly, please could you try again. Perhaps you mistyped something.",
+                        colour=GoldyBot.utility.goldy.colours.RED
+                    ))
 
-            await message.delete(delay=8)
+            else:
+                message = await send(ctx, embed=GoldyBot.utility.goldy.embed.Embed(
+                        title="❓ Did you enter it correctly?",
+                        description="I couldn't read either your time or date properly, please could you try again. Perhaps you mistyped something.",
+                        colour=GoldyBot.utility.goldy.colours.RED
+                    )
+                )
 
+            await message.delete(delay=30)
+            return False
 
 def load():
-    # This function get's executed when the module is loaded so run your extension classes in here.
-    # Example: YourExtension(package_module_name=__name__)
-
     Timestamps(__name__)

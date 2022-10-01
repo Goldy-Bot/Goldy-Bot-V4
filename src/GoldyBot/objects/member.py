@@ -2,6 +2,7 @@ from __future__ import annotations
 import nextcord
 
 from .. import database
+import GoldyBot
 from GoldyBot.objects.slash import Interaction, InteractionToCtx
 
 from . import role
@@ -26,7 +27,7 @@ class Member(database.member.Member):
     def member_id(self) -> str:
         """Returns id of discord member. Defaults to ctx author if ``member_id``, ``mention_str`` and ``member_user_object`` are None."""
         if not self.member_id_ == None: return str(self.member_id_)
-        if not self.mention_str_ == None: return self.mention_str_[3:-1]
+        if not self.mention_str_ == None: return self.mention_str_[self.mention_str_.index("@") + 1: self.mention_str_.index(">")] # Getting id from mention (e.g. <@332592361307897856>).
         if not self.member_object_ == None: return str(self.member_object_.id)
         else:
             if isinstance(self.ctx, Interaction):
@@ -73,7 +74,11 @@ class Member(database.member.Member):
         """Finds the damn member!"""
 
         if not member_id == None:
-            return nextcord.utils.get(self.ctx.guild.members, id=int(member_id))
+            member = nextcord.utils.get(self.ctx.guild.members, id=int(member_id))
+            
+            if member is None: raise GoldyBot.errors.FailedToFindMember()
+
+            return member
         else:
             return None
 

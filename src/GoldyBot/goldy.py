@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import List
 import GoldyBot, devgoldyutils
 import nextcord
 import threading, _thread
@@ -10,7 +11,7 @@ MODULE_NAME = "GOLDY"
 class Goldy(object):
     """💛 Goldy herself. More precisely the main class to control the whole of the Bot."""
     def __init__(self):
-        GoldyBot.cache.main_cache_dict["goldy_class"] = self
+        self.nextcord_thread:threading.Thread = None
 
     def start(self):
         """
@@ -35,17 +36,22 @@ class Goldy(object):
             GoldyBot.asyncio.set_event_loop_policy(GoldyBot.asyncio.WindowsSelectorEventLoopPolicy())
 
         print("")
+
+        # Start goldy input console.
         input_thread = threading.Thread(target=input_loop)
         input_thread.setDaemon(True)
         input_thread.start()
 
         # Start V4
         from . import bot
-        nextcord_thread = threading.Thread(target=bot.start)
-        nextcord_thread.setDaemon(True)
-        nextcord_thread.start()
+        self.nextcord_thread = threading.Thread(target=bot.start)
+        self.nextcord_thread.setDaemon(True)
+        self.nextcord_thread.start()
 
-        try: input_thread.join()
+        # Cache goldy class.
+        GoldyBot.cache.main_cache_dict["goldy_class"] = self
+
+        try: self.nextcord_thread.join()
         except KeyboardInterrupt: pass # Stops KeyboardInterrupt traceback.
 
     async def setup(self, client:nextcord.Client):
@@ -78,6 +84,8 @@ class Goldy(object):
         GoldyBot.log("warn", f"[{MODULE_NAME}] Goldy is Shuting down...")
         GoldyBot.log("info", f"[{MODULE_NAME}] Here's the reason why I was requested to shutdown for >>> {reason}")
 
+        GoldyBot.cache.main_cache_dict["bot_stop"] = True
+
         sys.exit(reason)
 
 def file_setup():
@@ -96,10 +104,13 @@ def file_setup():
     GoldyBot.log("info_2", f"[{MODULE_NAME}] File Setup Done!")
 
 def input_loop():
-    console = devgoldyutils.Console()
     goldy = Goldy()
 
-    time.sleep(6)
+    time.sleep(7)
+
+    GoldyBot.logging.log()
+    GoldyBot.logging.log("info", "Available Console Commands -> [stop] [extensions]")
+    GoldyBot.logging.log()
 
     try:
         while True:
@@ -108,10 +119,19 @@ def input_loop():
             if command.lower() == "stop":
                 raise EOFError
 
-            if command.lower() == "nextcord_app_commands":
+            if command.lower() == "extensions":
+                all_modules = GoldyBot.utility.misc.merge_dict(
+                    GoldyBot.cache.main_cache_dict["modules"], 
+                    GoldyBot.cache.main_cache_dict["internal_modules"]
+                )
+
                 print("")
-                for cmd in GoldyBot.cache.client().get_all_application_commands():
-                    print(cmd.name)
+
+                for module in all_modules:
+                    for extension in all_modules[module]["extensions"]:
+                        print(devgoldyutils.Console().BLUE(extension))
+
+                print("")
 
             time.sleep(0.1)
             

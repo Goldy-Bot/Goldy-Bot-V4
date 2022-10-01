@@ -1,7 +1,29 @@
 Change Log
 ==========
 
-v4.0dev23 = BREAKING CHANGE! ()
+v4.0dev24 = New Dev Release (???)
+---------------------------
+- Better typing added for "slash_options".
+- give_money() and take_money() now returns boolean.
+- Errors are now accessible right from GoldyBot's main module.
+- Improved error handler in /timestamp command.
+- Better typing in goldy bot utility module.
+- Added Goldy Bot hearts class.
+- Removed dev command /stop, you can now only stop the bot from the console.
+- Improved Goldy Bot stop method. (it functions much better now)
+- Removed all lower case 'Colours' variable in main GoldyBot module. ('colours' is now typed as 'Colours') (Backwards compatibility was added so this isn't a breaking change for extensions.)
+- Added most common colour in image picker method in the GoldyBot.Colours class.
+- Added the WebFile() object.
+- Improved GoldyBot.Member() at grabbing member mention from command parameters.
+- Added "convert_to_int" & "convert_to_string" arguments to 'Config().read()' method.
+- Hidden commands now officially work with slash commands. A hidden slash command will only be visible to discord server administrators. To make a command hidden, set the hidden attribute to True.
+- Added "file_name" property to WebFile object.
+- Added "extensions" console command to return a list of all extensions currently running on GoldyBot.
+- Added "remove()" method in File object.
+- Added "downloaded_to_disk" parameter in WebFile object to allow for web files to be temporary downloaded to disk then deleted 5 seconds later.
+- Fixed issue where interactions were failing because the command took too long to respond. (Added think() function in command utils.)
+
+v4.0dev23 = BREAKING CHANGE! (16/09/2022)
 ---------------------------
 - Optimizations/speed ups.
 - Role object parameters have been changed, so make sure you update it in your code. A complete new redesign has been done to it. (BREAKING CHANGE!)
@@ -20,7 +42,7 @@ v4.0dev10 = New Release (25/06/2022)
 
 v4.0dev9 - BREAKING CHANGE! (26/04/2022)
 ---------------------------
-- 'toggle_slash_cmd' and 'toggle_normal_cmd' have been changed to 'slash_cmd_only' and 'normal_cmd_only'. I belive this is much easier to understand.
+- 'toggle_slash_cmd' and 'toggle_normal_cmd' have been changed to 'slash_cmd_only' and 'normal_cmd_only'. I believe this is much easier to understand.
 
 v4.0dev1 - First Dev Release (15/04/2022)
 ---------------------------

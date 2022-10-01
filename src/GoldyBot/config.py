@@ -33,11 +33,14 @@ class Config(object):
         except Exception:
              GoldyBot.logging.print_and_log("error", f"[{MODULE_NAME}] Couldn't edit the config '{config_name}' in '{self.config_file.file_path}' with the value '{value}'!")
 
-    def read(self, config_name:str):
+    def read(self, config_name:str, convert_to_int:bool=False, convert_to_string:bool=False):
         """Method that returns the value of a config."""
         try:
             with self.config_file.get_file() as file:
                 data = json.loads(file.read())
+
+                if convert_to_int: return int(data[config_name.lower()])
+                if convert_to_string: return str(data[config_name.lower()])
 
                 return data[config_name.lower()]
 

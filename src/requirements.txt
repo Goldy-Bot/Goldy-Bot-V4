@@ -10,3 +10,4 @@ dateparser
 pdoc
 pathlib
 nest_asyncio
+colorthief

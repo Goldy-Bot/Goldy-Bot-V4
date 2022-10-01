@@ -1,5 +1,4 @@
 import asyncio
-import random
 import nextcord
 from nextcord.ext import commands, tasks
 import os
@@ -54,24 +53,31 @@ def start():
 
     rate_limit_warning.start()
 
+    @tasks.loop(seconds=1) # Stop Bot Loop
+    async def stop_bot():
+        if GoldyBot.cache.main_cache_dict["bot_stop"]:
+            await client.close()
+
+    stop_bot.start()
+
     # Goldy Setup.
     #---------------
     GoldyBot.async_loop.create_task(GoldyBot.Goldy().setup(client))
 
     # Core commands
     #----------------
-    @GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"])
+    @GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev", "bot_admin"])
     async def goldy(ctx):
         command_msg = GoldyBot.utility.msgs.goldy
         system = GoldyBot.system.System()
-        hearts = ["🖤", "🤍", "💙", "💚", "💜", "🤎", "🧡", "❤️", "💛"]
+        hearts = GoldyBot.Hearts
 
         version = GoldyBot.info.bot_version
         nextcord_version = nextcord.__version__
         python_ver = python_version()
         platform = system.os
 
-        dev_goldy = GoldyBot.Member(ctx, member_id=332592361307897856)
+        dev_goldy = GoldyBot.Member(ctx, member_id=332592361307897856) # Hard coded my discord id LMAO.
         dev_goldy_mention = GoldyBot.utility.commands.mention(dev_goldy)
 
         embed = GoldyBot.utility.goldy.embed.Embed(title=command_msg.Embed.title)
@@ -79,24 +85,19 @@ def start():
         embed.set_thumbnail(url=GoldyBot.utility.goldy.get_pfp())
 
         embed.description = command_msg.Embed.des.format(version, nextcord_version, python_ver, round(client.latency * 1000), 
-        platform, f"{system.cpu:.1f}", system.ram, system.disk, hearts[8], dev_goldy_mention)
+        platform, f"{system.cpu:.1f}", system.ram, system.disk, hearts.YELLOW, dev_goldy_mention)
 
         message = await GoldyBot.utility.commands.send(ctx, embed=embed)
 
         t_end = time.time() + 15
         while time.time() < t_end:
-            heart = random.choice(hearts)
+            heart = hearts.random()
             embed.description = command_msg.Embed.des.format(version, nextcord_version, python_ver, round(client.latency * 1000), platform, f"{system.cpu:.1f}", system.ram, system.disk, heart, dev_goldy_mention)
             await message.edit(embed=embed)
 
             await asyncio.sleep(0.5)
 
-    @GoldyBot.command(slash_cmd_only=True, required_roles=["bot_dev"], help_des="Dev command to shutdown Goldy Bot.", slash_options= {
-        "reason" : GoldyBot.nextcord.SlashOption()
-    })
-    async def stop(ctx:GoldyBot.objects.InteractionToCtx, reason="A user ran the !stop command."):
-        await ctx.send("*Shutting down...*")
-        GoldyBot.Goldy().stop(reason)
+
 
     try:
         # Load internal modules.
