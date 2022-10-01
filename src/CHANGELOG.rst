@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v4.0dev24 = New Dev Release (???)
+v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------
 - Better typing added for "slash_options".
 - give_money() and take_money() now returns boolean.
