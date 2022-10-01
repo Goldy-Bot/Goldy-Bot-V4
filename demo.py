@@ -1,6 +1,6 @@
+# Development gang sheeet
 
 if __name__ == '__main__':
-    import os
     import sys
 
     sys.path.insert(0, './src')
