@@ -1,6 +1,8 @@
 import asyncio
 from typing import Any
+
 import nextcord
+from nextcord import InteractionResponse
 
 Interaction = nextcord.Interaction
 MISSING: Any = nextcord.utils.MISSING
@@ -23,6 +25,10 @@ class InteractionToCtx():
     @property
     def channel(self):
         return self.interaction.channel
+
+    @property
+    def response(self) -> InteractionResponse:
+        return self.interaction.response
 
     async def send(self, text:str=None, **kwargs):
         if not text == None:

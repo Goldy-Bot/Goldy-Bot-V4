@@ -78,10 +78,9 @@ class File(object):
 
         return open(self.file_path, mode, encoding='utf-8')
 
-#TODO: Where I left off on 25/09/2022. #TODO: FIX BIG BUG
 class WebFile():
     """A web file is a class that partially inherits the GoldyBot.File() class but instead of taking in file path it takes in a URL of a file on the web."""
-    def __init__(self, url:str, download_to_disk:bool=False, time_until_deletion:int|float=5):
+    def __init__(self, url:str, download_to_disk:bool=False, time_until_deletion:int|float=10):
         self._url = url
         self._download_to_disk = download_to_disk
         self._time_until_deletion = time_until_deletion
@@ -126,7 +125,7 @@ class WebFile():
         """Returns 🥩raw bytes of file. Sometimes this is more preferred by other libraries."""
         return self._request.content
 
-    def download_to_disk(self, time_until_deletion:int|float=5) -> None:
+    def download_to_disk(self, time_until_deletion:int|float=10) -> None:
         """Downloads file to disk temporary. The file deletes itself by default in 5 seconds."""
         File("./temp/") # Create temp folder.
         

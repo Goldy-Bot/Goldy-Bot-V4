@@ -21,6 +21,7 @@ v4.0dev24 = New Dev Release (???)
 - Added "extensions" console command to return a list of all extensions currently running on GoldyBot.
 - Added "remove()" method in File object.
 - Added "downloaded_to_disk" parameter in WebFile object to allow for web files to be temporary downloaded to disk then deleted 5 seconds later.
+- Fixed issue where interactions were failing because the command took too long to respond. (Added think() function in command utils.)
 
 v4.0dev23 = BREAKING CHANGE! (16/09/2022)
 ---------------------------
