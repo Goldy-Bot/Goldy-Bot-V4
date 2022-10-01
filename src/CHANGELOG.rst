@@ -14,6 +14,13 @@ v4.0dev24 = New Dev Release (???)
 - Removed all lower case 'Colours' variable in main GoldyBot module. ('colours' is now typed as 'Colours') (Backwards compatibility was added so this isn't a breaking change for extensions.)
 - Added most common colour in image picker method in the GoldyBot.Colours class.
 - Added the WebFile() object.
+- Improved GoldyBot.Member() at grabbing member mention from command parameters.
+- Added "convert_to_int" & "convert_to_string" arguments to 'Config().read()' method.
+- Hidden commands now officially work with slash commands. A hidden slash command will only be visible to discord server administrators. To make a command hidden, set the hidden attribute to True.
+- Added "file_name" property to WebFile object.
+- Added "extensions" console command to return a list of all extensions currently running on GoldyBot.
+- Added "remove()" method in File object.
+- Added "downloaded_to_disk" parameter in WebFile object to allow for web files to be temporary downloaded to disk then deleted 5 seconds later.
 
 v4.0dev23 = BREAKING CHANGE! (16/09/2022)
 ---------------------------

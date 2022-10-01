@@ -122,9 +122,14 @@ class Command(Embeds):
 
         return_data = {}
 
+        #  Make slash command only visible to admins if it is hidden.
+        default_member_permissions = None
+        if self.is_hidden: default_member_permissions = nextcord.Permissions(permissions=8)
+        
+
         if self.in_extension == True: # Run in EXTENSION!
             exec(f"""
-@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in)
+@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in, default_member_permissions=default_member_permissions)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
@@ -152,11 +157,12 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             
             {"func":self.func, "client":GoldyBot.cache.main_cache_dict["client"], "command_name":self.command_name, "help_des":self.get_help_des(), "self":self,
             "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":self.extension, "no_perms_embed":self.no_perms_embed, 
-            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in}, return_data)
+            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in, 
+            "default_member_permissions":default_member_permissions}, return_data)
             
         else: # Run as NORMAL command!
             exec(f"""
-@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in)
+@client.slash_command(name=command_name, description=help_des, guild_ids=guilds_allowed_in, default_member_permissions=default_member_permissions)
 async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     ctx = GoldyBot.objects.slash.InteractionToCtx(interaction)
     try:
@@ -184,7 +190,8 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             
             {"func":self.func, "client":GoldyBot.cache.main_cache_dict["client"], "command_name":self.command_name, "help_des":self.get_help_des(), "self":self,
             "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "no_perms_embed":self.no_perms_embed, 
-            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in}, return_data)
+            "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":self.is_hidden, "guilds_allowed_in":self.guilds_allowed_in, 
+            "default_member_permissions":default_member_permissions}, return_data)
 
         GoldyBot.logging.log(f"[{MODULE_NAME}] [{self.command_name.upper()}] Slash command created!")
 

@@ -11,7 +11,7 @@ MODULE_NAME = "GOLDY"
 class Goldy(object):
     """💛 Goldy herself. More precisely the main class to control the whole of the Bot."""
     def __init__(self):
-        self.nextcord_thread:GoldyBot.threading.StoppableThread = None
+        self.nextcord_thread:threading.Thread = None
 
     def start(self):
         """
@@ -106,7 +106,11 @@ def file_setup():
 def input_loop():
     goldy = Goldy()
 
-    time.sleep(6)
+    time.sleep(7)
+
+    GoldyBot.logging.log()
+    GoldyBot.logging.log("info", "Available Console Commands -> [stop] [extensions]")
+    GoldyBot.logging.log()
 
     try:
         while True:
@@ -114,6 +118,20 @@ def input_loop():
 
             if command.lower() == "stop":
                 raise EOFError
+
+            if command.lower() == "extensions":
+                all_modules = GoldyBot.utility.misc.merge_dict(
+                    GoldyBot.cache.main_cache_dict["modules"], 
+                    GoldyBot.cache.main_cache_dict["internal_modules"]
+                )
+
+                print("")
+
+                for module in all_modules:
+                    for extension in all_modules[module]["extensions"]:
+                        print(devgoldyutils.Console().BLUE(extension))
+
+                print("")
 
             time.sleep(0.1)
             

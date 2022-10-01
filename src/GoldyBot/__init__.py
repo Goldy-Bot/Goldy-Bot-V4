@@ -47,9 +47,9 @@ Database = database.Database
 """Shortcut of ``GoldyBot.database.Database``"""
 Embed = utility.goldy.embed.Embed
 """Shortcut of object from ``GoldyBot.utility.goldy.embed``"""
-File = GoldyBot.files.File
+File = files.File
 """Shortcut of object from ``GoldyBot.files.File``"""
-WebFile = GoldyBot.files.WebFile
+WebFile = files.WebFile
 """Shortcut of object from ``GoldyBot.files.WebFile``"""
 
 # Async Loop
@@ -65,7 +65,7 @@ Colours = utility.goldy.colours.Colours
 """Shortcut of object from ``GoldyBot.utility.goldy.colours``"""
 
 Colors = utility.goldy.colours.Colors
-"""Alias of ``GoldyBot.colours``"""
+"""Alias of ``GoldyBot.Colours``"""
 
 # Stops Goldy Bot extensions made before the dev24 update from crashing. ('Colours' used to be all lowercase in previous versions.)
 setattr(sys.modules[__name__], 'colours', Colours) 

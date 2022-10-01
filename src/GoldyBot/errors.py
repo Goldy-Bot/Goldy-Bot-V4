@@ -8,6 +8,8 @@ class GoldyBotError(Exception):
         super().__init__(error)
         GoldyBot.logging.log("error", error, no_traceback)
 
+
+
 # Commands
 #-------------
 class GuildNotRegistered(GoldyBotError):
@@ -22,6 +24,8 @@ class MemberHasNoPermsForCommand(GoldyBotError):
     """Raised when a member without the proper roles tries to execute a command."""
     pass
 
+
+
 # Roles
 #-----------
 class FailedToFindRole(GoldyBotError):
@@ -32,6 +36,18 @@ class FailedToFindRole(GoldyBotError):
             error = f"Failed to find role by the {option_used} '{option_value}'."
 
         super().__init__(error)
+
+
+
+# Members
+#-----------
+class FailedToFindMember(GoldyBotError):
+    """This exception is raised by ``GoldyBot.objects.Member`` when the member can't be found."""
+    def __init__(self):
+        error = "Failed to find Member! Double check you've entered the id correctly or you've passed the correct object."
+        super().__init__(error)
+
+
 
 # Modules
 #------------

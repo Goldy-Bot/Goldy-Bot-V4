@@ -31,9 +31,17 @@ class Colours:
     
     def get_colour_from_image(self, image_file:GoldyBot.files.File, quality:int=5) -> Literal|int:
         """Returns most common colour from any image."""
-        return self.custom_colour(
-            rgb=ColorThief(image_file.file_path).get_color(quality)
-        )
+
+        if isinstance(image_file, GoldyBot.WebFile): # It's a web file.
+            image_file:GoldyBot.WebFile
+            return self.custom_colour(
+                rgb=ColorThief(image_file.get_file()).get_color(quality)
+            )
+
+        else: # It's a normal file.
+            return self.custom_colour(
+                rgb=ColorThief(image_file.file_path).get_color(quality)
+            )
 
 class Colors(Colours):
     pass

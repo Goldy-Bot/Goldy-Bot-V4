@@ -29,7 +29,7 @@ class Admin(GoldyBot.Extension):
 
     def loader(self):
         
-        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"])
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], hidden=True)
         async def cache(self:Admin, ctx):
             cache_embed = GoldyBot.utility.goldy.embed.Embed(title=self.msg.cache.Embed.title)
             cache_embed.color = GoldyBot.utility.goldy.colours.BLUE
@@ -45,7 +45,7 @@ class Admin(GoldyBot.Extension):
                 cache_embed.description = f"```{cache_string_formatted}```"
                 await send(embed=cache_embed)
 
-        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], slash_options={
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], hidden=True, slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
         })
         async def reload(self:Admin, ctx, module_name:str):
@@ -113,7 +113,7 @@ class Admin(GoldyBot.Extension):
 
 
 
-        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], slash_options={
+        @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], hidden=True, slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())
         })
         async def unload(self:Admin, ctx, module_name:str):
