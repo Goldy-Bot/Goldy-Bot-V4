@@ -38,12 +38,12 @@ class Admin(GoldyBot.Extension):
 
             if len(cache_string_formatted) >= 5000:
                 cache_embed.description = "Oh oh, the cache is way too long to display in an embed right now. I'll print it in the console instead."
-                await send(embed=cache_embed)
+                await send(ctx, embed=cache_embed)
 
                 GoldyBot.logging.log("info", cache_string_formatted)
             else:
                 cache_embed.description = f"```{cache_string_formatted}```"
-                await send(embed=cache_embed)
+                await send(ctx, embed=cache_embed)
 
         @GoldyBot.command(required_roles=["bot_dev", "bot_admin"], hidden=True, slash_options={
             "module_name" : nextcord.SlashOption(choices=get_modules_dict_list())

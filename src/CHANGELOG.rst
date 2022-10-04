@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+v4.0dev25 = New Dev Release (???)
+---------------------------
+- Fixed /cache command.
+- Added mention method to command object.
+- Added 'is_child' and 'parent_cmd' property in command object.
+
+
 v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------
 - Better typing added for "slash_options".

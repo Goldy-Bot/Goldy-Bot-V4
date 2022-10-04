@@ -34,7 +34,7 @@ main_cache_dict = {
 }
 
 def database() -> GoldyBot.database.Database|None:
-    """Returns current database."""
+    """Returns current database instance."""
     return main_cache_dict["database"]
 
 def client() -> commands.Bot|None:
