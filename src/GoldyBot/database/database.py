@@ -92,6 +92,7 @@ class Database():
     async def find_one(self, collection:str, query:dict) -> (dict | None):
         """Tells database to search for and return specific data from a collection."""
         data = await self.database[collection].find_one(query)
+
         if not data == None:
             GoldyBot.logging.log(f"[{MODULE_NAME}] Found '{query}' in '{collection}.'")
             return data
