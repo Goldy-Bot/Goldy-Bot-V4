@@ -86,6 +86,7 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
                             if goldy_command.allowed_to_run(ctx):
                                 await func(class_, ctx, *params)
                                 GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                        
                         except TypeError as e: 
                             if not goldy_command.any_args_missing(params): # Command Arguments are missing.
                                 message = await ctx.send(embed=command_usage_embed)
@@ -122,8 +123,8 @@ def command(command_name:str=None, required_roles:list=[], help_des:str=None, hi
                             if goldy_command.allowed_to_run(ctx):
                                 await func(ctx, *params)
                                 GoldyBot.logging.log(f"[{MODULE_NAME}] The command '{goldy_command.code_name}' was executed.")
+                        
                         except TypeError as e:
-
                             if not goldy_command.any_args_missing(params): # Command Arguments are missing.
                                 message = await ctx.send(embed=command_usage_embed)
                                 await asyncio.sleep(15)

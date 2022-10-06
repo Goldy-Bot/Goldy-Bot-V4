@@ -28,6 +28,7 @@ LOGS = "./logs"
 CONFIG = "./config"
 MODULES = "./modules"
 
+ASSETS = f"{GOLDY_BOT}/assets"
 INTERNAL_COGS_V4 = f"{GOLDY_BOT}/internal_modules/v4"
 INTERNAL_MODULES_V4 = INTERNAL_COGS_V4
 INTERNAL_COGS_V3 = f"{GOLDY_BOT}/internal_modules/v3"
