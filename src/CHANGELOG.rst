@@ -8,6 +8,7 @@ v4.0dev25 = New Dev Release (???)
 - Added 'is_child' and 'parent_cmd' property to command object.
 - Added dropdown view function in goldy bot utils.
 - Improved GoldyBot dropdown view.
+- Added LIME_GREEN.
 
 v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------

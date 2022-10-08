@@ -12,6 +12,7 @@ class Colours:
     AKI_BLUE = 0X75E6DA
     BLUE = 0x3061f2
     GREEN = 0x00FF00
+    LIME_GREEN = 0x8AFF65
     YELLOW = 0xffff4d
     PURPLE = 0xFF00FF
     RED = 0xFF0000
