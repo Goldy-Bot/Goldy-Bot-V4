@@ -1,7 +1,3 @@
-
-import collections
-
-from matplotlib.image import thumbnail
 import GoldyBot
 from typing import Callable, List
 
@@ -50,12 +46,12 @@ async def dropdown(ctx:GoldyBot.InteractionToCtx, options:List[GoldyBot.nextcord
                     if not self.callback_ == None:
                         await self.callback_(self.values) # Execute callback
 
-                        self.disabled = True
-                        self.refresh_component(self.to_component_dict())
+                        await interaction.delete_original_message()
 
                         GoldyBot.logging.log(f"[{MODULE_NAME}] Dropdown view for '{self.author.name}' executed it's function '{self.callback_.__name__}'!")
 
             else:
+                # View not for you message.
                 embed_thumbnail = GoldyBot.File(GoldyBot.paths.ASSETS + "/angry_mirai_kuriyama.gif")
 
                 your_not_author_embed = self.your_not_author_embed.copy()
