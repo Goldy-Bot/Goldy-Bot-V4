@@ -1,5 +1,5 @@
 import GoldyBot
-from . import _mention_, _send_, _icon_, _defer_
+from . import _mention_, _send_, _icon_, _defer_, _send_modal_
 
 mention = _mention_.mention
 """"""
@@ -8,6 +8,8 @@ send = _send_.send
 defer = _defer_.defer
 """"""
 get_member_pfp = _icon_.get_member_pfp
+""""""
+send_modal = _send_modal_.send_modal
 """"""
 
 # Aliases
