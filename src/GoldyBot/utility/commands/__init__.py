@@ -21,6 +21,9 @@ def what_command_type(ctx):
     """Tells you whether this command is a slash command or a normal command."""
     if isinstance(ctx, GoldyBot.objects.slash.InteractionToCtx):
         return "slash"
+
+    if isinstance(ctx, GoldyBot.nextcord.Interaction):
+        return "slash"
         
     if isinstance(ctx, GoldyBot.objects.member.Member):
         if isinstance(ctx.ctx, GoldyBot.objects.slash.InteractionToCtx):

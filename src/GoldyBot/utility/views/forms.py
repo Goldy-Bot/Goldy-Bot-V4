@@ -11,7 +11,7 @@ def normal_form(title:str, items:List[GoldyBot.nextcord.ui.Item], callback:Calla
 
     class NormalForm(GoldyBot.nextcord.ui.Modal):
         def __init__(self):
-            super().__init__(title, timeout=timeout)
+            super().__init__(title, timeout=timeout, auto_defer=True)
 
             for item in items:
                 self.add_item(item)
@@ -28,7 +28,7 @@ def normal_form(title:str, items:List[GoldyBot.nextcord.ui.Item], callback:Calla
 
             if view.value == True:
                 if not callback == None:
-                    await callback((lambda x: [item_.value for item_ in x])(items)) # Execute callback
+                    await callback((lambda x: [item_.value for item_ in x])(items), interaction) # Execute callback
 
                     GoldyBot.logging.log(f"[{MODULE_NAME}] Normal form modal for '{author.name}' executed it's function '{callback.__name__}'!")
     
