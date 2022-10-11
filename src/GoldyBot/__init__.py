@@ -19,6 +19,8 @@ from . import database
 from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, assets
 from . import internal_modules, ext, utility, objects
 
+from nextcord.ext.commands import Context
+
 # Functions
 log = logging.print_and_log
 """Shortcut of ``GoldyBot.logging.log``"""
