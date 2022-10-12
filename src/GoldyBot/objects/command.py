@@ -356,10 +356,11 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
             def inner(func, command_name, required_roles, help_des, slash_options):
                 parent_command = self.command
 
+                return_data = {}
+
                 goldy_sub_command = Command(func, command_name=command_name, required_roles=required_roles, slash_options=slash_options, help_des=help_des, parent_cmd=self)
                 slash_command_params = goldy_sub_command.slash_commands_params_generator()
                 parent_slash_command_params = self.slash_commands_params_generator()
-
 
                 if self.in_extension == True: # Run in EXTENSION!
                     exec(f"""
@@ -393,10 +394,11 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
     except Exception as e:
         GoldyBot.logging.log("error", e)
                     """, 
-                    
-                    {"func":goldy_sub_command.func, "parent_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
-                    "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "class_":goldy_sub_command.extension, "no_perms_embed":self.no_perms_embed, 
-                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self})
+                                                                        # Lambda expression: Returns nc_co
+                    {"func":goldy_sub_command.func, "parent_command": parent_command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), 
+                    "self":goldy_sub_command, "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, 
+                    "class_":goldy_sub_command.extension, "no_perms_embed":self.no_perms_embed, "guild_not_registered_embed":self.guild_not_registered_embed, 
+                    "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self}, return_data)
                     
                 else: # Run as NORMAL command!
                     exec(f"""
@@ -427,9 +429,12 @@ async def slash_command_(interaction: Interaction{slash_command_params[0]}):
         GoldyBot.logging.log("error", e)
                     """, 
                     
-                    {"func":goldy_sub_command.func, "parent_command":self.command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), "self":goldy_sub_command,
-                    "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, "no_perms_embed":self.no_perms_embed, 
-                    "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self})
+                    {"func":goldy_sub_command.func, "parent_command": parent_command, "command_name":goldy_sub_command.command_name, "help_des":goldy_sub_command.get_help_des(), 
+                    "self":goldy_sub_command, "Interaction": GoldyBot.nextcord.Interaction, "GoldyBot": GoldyBot, "asyncio":asyncio, "nextcord":nextcord, 
+                    "no_perms_embed":self.no_perms_embed, "guild_not_registered_embed":self.guild_not_registered_embed, "hidden":goldy_sub_command.is_hidden, 
+                    "also_run_parent_CMD":also_run_parent_CMD, "goldy_parent_command": self}, return_data)
+
+                goldy_sub_command.update_command_object(return_data["slash_command_"])
 
                 GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Sub Command '{goldy_sub_command.command_name}' of '{parent_command.name}' has been loaded.")
                 return goldy_sub_command

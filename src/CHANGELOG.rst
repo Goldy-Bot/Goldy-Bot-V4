@@ -11,6 +11,7 @@ v4.0dev25 = New Dev Release (???)
 - Added LIME_GREEN.
 - Added GoldyBot "send_modal()" method in commands utils.
 - Added "Context" to main GoldyBot module.
+- Fixed bug with nested sub commands.
 
 v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------
