@@ -22,12 +22,6 @@ def start():
     client = commands.Bot(command_prefix = GoldyBot.utility.nextcordpy.prefix.get_prefix, 
     case_insensitive=True, intents=intents.all(), help_command=None)
 
-    """ # Ignore this please.
-    @client.slash_command(guild_ids=[863416692083916820], default_member_permissions=8)
-    async def daddy():
-        pass
-    """
-
     # Caching client object.
     GoldyBot.cache.main_cache_dict["client"] = client
 
