@@ -78,5 +78,12 @@ class Timestamps(GoldyBot.Extension):
             await message.delete(delay=30)
             return False
 
+
+        @GoldyBot.command(help_des="Sets default timezone for /timestamp command.")
+        async def timezone_set(self, ctx):
+            #TODO: get this done.
+            pass
+
+
 def load():
     Timestamps(__name__)
