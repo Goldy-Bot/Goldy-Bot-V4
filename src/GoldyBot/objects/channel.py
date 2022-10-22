@@ -15,7 +15,7 @@ class Channel():
         self.mention_str_ = mention_str
         self.channel_object_ = channel_object
 
-        self.channel:nextcord.abc.GuildChannel
+        self.channel:nextcord.abc.GuildChannel|None
 
         if self.channel_object_ == None:
             # Find the channel.

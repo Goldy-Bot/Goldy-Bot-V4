@@ -3,6 +3,8 @@ from __future__ import annotations
 import GoldyBot
 from datetime import datetime
 
+MODULE_NAME = __name__.upper()
+
 class GuildEvent():
     """This class allows you to control a guild event."""
     def __init__(self, ctx, name:str, description:str, entity_type:GoldyBot.nextcord.ScheduledEventEntityType, start_time:datetime, end_time:datetime=None, 
@@ -21,7 +23,7 @@ class GuildEvent():
         self._image = image
         self._reason = reason
 
-        self.ScheduledEvent:GoldyBot.nextcord.ScheduledEvent = None
+        self.scheduled_event:GoldyBot.nextcord.ScheduledEvent = None
 
         if self.guild == None:
             raise GoldyBot.errors.GoldyBotError("Guild is none. Guild does not exist in cache for some reason uwu.")
@@ -58,7 +60,7 @@ class GuildEvent():
 
     @property
     def metadata(self) -> GoldyBot.nextcord.EntityMetadata:
-        return self._entity_type
+        return self._metadata
 
     @property
     def image(self) -> GoldyBot.File:
@@ -70,9 +72,27 @@ class GuildEvent():
         return self._reason
 
 
-    async def create(self) -> GoldyBot.nextcord.ScheduledEvent:
+    async def create(self) -> GoldyBot.nextcord.ScheduledEvent|None:
         """Creates the ⭐ fancy guild event."""
-        self.ScheduledEvent = await self.guild.nextcord_guild_object.create_scheduled_event(
-            name=self.name, description=self.name, entity_type=self.entity_type, start_time=self.start_time, end_time=self.end_time, channel=self.channel.channel
+
+        if self.entity_type == GoldyBot.nextcord.ScheduledEventEntityType.external:
+            if self.end_time is None:
+                GoldyBot.log("error", f"[{MODULE_NAME}] End time is required for external events. end_time was None.")
+                return None
+            
+            if self.metadata is None:
+                GoldyBot.log("error", f"[{MODULE_NAME}] Location is required on metadata for external events.")
+                return None
+
+
+        self.scheduled_event = await self.guild.nextcord_guild_object.create_scheduled_event(
+            name=self.name, description=self.name, entity_type=self.entity_type, start_time=self.start_time, 
+            end_time=(lambda end_time: GoldyBot.nextcord.utils.MISSING if end_time is None else end_time)(self.end_time), 
+            channel=(lambda channel: GoldyBot.nextcord.utils.MISSING if channel is None else channel.channel)(self.channel),
+            metadata=(lambda metadata: GoldyBot.nextcord.utils.MISSING if metadata is None else metadata)(self.metadata), 
+            image=self.image, reason=self.reason
         )
-        return self.ScheduledEvent
+
+        GoldyBot.logging.log("info_2", f"[{MODULE_NAME}] Created guild event in '{self.channel.display_name}'.")
+
+        return self.scheduled_event

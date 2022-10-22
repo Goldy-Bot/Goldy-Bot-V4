@@ -44,6 +44,8 @@ Database = database.Database
 """Shortcut of ``GoldyBot.database.Database``"""
 Embed = utility.goldy.embed.Embed
 """Shortcut of object from ``GoldyBot.utility.goldy.embed``"""
+GuildEvent = utility.guild_events.GuildEvent
+"""Shortcut of object from ``GoldyBot.utility.guild_events.GuildEvent``"""
 File = files.File
 """Shortcut of object from ``GoldyBot.files.File``"""
 WebFile = files.WebFile
