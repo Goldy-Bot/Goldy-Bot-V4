@@ -1,1 +1,1 @@
-from . import event
+from .event import GuildEvent

@@ -15,6 +15,8 @@ class Channel():
         self.mention_str_ = mention_str
         self.channel_object_ = channel_object
 
+        self.channel:nextcord.abc.GuildChannel
+
         if self.channel_object_ == None:
             # Find the channel.
             self.channel = self.find_channel(self.channel_id)
@@ -46,10 +48,11 @@ class Channel():
     async def purge(self, amount:int|None):
         """Deletes specified number of messages in this channel. (Only works if this channel is a text channel.)"""
         if isinstance(self.channel, nextcord.TextChannel):
-            self.channel:nextcord.TextChannel
+            channel:nextcord.TextChannel = self.channel
+
             deleted = None
             try:
-                deleted = await self.channel.purge(limit=amount)
+                deleted = await channel.purge(limit=amount)
                 GoldyBot.logging.log("info_5", f"[{MODULE_NAME}] Deleted '{len(deleted)}' messages from the channel '{self.name}'.")
             except Exception as e:
                 GoldyBot.logging.log("warn", f"[{MODULE_NAME}] Couldn't delete from '{self.name}' because '{e}'.")
