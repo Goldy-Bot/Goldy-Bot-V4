@@ -28,6 +28,8 @@ class GuildEvent():
         if self.guild == None:
             raise GoldyBot.errors.GoldyBotError("Guild is none. Guild does not exist in cache for some reason uwu.")
 
+    #TODO: Added more methods like e.g delete() and edit() method.
+
     @property
     def name(self) -> str:
         """The name of the guild event."""
