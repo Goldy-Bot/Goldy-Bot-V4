@@ -92,7 +92,7 @@ class GuildEvent():
             end_time=(lambda end_time: GoldyBot.nextcord.utils.MISSING if end_time is None else end_time)(self.end_time), 
             channel=(lambda channel: GoldyBot.nextcord.utils.MISSING if channel is None else channel.channel)(self.channel),
             metadata=(lambda metadata: GoldyBot.nextcord.utils.MISSING if metadata is None else metadata)(self.metadata), 
-            image=self.image, reason=self.reason
+            image=GoldyBot.nextcord.File(self.image.get_file()), reason=self.reason # I think this was not working...
         )
 
         GoldyBot.logging.log("info_2", f"[{MODULE_NAME}] Created guild event in '{self.channel.display_name}'.")
