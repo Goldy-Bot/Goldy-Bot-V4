@@ -77,3 +77,7 @@ Hearts = utility.goldy.hearts.Hearts
 # Goldy Bot Currencies
 Currencies = utility.goldy.currencies.Currencies
 """Shortcut of object from ``GoldyBot.utility.goldy.currencies``"""
+
+# User Input
+user_input = utility.user_input
+"""Shortcut of module ``GoldyBot.utility.user_input``"""

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import GoldyBot
 from ...objects.currency import Currency
 
@@ -12,11 +14,11 @@ class Money():
 
         try: 
             member_data = await self.actual_member.get_member_data()
-            return member_data[self.actual_member.member_id][currency.code_name]
+            return int(member_data[self.actual_member.member_id][currency.code_name])
         except KeyError:
             return currency.default_bal
 
-    async def give_money(self, currency_class:Currency, amount:int) -> bool:
+    async def give_money(self, currency_class:Currency, amount:int|float) -> bool:
         """Gives the member the specified amount of money on that specified currency."""
         currency = currency_class
 
@@ -29,7 +31,7 @@ class Money():
 
         return result
 
-    async def take_money(self, currency_class:Currency, amount:int) -> bool:
+    async def take_money(self, currency_class:Currency, amount:int|float) -> bool:
         """Takes from the member a specified amount of money on that specified currency."""
         currency = currency_class
 
