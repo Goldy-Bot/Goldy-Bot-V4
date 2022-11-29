@@ -22,6 +22,15 @@ class Member(Money):
         # Return member data.
         return await self.database.find_one("global", {"_id":int(self.actual_member.member_id)})
 
+    async def edit_member_data(self, new_data:dict) -> bool:
+        """Updates member's database collection."""
+        # Generate document if member doesn't exists in database.
+        await self.setup()
+
+        # Update member data.
+        return await self.actual_member.database.edit("global", {"_id":int(self.actual_member.member_id)}, new_data)
+
+
     async def setup(self):
         """Makes sure this member is setup in global and guild collection."""
 
