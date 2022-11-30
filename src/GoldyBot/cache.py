@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import GoldyBot
 from nextcord.ext import commands
+from typing import Dict, List
 
 MODULE_NAME = "CACHE"
 
@@ -30,6 +31,12 @@ main_cache_dict = {
 
     },
 
+    "events" : {
+        "on_message" : [],
+        "on_join": [],
+        "on_leave": []
+    },
+
     "bot_stop" : False
 }
 
@@ -44,6 +51,9 @@ def client() -> commands.Bot|None:
 def goldy_class() -> GoldyBot.Goldy|None:
     """Returns the Goldy Bot main control class from cache."""
     return main_cache_dict["goldy_class"]
+
+def events() -> Dict[str, List[function]]:
+    return main_cache_dict["events"]
 
 class FindGuilds():
     """A class dedicated to finding guilds from cache."""

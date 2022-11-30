@@ -1,1 +1,1 @@
-from . import commands, extensions
+from . import commands, extensions, events

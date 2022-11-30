@@ -110,6 +110,8 @@ def start():
         # I just don't want it to stop the whole bot so I'm passing this exception.
         pass
 
+    GoldyBot.ext.events.__register_all_nextcord_events() # Register events.
+
     # Run Bot
     #----------
     try:
