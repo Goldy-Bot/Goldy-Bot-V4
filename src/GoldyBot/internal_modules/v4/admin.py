@@ -60,7 +60,7 @@ class Admin(GoldyBot.Extension):
                 embed.title = self.msg.reload.AdminCanNotBeReloadedEmbed.title
                 embed.description = self.msg.reload.AdminCanNotBeReloadedEmbed.des.format(module_name)
                 embed.color = self.msg.reload.AdminCanNotBeReloadedEmbed.colour
-                await send(embed=embed)
+                await send(ctx, embed=embed)
                 return False
 
             try:
@@ -72,7 +72,7 @@ class Admin(GoldyBot.Extension):
                     embed.title = self.msg.reload.ModuleNotFoundEmbed.title
                     embed.description = self.msg.reload.ModuleNotFoundEmbed.des.format(module_name)
                     embed.color = self.msg.reload.ModuleNotFoundEmbed.colour
-                    await send(embed=embed)
+                    await send(ctx, embed=embed)
                     return False
             
             try:
@@ -100,14 +100,14 @@ class Admin(GoldyBot.Extension):
                 embed.title = self.msg.reload.FailedToLoadEmbed.title
                 embed.description = self.msg.reload.FailedToLoadEmbed.des.format(module.name)
                 embed.color = self.msg.reload.FailedToLoadEmbed.colour
-                await send(embed=embed)
+                await send(ctx, embed=embed)
                 return False
 
             embed.title = self.msg.reload.ReloadedEmbed.title
             embed.description = self.msg.reload.ReloadedEmbed.des.format(module.name)
             embed.color = self.msg.reload.ReloadedEmbed.colour
             embed.set_thumbnail(url=self.msg.reload.ReloadedEmbed.thumbnail)
-            await send(embed=embed)
+            await send(ctx, embed=embed)
             return True
 
 

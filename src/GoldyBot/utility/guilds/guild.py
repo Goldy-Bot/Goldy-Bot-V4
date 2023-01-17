@@ -119,6 +119,14 @@ class Guild():
     def database_collection_name(self) -> str:
         return f"{self.code_name} (server)"
 
+    def channels(self) -> List[GoldyBot.objects.channel.Channel]:
+        """Returns all channels in the guild. IDK if this method works well lmao, I haven't done much testing."""
+        channels_list:List[GoldyBot.objects.channel.Channel] = []
+        for nc_channel in self.guild.channels:
+            channels_list.append(GoldyBot.objects.channel.Channel(None, channel_object=nc_channel))
+
+        return channels_list
+
     def get_config_file(self) -> GoldyBot.files.File:
         # Create guild config folder.
         GUILD_CONFIG_FOLDER_PATH = GoldyBot.files.File(GoldyBot.paths.CONFIG + f"/{self.code_name}/").file_path

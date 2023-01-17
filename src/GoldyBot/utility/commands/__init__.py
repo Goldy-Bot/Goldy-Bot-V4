@@ -22,13 +22,20 @@ def what_command_type(ctx):
     if isinstance(ctx, GoldyBot.objects.slash.InteractionToCtx):
         return "slash"
 
-    if isinstance(ctx, GoldyBot.nextcord.Interaction):
+    elif isinstance(ctx, GoldyBot.nextcord.Interaction):
         return "slash"
         
-    if isinstance(ctx, GoldyBot.objects.member.Member):
+    elif isinstance(ctx, GoldyBot.objects.member.Member):
         if isinstance(ctx.ctx, GoldyBot.objects.slash.InteractionToCtx):
             return "slash"
         else:
             return "normal"
+        
+    elif isinstance(ctx, GoldyBot.objects.channel.Channel):
+        if isinstance(ctx.ctx, GoldyBot.objects.slash.InteractionToCtx):
+            return "slash"
+        else:
+            return "normal"
+        
     else:
         return "normal"

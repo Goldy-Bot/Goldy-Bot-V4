@@ -18,6 +18,7 @@ from .errors import *
 from . import database
 from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, assets
 from . import internal_modules, ext, utility, objects
+from .ext.events import *
 
 from nextcord.ext.commands import Context
 
@@ -35,7 +36,7 @@ cmd = command
 Extension = ext.extensions.Extension
 """Shortcut of object from ``GoldyBot.ext.extensions``"""
 
-setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing.
+setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing because of my STUPID typo.
 
 # Classes
 Goldy = goldy.Goldy
