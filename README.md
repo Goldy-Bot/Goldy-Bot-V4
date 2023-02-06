@@ -6,7 +6,7 @@
 [![Docs Badge](https://img.shields.io/static/v1?label=docs&message=Available&color=light-green)](https://goldybot.devgoldy.me/)
 
 <p align="center">
- <img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/DevGoldy/assets/banner_1.png" width="960" />
+ <img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/banner_1.png" width="960" />
 </p>
 
 ## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
@@ -14,7 +14,7 @@
 ### ☢️NOTICE: Goldy Bot is still currently in DEEP development, so expect unfinished code and much bugs.
 
 <p align="right">
- <img align="left" src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/DevGoldy/assets/pfp_1.png" width="200" />
+ <img align="left" src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/pfp_1.png" width="200" />
  
  # *What is this!*
  Goldy Bot V4 is yet *another* rewrite of Goldy Bot, a discord bot that I develop for FUN. This is the third rewrite but the first rewrite to become open source, I've done this to allow developers across the world to create add-ons/extenstions for my bot that I can then add to the official production bot. 
