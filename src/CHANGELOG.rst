@@ -1,7 +1,22 @@
 Change Log
 ==========
 
-v4.0dev24 = New Dev Release (???)
+v4.0dev25 = New Dev Release (23/02/2023)
+---------------------------
+- Fixed /cache command.
+- Added mention method to command object.
+- Added 'is_child' and 'parent_cmd' property to command object.
+- Added dropdown view function in goldy bot utils.
+- Added form view function in goldy bot utils.
+- Improved GoldyBot dropdown view.
+- Added LIME_GREEN.
+- Added GoldyBot "send_modal()" method in commands utils.
+- Added "Context" to main GoldyBot module.
+- Fixed bug with nested sub commands.
+- Added default timezone setting in Timestamps.
+- Added button in /timestamp to allow for copying the timestamp on Desktop.
+
+v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------
 - Better typing added for "slash_options".
 - give_money() and take_money() now returns boolean.

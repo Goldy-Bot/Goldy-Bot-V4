@@ -12,11 +12,15 @@ class Colours:
     AKI_BLUE = 0X75E6DA
     BLUE = 0x3061f2
     GREEN = 0x00FF00
+    LIME_GREEN = 0x8AFF65
     YELLOW = 0xffff4d
     PURPLE = 0xFF00FF
     RED = 0xFF0000
     GREY = 0x3B3B3B
     WHITE = 0xFFFFFF
+
+    DISCORD_EMBED_INVISIBLE = 0x2F3136
+    """Makes the embed colour the same as the background essentially giving the embed a transparent colour."""
     
     def custom_colour(self, rgb:tuple=None, hex:int|str=None) -> Literal|int:
         """

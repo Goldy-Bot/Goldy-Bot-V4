@@ -4,12 +4,7 @@
 Copyright (C) 2022 - Dev Goldy
 
 ----------------------------
-[![Powered by Nextcord](https://custom-icon-badges.herokuapp.com/badge/-Powered%20by%20Nextcord-0d1620?logo=nextcord)](https://github.com/nextcord/nextcord "Powered by Nextcord Python API Wrapper")
-[![Pypi Badge](https://img.shields.io/pypi/v/GoldyBot?style=flat)](https://pypi.org/project/GoldyBot/ "We're on pypi!")
-[![Python Badge](https://img.shields.io/pypi/pyversions/GoldyBot?style=flat)](https://pypi.org/project/GoldyBot/ "Supported python versions.")
-[![Docs Badge](https://img.shields.io/static/v1?label=docs&message=Available&color=light-green)](https://goldybot.devgoldy.me/)
-
-<img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/banner_1.png" width="100%"/>
+.. include:: ../docs_template/README.md
 """
 
 import sys
@@ -23,6 +18,9 @@ from .errors import *
 from . import database
 from . import files, paths, logging, goldy, cache, token, settings, config, info, modules, system, assets
 from . import internal_modules, ext, utility, objects
+from .ext.events import *
+
+from nextcord.ext.commands import Context
 
 # Functions
 log = logging.print_and_log
@@ -38,7 +36,7 @@ cmd = command
 Extension = ext.extensions.Extension
 """Shortcut of object from ``GoldyBot.ext.extensions``"""
 
-setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing.
+setattr(sys.modules[__name__], 'Extenstion', Extension) # Stops Goldy Bot extensions made before the dev21 update from crashing because of my STUPID typo.
 
 # Classes
 Goldy = goldy.Goldy
@@ -47,6 +45,8 @@ Database = database.Database
 """Shortcut of ``GoldyBot.database.Database``"""
 Embed = utility.goldy.embed.Embed
 """Shortcut of object from ``GoldyBot.utility.goldy.embed``"""
+GuildEvent = utility.guild_events.GuildEvent
+"""Shortcut of object from ``GoldyBot.utility.guild_events.GuildEvent``"""
 File = files.File
 """Shortcut of object from ``GoldyBot.files.File``"""
 WebFile = files.WebFile
@@ -78,3 +78,7 @@ Hearts = utility.goldy.hearts.Hearts
 # Goldy Bot Currencies
 Currencies = utility.goldy.currencies.Currencies
 """Shortcut of object from ``GoldyBot.utility.goldy.currencies``"""
+
+# User Input
+user_input = utility.user_input
+"""Shortcut of module ``GoldyBot.utility.user_input``"""

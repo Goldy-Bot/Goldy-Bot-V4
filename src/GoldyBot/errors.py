@@ -24,6 +24,10 @@ class MemberHasNoPermsForCommand(GoldyBotError):
     """Raised when a member without the proper roles tries to execute a command."""
     pass
 
+class YourNotAuthor(GoldyBotError):
+    """Raised when a different member tries interacting with an author only view from a slash command."""
+    pass
+
 
 
 # Roles
