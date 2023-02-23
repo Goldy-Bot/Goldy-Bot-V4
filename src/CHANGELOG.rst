@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v4.0dev25 = New Dev Release (???)
+v4.0dev25 = New Dev Release (23/02/2023)
 ---------------------------
 - Fixed /cache command.
 - Added mention method to command object.
