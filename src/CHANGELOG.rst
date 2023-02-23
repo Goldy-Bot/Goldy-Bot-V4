@@ -14,6 +14,7 @@ v4.0dev25 = New Dev Release (???)
 - Added "Context" to main GoldyBot module.
 - Fixed bug with nested sub commands.
 - Added default timezone setting in Timestamps.
+- Added button in /timestamp to allow for copying the timestamp on Desktop.
 
 v4.0dev24 = New Dev Release (01/10/2022)
 ---------------------------

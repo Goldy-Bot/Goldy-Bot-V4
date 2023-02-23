@@ -40,7 +40,7 @@ class Timestamps(GoldyBot.Extension):
                 "Saturday, August 13, 2022 6:00 PM" : "F",
                 "in 3 hours": "R"
             }),
-            "timezone" : GoldyBot.nextcord.SlashOption(description="The timezone to convert to; Goldy Bot defaults to Europe/London timezone.", required=False)
+            "timezone" : GoldyBot.nextcord.SlashOption(description="The timezone to use. Goldy Bot defaults to Europe/London timezone.", required=False)
         })
         async def timestamp(self:Timestamps, ctx, date, time, flag, timezone=None):
             member = GoldyBot.Member(ctx)
@@ -59,13 +59,17 @@ class Timestamps(GoldyBot.Extension):
                 else:
                     timezone = member_saved_timezone
 
-            if not datetime == None:
+            if not datetime is None:
                 try:
                     # Convert to chosen timezone.
                     chosen_timezone = pytz.timezone(timezone)
                     datetime = chosen_timezone.normalize(chosen_timezone.localize(datetime, is_dst=True))
 
-                    await send(ctx, f"<t:{int(datetime.timestamp())}:{flag}>")
+                    posix_timestamp = int(datetime.timestamp())
+
+                    view = CopyButtonView(posix_timestamp, flag)
+
+                    await send(ctx, f"<t:{posix_timestamp}:{flag}>", view=view)
 
                     return True
 
@@ -120,6 +124,20 @@ class Timestamps(GoldyBot.Extension):
                 message = await send(ctx, embed=self.unknown_timezone_embed)
 
                 await message.delete(delay=30)
+
+
+class CopyButtonView(GoldyBot.nextcord.ui.View):
+    def __init__(self, posix_timestamp:int, flag:str):
+        super().__init__()
+        self.posix_timestamp = posix_timestamp
+        self.flag = flag
+
+        self.response_message:GoldyBot.nextcord.PartialInteractionMessage = None
+
+    @GoldyBot.nextcord.ui.button(label="📋 Copy", style=GoldyBot.nextcord.ButtonStyle.gray)
+    async def copy(self, button: GoldyBot.nextcord.ui.Button, interaction: GoldyBot.nextcord.Interaction):
+        self.response_message = await interaction.response.send_message(f"``<t:{self.posix_timestamp}:{self.flag}>``", ephemeral=True)
+        self.value = True
 
 
 def load():
