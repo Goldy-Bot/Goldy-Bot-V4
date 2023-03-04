@@ -10,6 +10,7 @@
 </p>
 
 ## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
+### ✨V5 IN DEV: https://github.com/Goldy-Bot/Goldy-Bot-V5/
 ### ⚠️Warning: Goldy Bot module is only intended for development, therefore you may find difficulty using it for other uses.
 ### ☢️NOTICE: Goldy Bot is still currently in DEEP development, so expect unfinished code and much bugs.
 
