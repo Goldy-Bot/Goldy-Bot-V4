@@ -9,10 +9,7 @@
  <img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/banner_1.png" width="960" />
 </p>
 
-## Goldy Bot V4 - BIG and Modern rewrite of Goldy Bot V3
-> ### ✨V5 IN DEV: *https://github.com/Goldy-Bot/Goldy-Bot-V5/*
-### ⚠️Warning: Goldy Bot module is only intended for development, therefore you may find difficulty using it for other uses.
-### ☢️NOTICE: Goldy Bot is still currently in DEEP development, so expect unfinished code and much bugs.
+# ⚠️ ``WILL SOON BE DEPRECATED!`` We're switching to [V5](https://github.com/Goldy-Bot/Goldy-Bot-V5/)
 
 <p align="right">
  <img align="left" src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/pfp_1.png" width="200" />
