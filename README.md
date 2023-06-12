@@ -9,7 +9,7 @@
  <img src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/banner_1.png" width="960" />
 </p>
 
-# ⚠️ ``WILL SOON BE DEPRECATED!`` We're switching to [V5](https://github.com/Goldy-Bot/Goldy-Bot-V5/)
+# ⚠️ ``WILL SOON BE DEPRECATED!`` <sub> We're switching to [Goldy Bot V5.](https://github.com/Goldy-Bot/Goldy-Bot-V5/) 👋 </sub>
 
 <p align="right">
  <img align="left" src="https://raw.githubusercontent.com/Goldy-Bot/Goldy-Bot-V4/main/assets/pfp_1.png" width="200" />
