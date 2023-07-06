@@ -24,10 +24,11 @@
 
 ## *Install/Set Up*
 1. **Install package from pip.**
+> ⚠️ **THIS IS THE LAST VERSION OF V4** - Every other version above is V5
 ```sh
 #Windows/Linux
 
-pip install GoldyBot
+pip install GoldyBot==4.0.dev25
 ```
 
 2. **Download MongoDB Community. (You'll need this!) >>> https://www.mongodb.com/try/download/community**
